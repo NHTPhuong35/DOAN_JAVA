@@ -133,21 +133,21 @@ public class CenterContentStore extends JPanel {
 //
 //            return;
 //        }
-        if (cnDTO.getMACHUCNANG().equals("PN")) {
-
-            this.pageContent.removeAll();
-            this.pageContent.setLayout(new BorderLayout(0, 0));
-
-            JPanel pn = new JPanel();
-            TaiKhoanDTO h = new TaiKhoanDTO();
-            phieunhap_GUI phieunhap = new phieunhap_GUI(chieurong, chieucao, SS_main.getTaiKhoanDTO());
-            this.pageContent.add(phieunhap, BorderLayout.CENTER);
-
-            this.pageContent.revalidate();
-            this.pageContent.repaint();
-
-            return;
-        }
+//        if (cnDTO.getMACHUCNANG().equals("PN")) {
+//
+//            this.pageContent.removeAll();
+//            this.pageContent.setLayout(new BorderLayout(0, 0));
+//
+//            JPanel pn = new JPanel();
+//            TaiKhoanDTO h = new TaiKhoanDTO();
+//            phieunhap_GUI phieunhap = new phieunhap_GUI(chieurong, chieucao, SS_main.getTaiKhoanDTO());
+//            this.pageContent.add(phieunhap, BorderLayout.CENTER);
+//
+//            this.pageContent.revalidate();
+//            this.pageContent.repaint();
+//
+//            return;
+//        }
 
         SearchInStore JP_search = new SearchInStore(cnDTO.getMACHUCNANG(), pageContent);
         showSearch(JP_search);
@@ -204,6 +204,14 @@ public class CenterContentStore extends JPanel {
                 ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, lGUI);
                 showThaotac(JP_thaotac);
                 showPageContent(lGUI);
+                break;
+            }
+            case "PN":{
+                phieunhap_GUI pn=new phieunhap_GUI(widthPageContent, heightPageContent);
+                pn.add(new JLabel("Đây là trang phiếu nhập"));
+                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
+                showThaotac(JP_thaotac);
+                showPageContent(pn);
                 break;
             }
             case "NV": {
@@ -285,16 +293,7 @@ public class CenterContentStore extends JPanel {
                     LoginUI login = new LoginUI();
                 }
                 break;
-            case "PN": {
-                TaiKhoanDTO d = new TaiKhoanDTO();
-                JPanel pn = new JPanel();
-                pn.setPreferredSize(new Dimension(widthPageContent, heightPageContent));
-                pn.add(new JLabel("Đây là trang phiếu nhập"));
-                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
-                showThaotac(JP_thaotac);
-                showPageContent(pn);
-                break;
-            }
+            
 //<<<<<<< HEAD
             case "KH": {
                 khachHangGUI kh = new khachHangGUI(widthPageContent, heightPageContent);

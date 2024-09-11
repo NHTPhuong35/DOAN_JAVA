@@ -5,6 +5,7 @@ import BUS.SanPhamBUS;
 import BUS.khachHangBUS;
 import BUS.loaiSPBUS;
 import BUS.nhacungcapBUS;
+import BUS.phieunhap_BUS;
 import BUS.quyenBUS;
 import DTO.SanPhamDTO;
 import DTO.loaiSP;
@@ -120,7 +121,7 @@ public class SearchInStore extends JPanel implements MouseListener {
             case "Theo mã nhân viên, theo tên đăng nhập, theo mã quyền":
             case "Theo tên hoặc Sdt":
             case "Theo tên nhân viên, theo MANV, theo SĐT":
-            case "Theo MAPN":
+            case "Theo MAPN,MANV,MANCC":
             case "Theo MAHD, theo MAKH, theo MANV":
             case "Theo tên loại hoặc MALOAI":
                 name = new JTextField();
@@ -220,7 +221,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 wrap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 break;
             }
-
+            
             case "Ngày bắt đầu":
             case "Ngày tạo TK":
             case "Theo ngày nhập": {
@@ -246,6 +247,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 wrap.add(den);
                 break;
         }
+        
         wrap.setBackground(Color.WHITE);
         wrap.setOpaque(true);
         return wrap;
@@ -329,7 +331,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 break;
             }
             case "PN": {
-                String[] list = {"Theo MAPN", "Theo ngày nhập"};
+                String[] list = {"Theo MAPN,MANV,MANCC"};
                 listTitle.addAll(Arrays.asList(list));
                 break;
             }
@@ -504,6 +506,17 @@ public class SearchInStore extends JPanel implements MouseListener {
                 break;
             }
 //=======
+            case "PN": {
+                phieunhap_BUS pnBUS = new phieunhap_BUS();
+                phieunhap_GUI pnGUI = (phieunhap_GUI) components[0];
+                if(pnBUS.search(data_filter)==null) System.err.println("fail");
+                else System.out.println(pnBUS.search(data_filter));
+                pnGUI.addDataInTable(pnBUS.search(data_filter));
+                pnGUI.repaint();
+                pnGUI.validate();
+
+                break;
+            }
             case "QLK":
                 KhoGUI k = (KhoGUI) components[0];
                 k.data(data_filter);
@@ -523,6 +536,12 @@ public class SearchInStore extends JPanel implements MouseListener {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         switch (MACHUCNANG) {
             case "NCC": {
+
+                data_filter.add("");
+
+                break;
+            }
+            case "PN": {
 
                 data_filter.add("");
 
