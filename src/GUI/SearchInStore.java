@@ -431,6 +431,17 @@ public class SearchInStore extends JPanel implements MouseListener {
 
                 break;
             }
+             case "PN": {
+                phieunhap_BUS pnBUS = new phieunhap_BUS();
+                phieunhap_GUI pnGUI = (phieunhap_GUI) components[0];
+                if(pnBUS.search(data_filter)==null) System.err.println("fail");
+                else System.out.println(pnBUS.search(data_filter));
+                pnGUI.addDataInTable(pnBUS.search(data_filter));
+                pnGUI.repaint();
+                pnGUI.validate();
+
+                break;
+            }
             case "LOAI": {
                 loaiSPBUS loaiBUS = new loaiSPBUS();
                 loaiSPGUI loaiGUI = (loaiSPGUI) components[0];

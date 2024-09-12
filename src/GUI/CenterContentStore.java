@@ -293,7 +293,18 @@ public class CenterContentStore extends JPanel {
                     LoginUI login = new LoginUI();
                 }
                 break;
+<<<<<<< HEAD
             
+=======
+            case "PN":{
+                phieunhap_GUI pn=new phieunhap_GUI(widthPageContent, heightPageContent);
+                pn.add(new JLabel("Đây là trang phiếu nhập"));
+                ThaotacInStore JP_thaotac = new ThaotacInStore(cnDTO.getMACHUCNANG(), maquyen, pn);
+                showThaotac(JP_thaotac);
+                showPageContent(pn);
+                break;
+            }
+>>>>>>> 0fff612f638f05b443ee839d94e7463050c72109
 //<<<<<<< HEAD
             case "KH": {
                 khachHangGUI kh = new khachHangGUI(widthPageContent, heightPageContent);
