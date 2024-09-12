@@ -53,6 +53,7 @@ public class frame_them_phieunhap  extends JFrame{
 	 }
          
          public static void main(String[] args) {
+             System.out.println("TEST CHỈNH SƯA");
              System.out.println("GUI.frame_them_phieunhap.main()");
     }
 }
