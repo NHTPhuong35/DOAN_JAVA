@@ -206,11 +206,6 @@ public ArrayList<String> getSelectedListPN() {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, centerRenderer);
     }
-<<<<<<< HEAD
-
-    
-=======
->>>>>>> 0fff612f638f05b443ee839d94e7463050c72109
 	public phieunhap_GUI(int w,int h,TaiKhoanDTO d) throws SQLException {
 		jp1 = new JPanel[7];
 		jp = new JPanel[7];
@@ -1199,11 +1194,7 @@ public ArrayList<String> getSelectedListPN() {
     f.setLocationRelativeTo(null);
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     TaiKhoanDTO tk=new TaiKhoanDTO("AD1","AD1","SangHard!","2023-02-13","QQLHT",1);
-<<<<<<< HEAD
-    f.add(new phieunhap_GUI(800, 600, tk));
-=======
     f.add(new phieunhap_GUI(800, 600));
->>>>>>> 0fff612f638f05b443ee839d94e7463050c72109
             
     f.setVisible(true);
 }
@@ -1211,4 +1202,3 @@ public ArrayList<String> getSelectedListPN() {
     
 
 }
-

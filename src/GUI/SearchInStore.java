@@ -221,7 +221,7 @@ public class SearchInStore extends JPanel implements MouseListener {
                 wrap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 break;
             }
-            
+
             case "Ngày bắt đầu":
             case "Ngày tạo TK":
             case "Theo ngày nhập": {
@@ -247,7 +247,6 @@ public class SearchInStore extends JPanel implements MouseListener {
                 wrap.add(den);
                 break;
         }
-        
         wrap.setBackground(Color.WHITE);
         wrap.setOpaque(true);
         return wrap;
@@ -517,17 +516,6 @@ public class SearchInStore extends JPanel implements MouseListener {
                 break;
             }
 //=======
-            case "PN": {
-                phieunhap_BUS pnBUS = new phieunhap_BUS();
-                phieunhap_GUI pnGUI = (phieunhap_GUI) components[0];
-                if(pnBUS.search(data_filter)==null) System.err.println("fail");
-                else System.out.println(pnBUS.search(data_filter));
-                pnGUI.addDataInTable(pnBUS.search(data_filter));
-                pnGUI.repaint();
-                pnGUI.validate();
-
-                break;
-            }
             case "QLK":
                 KhoGUI k = (KhoGUI) components[0];
                 k.data(data_filter);
