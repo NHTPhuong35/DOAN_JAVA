@@ -78,7 +78,7 @@ public class nhacungcapDAO {
         try {
             c.connect();
 
-            String query = " UPDATE nhacungcap SET TENNCC='" + item.getTENNCC() + "', SDT=" + item.getSDT() + " WHERE MANCC='" + item.getMANCC() + "'";
+            String query = " UPDATE nhacungcap SET TENNCC='" + item.getTENNCC() + "', SDT=" + item.getSDT() + " ,TRANGTHAI="+item.getTRANGTHAI()+" WHERE MANCC='" + item.getMANCC() + "'";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {

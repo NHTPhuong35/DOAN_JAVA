@@ -244,7 +244,7 @@ public class add_updateLoaiSPGUI extends JFrame implements MouseListener{
                                     }
                                     
                                     loaiGUI.tableModel.fireTableDataChanged();
-                                    JOptionPane.showMessageDialog(null, "Sửa loại thành công!");
+                                    JOptionPane.showMessageDialog(null, "Sửa loại thành công!\nLưu ý: thay đổi này vẫn chưa được lưu, hãy bấm Lưu/thoát để lưu thay đổi");
 
                                     
                                     dispose();

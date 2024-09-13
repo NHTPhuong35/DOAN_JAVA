@@ -45,7 +45,7 @@ public class nhacungcapBUS {
 
     private void init() {
         nhacungcapDAO n = new nhacungcapDAO();
-        listNhacungcap = n.listNhacungcap();
+        listNhacungcap = n.listNhacungcapRemoveTrangthai0();
     }
 
     public ArrayList<nhacungcapDTO> getList() {
@@ -53,9 +53,11 @@ public class nhacungcapBUS {
     }
 
     private String createMANCC() {
+        nhacungcapDAO n = new nhacungcapDAO();
+        ArrayList<nhacungcapDTO> listNhacungcapfull = n.listNhacungcap();
         int max =0;
-        for(int i=0;i<listNhacungcap.size();i++){
-            String MANCClast = listNhacungcap.get(i).getMANCC();
+        for(int i=0;i<listNhacungcapfull.size();i++){
+            String MANCClast = listNhacungcapfull.get(i).getMANCC();
              String so = MANCClast.replaceAll("[^0-9]","");
         int stt = Integer.parseInt(so) + 1;
         if(stt > max) max = stt;
