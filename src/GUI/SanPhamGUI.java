@@ -20,31 +20,27 @@ import javax.swing.border.Border;
 
 public class SanPhamGUI extends JPanel implements MouseListener {
 
-    SanPhamBUS spBUS = new SanPhamBUS();
-    ArrayList<SanPhamDTO> dsSP;
+    private SanPhamBUS spBUS = new SanPhamBUS();
+    private ArrayList<SanPhamDTO> dsSP;
     SanPhamDTO selectedSP = new SanPhamDTO();
     private JLabel lblChiTietSP;
 
-    JPanel[] product;
-    private int chieurong, chieucao;//Oanh them
+    private JPanel[] product;
+    private int chieurong, chieucao;
     private Color backGroundColor;
     private Color normal = Color.decode("#0A3D62");
-    Font font_family = new Font("Tahoma", Font.BOLD, 12);
+    private Font font_family = new Font("Tahoma", Font.BOLD, 12);
 
-    // Định dạng sử dụng dấu phân cách hàng nghìn
-    DecimalFormat FormatInt = new DecimalFormat("#,###");
+    private DecimalFormat FormatInt = new DecimalFormat("#,###");
 
-    public SanPhamGUI(int chieurong, int chieucao, Color backG_thisJPanel) {//Oanh them doi so truyen vao
+    public SanPhamGUI(int chieurong, int chieucao, Color backG_thisJPanel) {
         this.chieurong = chieurong;
         this.chieucao = chieucao;
-        backGroundColor = backG_thisJPanel;
-        //san pham con ban moi hien thi
-        dsSP = new ArrayList<>();
-        for (int i = 0; i < spBUS.getDsSP().size(); i++) {
-            if (spBUS.getDsSP().get(i).getTrangThai() == 1) {
-                dsSP.add(spBUS.getDsSP().get(i));
-            }
-        }
+        this.backGroundColor = backG_thisJPanel;
+
+        // Tối ưu hóa việc lấy dữ liệu
+        loaiSPBUS lBUS = new loaiSPBUS();
+        dsSP = spBUS.getFilteredProducts(lBUS); // Đơn giản hóa logic lọc dữ liệu thành một phương thức
         init();
     }
 
@@ -59,111 +55,110 @@ public class SanPhamGUI extends JPanel implements MouseListener {
     }
 
     public JPanel initContent(ArrayList<SanPhamDTO> dsSP) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(3, 30, 30));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 30));
         panel.setBackground(backGroundColor);
         panel.setOpaque(true);
 
-        int dsSize = dsSP.size(); // Lấy kích thước của danh sách
-        int row = (int) Math.ceil((double) dsSize / 6) - 2;
+        // Tính toán kích thước dựa trên số lượng sản phẩm
+        int dsSize = dsSP.size();
+        int rows = (int) Math.ceil((double) dsSize / 6);
 
         if (dsSize <= 6) {
             panel.setPreferredSize(new Dimension(chieurong - 5, 330));
-        }
-        if (dsSize > 12) {
-            panel.setPreferredSize(new Dimension(chieurong - 5, chieucao + (330 * row)));
-        }
-        if (dsSize > 6 && dsSize <= 12) {
-            panel.setPreferredSize(new Dimension(chieurong - 5, 330 * 2));
+        } else if (dsSize > 6) {
+            panel.setPreferredSize(new Dimension(chieurong - 5, 330 * rows));
         }
 
-        product = new JPanel[dsSP.size()];
-        for (int i = 0; i < dsSP.size(); i++) {
-            final int index = i;
-
-            product[i] = new JPanel();
-            product[i].setPreferredSize(new Dimension(180, 300));
-            product[i].setLayout(new BoxLayout(product[i], BoxLayout.Y_AXIS));
-            product[i].setAlignmentY(TOP_ALIGNMENT);
-
-            ImageIcon icon;
-            if (dsSP.get(i).getTenHinh().length == 0) {
-                icon = new ImageIcon("./src/images/t-shirt.png");
-            } else {
-                icon = new ImageIcon((String) "./src/images/" + dsSP.get(i).tenHinh[0]);
-            }
-            Image scaledImage = icon.getImage().getScaledInstance(180, 210, Image.SCALE_SMOOTH);
-            ImageIcon resizedIcon = new ImageIcon(scaledImage);
-            JLabel label = new JLabel(resizedIcon, JLabel.CENTER);
-            label.setPreferredSize(new Dimension(174, 200));
-            label.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
-            label.setAlignmentY(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều dọc
-            product[i].add(label);
-            product[i].add(Box.createVerticalStrut(5));
-
-            JLabel productName = new JLabel(dsSP.get(i).getTenSP());
-            productName.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
-            productName.setAlignmentY(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều dọc
-            product[i].add(productName);
-            product[i].add(Box.createVerticalStrut(5));
-
-            String gia = FormatInt.format(dsSP.get(i).getPrice());
-            JLabel productPrice = new JLabel("Giá: " + gia);
-            productPrice.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
-            productPrice.setAlignmentY(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều dọc
-            product[i].add(productPrice);
-            product[i].add(Box.createVerticalStrut(5));
-            product[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-            lblChiTietSP = new JLabel("Xem chi tiết", JLabel.CENTER);
-            lblChiTietSP.setMinimumSize(new Dimension(100, 30));
-            lblChiTietSP.setPreferredSize(new Dimension(100, 30));
-            lblChiTietSP.setMaximumSize(new Dimension(100, 30));
-            lblChiTietSP.setBackground(normal);
-            lblChiTietSP.setOpaque(true);
-            lblChiTietSP.setFont(font_family);
-            lblChiTietSP.setForeground(Color.WHITE);
-            lblChiTietSP.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            lblChiTietSP.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
-            lblChiTietSP.setAlignmentY(Component.CENTER_ALIGNMENT);
-            lblChiTietSP.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    try {
-                        //gọi chi tiết sản phẩm ở đây
-                        frame_chitietsanpham h = new frame_chitietsanpham(dsSP.get(index));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SanPhamGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-
-            product[i].add(lblChiTietSP);
-            product[i].addMouseListener(this);
+        product = new JPanel[dsSize];
+        for (int i = 0; i < dsSize; i++) {
+            product[i] = createProductPanel(dsSP.get(i));
             panel.add(product[i]);
         }
-        JScrollPane scrollPane = new JScrollPane(panel); // Tạo JScrollPane bao quanh panel
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Thanh cuộn dọc khi cần
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Không cần thanh cuộn ngang
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào mainPanel
-        return mainPanel; // Trả về mainPanel
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
+        return mainPanel;
+    }
+
+    private JPanel createProductPanel(SanPhamDTO sp) {
+        JPanel productPanel = new JPanel();
+        productPanel.setPreferredSize(new Dimension(180, 300));
+        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
+        productPanel.setAlignmentY(TOP_ALIGNMENT);
+        productPanel.setBackground(Color.WHITE); // Đặt màu nền trắng hoặc tùy ý
+
+        // Hình ảnh sản phẩm
+        ImageIcon icon = new ImageIcon("./src/images/" + (sp.getTenHinh().length > 0 ? sp.getTenHinh()[0] : "t-shirt.png"));
+        Image scaledImage = icon.getImage().getScaledInstance(180, 210, Image.SCALE_SMOOTH);
+        JLabel label = new JLabel(new ImageIcon(scaledImage), JLabel.CENTER);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
+
+        // Tên sản phẩm
+        JLabel productName = new JLabel(sp.getTenSP(), JLabel.CENTER);
+        productName.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
+
+        // Giá sản phẩm
+        JLabel productPrice = new JLabel("Giá: " + FormatInt.format(sp.getPrice()) + " đồng", JLabel.CENTER);
+        productPrice.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
+
+        // Nhãn xem chi tiết
+        lblChiTietSP = createChiTietLabel(sp);
+        lblChiTietSP.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
+
+        // Thêm các thành phần vào productPanel
+        productPanel.add(label);
+        productPanel.add(Box.createVerticalStrut(5)); // Khoảng cách giữa các thành phần
+        productPanel.add(productName);
+        productPanel.add(Box.createVerticalStrut(5));
+        productPanel.add(productPrice);
+        productPanel.add(Box.createVerticalStrut(5));
+        productPanel.add(lblChiTietSP);
+
+        // Cài đặt con trỏ chuột
+        productPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        productPanel.addMouseListener(this);
+
+        return productPanel;
+    }
+
+    private JLabel createChiTietLabel(SanPhamDTO sp) {
+        JLabel chiTietLabel = new JLabel("Xem chi tiết", JLabel.CENTER);
+        chiTietLabel.setMinimumSize(new Dimension(100, 30));
+        chiTietLabel.setPreferredSize(new Dimension(100, 30));
+        chiTietLabel.setMaximumSize(new Dimension(100, 30));
+        chiTietLabel.setBackground(normal);
+        chiTietLabel.setOpaque(true);
+        chiTietLabel.setFont(font_family);
+        chiTietLabel.setForeground(Color.WHITE);
+        chiTietLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        chiTietLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa theo chiều ngang
+        chiTietLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        chiTietLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    new frame_chitietsanpham(sp);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SanPhamGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        return chiTietLabel;
     }
 
     public void refresh() {
-        this.removeAll(); // Xóa tất cả các thành phần hiện tại
-        dsSP = new ArrayList<>(); // Tải lại dữ liệu
-        for (int i = 0; i < spBUS.getDsSP().size(); i++) {
-            if (spBUS.getDsSP().get(i).getTrangThai() == 1) {
-                dsSP.add(spBUS.getDsSP().get(i));
-            }
-        }
-        JPanel mainPanel = initContent(dsSP); // Tạo lại JPanel chính
-        this.add(mainPanel, BorderLayout.CENTER); // Thêm lại JPanel chính
-        this.revalidate(); // Cập nhật lại giao diện
-        this.repaint(); // Vẽ lại giao diện
+        this.removeAll();
+        dsSP = spBUS.getFilteredProducts(new loaiSPBUS()); // Tối ưu hóa việc lấy dữ liệu
+        JPanel mainPanel = initContent(dsSP);
+        this.add(mainPanel, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
     }
 
     public void EditSP(SanPhamDTO sp) {
@@ -193,6 +188,8 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         for (int i = 0; i < ctpn.getList().size(); i++) {
             if (selectedSP.getMaSP().equals(ctpn.getList().get(i).getMasp())) {
                 spBUS.delete(selectedSP.getMaSP(), true);
+                selectedSP = new SanPhamDTO();
+                refresh();
                 return; // Đã tìm thấy và xóa, thoát khỏi phương thức
             }
         }
@@ -201,6 +198,8 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         for (int i = 0; i < cthd.getList().size(); i++) {
             if (selectedSP.getMaSP().equals(cthd.list.get(i).getMaSP())) {
                 spBUS.delete(selectedSP.getMaSP(), true);
+                selectedSP = new SanPhamDTO();
+                refresh();
                 return; // Đã tìm thấy và xóa, thoát khỏi phương thức
             }
         }
@@ -261,25 +260,24 @@ public class SanPhamGUI extends JPanel implements MouseListener {
         this.repaint(); // Vẽ lại giao diện
     }
 
-    public void clear(int x) {
-        for (int i = 0; i < dsSP.size(); i++) {
-            if (i != x) {
-                product[i].setBorder(null);
-            }
-        }
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource().getClass() == JPanel.class) {
+        if (e.getSource() instanceof JPanel) {
             JPanel pn = (JPanel) e.getSource();
             for (int i = 0; i < dsSP.size(); i++) {
                 if (pn == product[i]) {
                     selectedSP = dsSP.get(i);
-                    Border lineBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 4); // Đường viền ngoài
-                    pn.setBorder(lineBorder);
-                    clear(i);
+                    pn.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 4));
+                    clearBordersExcept(i);
                 }
+            }
+        }
+    }
+
+    void clearBordersExcept(int selectedIndex) {
+        for (int i = 0; i < product.length; i++) {
+            if (i != selectedIndex) {
+                product[i].setBorder(null);
             }
         }
     }

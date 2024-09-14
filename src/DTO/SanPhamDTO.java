@@ -10,7 +10,7 @@ public class SanPhamDTO {
     private String maSP, maLoai, tenSP;
     private double price;
     public String[] tenHinh;
-    private int soLuong, trangThai;
+    private int trangThai;
 
     public SanPhamDTO() {
     }
@@ -21,16 +21,7 @@ public class SanPhamDTO {
         this.tenSP = tenSP;
         this.price = price;
         this.tenHinh = tenHinh;
-        this.soLuong = soLuong;
         this.trangThai = trangThai;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
     }
 
     public int getTrangThai() {
