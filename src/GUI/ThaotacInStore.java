@@ -610,6 +610,12 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             case "Thêm": {
                 ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 600);
                 sp.initThem();
+                ArrayList<loaiSP> dsLoai = new ArrayList<>();
+                dsLoai=sp.loaiSPNgung();
+                for(loaiSP loai: dsLoai ){
+                    sp.cbxTenLoai.removeItem(loai.getTENLOAI());
+                }
+                sp.cbxTenLoai.setEnabled(true);
                 break;
             }
             case "Sửa": {
@@ -620,6 +626,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 700);
                     sp.initSua();
                     sp.setTT();
+                    sp.cbxTenLoai.setEnabled(false);
                 }
                 break;
             }
