@@ -43,7 +43,7 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     private JPanel pnHeader, pnContent, pnThaoTac, pnDsAnh;
     private JLabel exit, lblThem, lblHuy, lblLuu;
     private JTextField txtMaSP, txtTenSP, txtDonGia;
-    private JComboBox<String> cbxTenLoai;
+    JComboBox<String> cbxTenLoai;
     private SanPhamGUI spGUI;
     private ArrayList<String> imageName; // tên ảnh đã chọn
     private JLabel imageNameLabel; //hien thi ten anh chon
@@ -464,11 +464,10 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
 
     // Đổ dữ liệu sản phẩm đã chọn
     public void setTT() {
-        loaiSPBUS loaiBUS = new loaiSPBUS();
         String tenLoai = "";
-        for (int i = 0; i < loaiBUS.getListFull().size(); i++) {
-            if (loaiBUS.getListFull().get(i).getMALOAI().equals(spGUI.selectedSP.getMaLoai())) {
-                tenLoai = loaiBUS.getListFull().get(i).getTENLOAI();
+        for (int i = 0; i < dsLoai.size(); i++) {
+            if (dsLoai.get(i).getMALOAI().equals(spGUI.selectedSP.getMaLoai())) {
+                tenLoai = dsLoai.get(i).getTENLOAI();
             }
         }
         cbxTenLoai.setSelectedItem(tenLoai);
@@ -491,8 +490,19 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         repaint();
     }
 
+    public ArrayList<loaiSP> loaiSPNgung() {
+        ArrayList<loaiSP> loaiBan = new ArrayList<>();
+            // Lặp qua danh sách loại sản phẩm trong loaiSPBUS
+            for (loaiSP  loai: dsLoai) {
+                // Kiểm tra mã loại sản phẩm và tình trạng sản phẩm
+                if (loai.getTINHTRANG() ==2) {
+                    loaiBan.add(loai);
+                }
+            }
+        return loaiBan;
+    }
+    
     public void AddSP() {
-        cbxTenLoai.setEnabled(true);
         loaiSPBUS loai = new loaiSPBUS();
         String tenLoai = (String) cbxTenLoai.getSelectedItem();
         String maLoai = null;
