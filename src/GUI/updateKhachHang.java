@@ -33,12 +33,14 @@ public class updateKhachHang extends JFrame implements MouseListener {
     private int chieu_rong, chieu_cao, id;
     private khachHangGUI khGUI;
     private khachHangDTO khDTO;
+    private String sdtStart;
 
     public updateKhachHang(khachHangDTO kh, khachHangGUI khGUI) {
         tfTen = new JTextField(kh.getTenKH());
         tfTen.setFont(font_text);
         tfSdt = new JTextField(kh.getSoDienThoai());
         tfSdt.setFont(font_text);
+        sdtStart = kh.getSoDienThoai();
         this.khDTO = kh;
         this.khGUI = khGUI;
         init();
@@ -131,12 +133,24 @@ public class updateKhachHang extends JFrame implements MouseListener {
                 case "btnXacNhan":
                     String ten = tfTen.getText();
                     String sdt = tfSdt.getText();
-                    khachHangBUS busKH = new khachHangBUS();
                     khDTO.setTenKH(ten);
                     khDTO.setSoDienThoai(sdt);
-                    busKH.capnhatkh(khDTO);
-                    khGUI.suaMotKhachHang(khDTO);
-                    dispose();
+                    khachHangBUS busKH = new khachHangBUS();
+                    boolean success = true;
+                    for (khachHangDTO kh : busKH.getDs_khachHang()) {
+                        if (kh.getSoDienThoai().equals(khDTO.getSoDienThoai()) && !khDTO.getSoDienThoai().equals(sdtStart)) {
+                            success = false;
+                            break;
+                        }
+                    }
+                    if (success) {
+                        if (busKH.capnhatkh(khDTO)) {       //error
+                            khGUI.suaMotKhachHang(khDTO);
+                            dispose();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Sửa khách hàng thất bại số điện thoại đã tồn tại!");
+                    }
                     break;
             }
         } catch (Exception ex) {
