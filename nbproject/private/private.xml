@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/frame_chitietsanpham.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/SanPhamBUS.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
@@ -12,6 +13,13 @@
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/view_chi_tiet_san_pham.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SearchInStore.java</file>
+=======
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/Main/Main.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/nhanVienGUI.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/DAO/nhanVienDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/BUS/nhanVienBUS.java</file>
+>>>>>>> ba64e85610acdf33a88cca42860c738842e010c1
         </group>
     </open-files>
 </project-private>
