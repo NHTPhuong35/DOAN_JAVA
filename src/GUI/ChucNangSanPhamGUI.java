@@ -195,7 +195,9 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         cbxTenLoai.setPreferredSize(new Dimension(200, height_row));
         cbxTenLoai.setMaximumSize(new Dimension(200, height_row));
         for (int i = 0; i < maLoai.getList().size(); i++) {
-            cbxTenLoai.addItem(maLoai.getList().get(i).getTENLOAI());
+            if(maLoai.getList().get(i).getTINHTRANG()==1){
+                cbxTenLoai.addItem(maLoai.getList().get(i).getTENLOAI());
+            }      
         }
         cbxTenLoai.setSelectedIndex(0);
 
@@ -514,18 +516,18 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         JLabel lbl = (JLabel) e.getSource();
         if (lbl == exit || lbl == lblHuy) {
             this.dispose();
-            spGUI.clear(-1);
+            spGUI.clearBordersExcept(-1);
             spGUI.selectedSP = new SanPhamDTO();
         }
         if (lbl == lblThem) {
             AddSP();
             spGUI.selectedSP = new SanPhamDTO();
-            spGUI.clear(-1);
+            spGUI.clearBordersExcept(-1);
         }
         if (lbl == lblLuu) {
             EditSP();
             spGUI.selectedSP = new SanPhamDTO();
-            spGUI.clear(-1);
+            spGUI.clearBordersExcept(-1);
         }
     }
 

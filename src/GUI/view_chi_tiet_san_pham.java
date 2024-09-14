@@ -57,7 +57,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
     ImageIcon h0, h1, h2;
     
     // Định dạng sử dụng dấu phân cách hàng nghìn
-    DecimalFormat FormatInt = new DecimalFormat("#,###"); //phuong them
+    DecimalFormat FormatInt = new DecimalFormat("#.###"); //phuong them
 
     public view_chi_tiet_san_pham(SanPhamDTO sanpham_DTO, frame_chitietsanpham j) throws SQLException {
         soluong = 1;
@@ -297,7 +297,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
         /////////////////////////////////////////// giá ///////////////////////////
         String gia = FormatInt.format(this.sanpham_DTO.getPrice() * soluong);
-        jlc2[4] = new JLabel(gia + "");
+        jlc2[4] = new JLabel(gia + " đồng");
         jlc2[4].setFont(tensp);
         pc2[5].add(jlc2[4]);
 

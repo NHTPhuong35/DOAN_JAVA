@@ -190,7 +190,7 @@ public class SearchInStore extends JPanel implements MouseListener {
 
                 switch (MACHUCNANG) {
                     case "SP": {
-                        for (loaiSP q : loaiBUS.getList()) {
+                        for (loaiSP q : loaiBUS.getListFull()) {
                             if (loaiBUS.checkTINHTRANG(q.getMALOAI())) {
                                 loai.add(q.getTENLOAI());
                             }

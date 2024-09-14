@@ -128,7 +128,7 @@ public class loaiSPBUS {
     public boolean checkTINHTRANG(String MALOAI) {
         for (loaiSP j : list) {
             if (j.getMALOAI().equals(MALOAI)) {
-                return (j.getTINHTRANG() == 1);
+                return (j.getTINHTRANG() != 0);
             }
         }
         return true;
