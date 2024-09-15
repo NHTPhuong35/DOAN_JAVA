@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -48,6 +49,7 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     private JLabel imageNameLabel; //hien thi ten anh chon
     JPanel imagePanelDefault; //khi chưa chọn ảnh
     ArrayList<loaiSP> dsLoai = new ArrayList<>();
+    private DecimalFormat FormatInt = new DecimalFormat("#,###");
 
     private int width, height;
     private int height_row = 30;
@@ -470,7 +472,7 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         cbxTenLoai.setSelectedItem(tenLoai);
         txtMaSP.setText(spGUI.selectedSP.getMaSP());
         txtTenSP.setText(spGUI.selectedSP.getTenSP());
-        txtDonGia.setText(spGUI.selectedSP.getPrice() + "");
+        txtDonGia.setText(FormatInt.format(spGUI.selectedSP.getPrice()) + "");
         pnDsAnh.removeAll();
         if (spGUI.selectedSP.tenHinh.length == 0) {
             imageNameLabel.setText("Không có ảnh");

@@ -5,6 +5,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/Main/Main.java</file>
             <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
             <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/nhanVienGUI.java</file>
@@ -27,6 +28,8 @@
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/loaiSPBUS.java</file>
 >>>>>>> 0d0820e (san pham, tai khoan)
 =======
+=======
+>>>>>>> cc1e51e (commit de push)
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/frame_chitietsanpham.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/SanPhamBUS.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
@@ -36,7 +39,10 @@
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/view_chi_tiet_san_pham.java</file>
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SearchInStore.java</file>
+<<<<<<< HEAD
 >>>>>>> 7ed79a5 (chinh gia sp,sua,them)
+=======
+>>>>>>> cc1e51e (commit de push)
         </group>
     </open-files>
 </project-private>
