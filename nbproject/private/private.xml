@@ -2,6 +2,51 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/Main/Main.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/GUI/nhanVienGUI.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/DAO/nhanVienDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/DOAN_JAVA/src/BUS/nhanVienBUS.java</file>
+=======
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/frame_chitietsanpham.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/ChucNangSanPhamGUI.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/TaiKhoanGUI.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SearchInStore.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/SanPhamBUS.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DTO/SanPhamDTO.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/Main/Main.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/loaiSPDAO.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/chucnangTaikhoan.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/view_chi_tiet_san_pham.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/loaiSPBUS.java</file>
+>>>>>>> 0d0820e (san pham, tai khoan)
+=======
+=======
+>>>>>>> cc1e51e (commit de push)
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/frame_chitietsanpham.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/BUS/SanPhamBUS.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/ChucNangSanPhamGUI.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/ThaotacInStore.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/Main/Main.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/view_chi_tiet_san_pham.java</file>
+            <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/GUI/SearchInStore.java</file>
+<<<<<<< HEAD
+>>>>>>> 7ed79a5 (chinh gia sp,sua,them)
+=======
+>>>>>>> cc1e51e (commit de push)
+        </group>
+>>>>>>> e621ff0275186ceb66d9c4d9a2c5426a5c8e9969
     </open-files>
 </project-private>

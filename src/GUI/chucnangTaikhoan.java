@@ -115,7 +115,7 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
                 break;
             case "TK":
 //                TrangTaiKhoan tk = new TrangTaiKhoan(widthPageContent,600);
-                 tkGUI = new TaiKhoanGUI(crong-20,heightJP_content-20);
+                 tkGUI = new TaiKhoanGUI(centerContent.SS_main,crong-20,heightJP_content-20);
 //                JScrollPane tk_scrollPane = new JScrollPane(tkGUI);
 //                tk_scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 JP_contentCuaNameChucnangCon.add(tkGUI);
