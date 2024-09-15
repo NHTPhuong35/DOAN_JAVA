@@ -201,10 +201,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 heightTK = (int) cntk_p.JP_contentCuaNameChucnangCon.getPreferredSize().getHeight() - 10;
                 switch (ctqDTO.getHANHDONG()) {
                     case "Thêm":
-                        TaiKhoanGUI a = new TaiKhoanGUI(widthTK, heightTK);
+                        TaiKhoanGUI a = new TaiKhoanGUI(s,widthTK, heightTK);
                          {
                             try {
                                 a.initPnThaoTacTK(450, 600);
+                                a.txtUsername.setEnabled(true);
                             } catch (SQLException ex) {
                                 java.util.logging.Logger.getLogger(ThaotacInStore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                             }
@@ -225,10 +226,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                             JOptionPane.showMessageDialog(null,
                                     "Xin vui lòng chọn tài khoản cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                         } else {
-                            TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                            TaiKhoanGUI b = new TaiKhoanGUI(s,widthTK, heightTK);
                             b.selectedTK = cntk_p.tkGUI.selectedTK;
                             try {
                                 b.initPnThaoTacTK(450, 600);
+                                b.txtUsername.setEnabled(false);
                             } catch (SQLException ex) {
                                 java.util.logging.Logger.getLogger(ThaotacInStore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                             }
@@ -253,7 +255,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
 
                             // Xử lý kết quả
                             if (result == JOptionPane.YES_OPTION) {
-                                TaiKhoanGUI b = new TaiKhoanGUI(widthTK, heightTK);
+                                TaiKhoanGUI b = new TaiKhoanGUI(s,widthTK, heightTK);
                                 b.selectedTK = cntk_p.tkGUI.selectedTK;
                                 b.DeleteTK();
                                 cntk_p.JP_contentCuaNameChucnangCon.removeAll();
@@ -611,6 +613,12 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             case "Thêm": {
                 ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 600);
                 sp.initThem();
+                ArrayList<loaiSP> dsLoai = new ArrayList<>();
+                dsLoai=sp.loaiSPNgung();
+                for(loaiSP loai: dsLoai ){
+                    sp.cbxTenLoai.removeItem(loai.getTENLOAI());
+                }
+                sp.cbxTenLoai.setEnabled(true);
                 break;
             }
             case "Sửa": {
@@ -621,6 +629,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     ChucNangSanPhamGUI sp = new ChucNangSanPhamGUI(spGUI, 500, 700);
                     sp.initSua();
                     sp.setTT();
+                    sp.cbxTenLoai.setEnabled(false);
                 }
                 break;
             }
@@ -648,7 +657,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                                 "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
                     } else {
                         spGUI.selectedSP = new SanPhamDTO();
-                        spGUI.clear(-1);
+                        spGUI.clearBordersExcept(-1);
                     }
                 }
                 break;
