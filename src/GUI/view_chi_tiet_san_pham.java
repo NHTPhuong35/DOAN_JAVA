@@ -297,7 +297,7 @@ public class view_chi_tiet_san_pham extends JPanel implements MouseListener {
 
         /////////////////////////////////////////// giá ///////////////////////////
         String gia = FormatInt.format(this.sanpham_DTO.getPrice() * soluong);
-        jlc2[4] = new JLabel(gia + "");
+        jlc2[4] = new JLabel(gia + " đồng");
         jlc2[4].setFont(tensp);
         pc2[5].add(jlc2[4]);
 

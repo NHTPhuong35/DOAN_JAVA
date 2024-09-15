@@ -49,7 +49,7 @@ public class ThongKeGUI extends JPanel {
     DecimalFormat FormatInt = new DecimalFormat("#,###");
 
     // Định dạng với dấu phân cách hàng nghìn và 2 số thập phân
-    DecimalFormat FormatDouble = new DecimalFormat("#,###.##");
+//    DecimalFormat FormatDouble = new DecimalFormat("#,###.##");
 
     public ThongKeGUI(int width, int height) {
         this.width = width;
@@ -81,9 +81,9 @@ public class ThongKeGUI extends JPanel {
         ds = thkBus.listDoanhThu(data_filters);
         for (ThongKeDTO row : ds) {
             //gọi lại hàm format cho cách hiện thị cho các số có giá trị quá lớn hoặc nhở
-            String donGia = FormatDouble.format(row.getDonGia());
+            String donGia = FormatInt.format(row.getDonGia());
             String soLuong = FormatInt.format(row.getSoLuong());
-            String thanhTien = FormatDouble.format(row.getThanhTien());
+            String thanhTien = FormatInt.format(row.getThanhTien());
             Object[] data = {row.getMaSP(), row.getMaLoai(), row.getTenSP(), soLuong, donGia, thanhTien};
             df.addRow(data);
         }
@@ -105,9 +105,9 @@ public class ThongKeGUI extends JPanel {
         ds = thkBus.listBanChay(data_filters);
         for (ThongKeDTO row : ds) {
             //gọi lại hàm format cho cách hiện thị cho các số có giá trị quá lớn hoặc nhở
-            String donGia = FormatDouble.format(row.getDonGia());
+            String donGia = FormatInt.format(row.getDonGia());
             String soLuong = FormatInt.format(row.getSoLuong());
-            String thanhTien = FormatDouble.format(row.getThanhTien());
+            String thanhTien = FormatInt.format(row.getThanhTien());
             Object[] data = {row.getMaSP(), row.getMaLoai(), row.getTenSP(),
                 soLuong, donGia, thanhTien};
             df.addRow(data);
@@ -129,7 +129,7 @@ public class ThongKeGUI extends JPanel {
             pnDoanhThu.setPreferredSize(new Dimension(width, 50));
         }
 
-        String dt = FormatDouble.format(doanhThu); // Định dạng doanh thu
+        String dt = FormatInt.format(doanhThu); // Định dạng doanh thu
         JLabel lblDoanhThu = new JLabel("Tổng doanh thu: " + dt + " VNĐ");
         lblDoanhThu.setFont(font);
 
