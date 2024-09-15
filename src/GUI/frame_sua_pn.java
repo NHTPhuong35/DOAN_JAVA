@@ -129,7 +129,7 @@ public DefaultTableModel getTableModel() {
 
         String[] columnNames = {"MASP", "Số lượng", "Mã size", "Giá nhập", "Thành tiền"};
         Object[][] data = new Object[ctpnDTO.size()][5];
-DecimalFormat dff = new DecimalFormat("#.###");
+DecimalFormat dff = new DecimalFormat("#,###");
         for (int i = 0; i < ctpnDTO.size(); i++) {
             chitietphieunhap_DTO item = ctpnDTO.get(i);
             data[i][0] = item.getMasp();
@@ -176,7 +176,7 @@ DecimalFormat dff = new DecimalFormat("#.###");
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#,###");
 
         // Only trigger calculation if "Số lượng" or "Giá nhập" are changed
         if (column == 1 || column == 3) {
@@ -222,7 +222,7 @@ tableModel = new DefaultTableModel(data, columnNames) {
 
                 // Calculate "Thành tiền"
                 double thanhtien = soluong * gianhap;
-                DecimalFormat df = new DecimalFormat("#.###");
+                DecimalFormat df = new DecimalFormat("#,###");
                 tableModel.setValueAt(df.format(thanhtien), row, 4);
 
                 // Calculate "Tổng tiền"
@@ -251,7 +251,7 @@ tableModel = new DefaultTableModel(data, columnNames) {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         double tongTien = ctpnDTO.stream().mapToDouble(chitietphieunhap_DTO::getThanhtien).sum();
         JPanel totalPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#,###");
         tfTongTien = new JTextField(df.format(tongTien) + " Đ", 15);
         tfTongTien.setFont(font_text);
         tfTongTien.setEditable(false);
@@ -280,7 +280,8 @@ tableModel = new DefaultTableModel(data, columnNames) {
         btnHuy.addMouseListener(new MouseListenerAdapter("Hủy"));
 
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         setVisible(true);
     }
 
@@ -313,7 +314,7 @@ tableModel = new DefaultTableModel(data, columnNames) {
 }
 private ArrayList<chitietphieunhap_DTO> getUpdatedChitietPhieunhapFromTable() {
     ArrayList<chitietphieunhap_DTO> updatedList = new ArrayList<>();
-    DecimalFormat df = new DecimalFormat("#.###");
+    DecimalFormat df = new DecimalFormat("#,###");
 
     for (int i = 0; i < tableModel.getRowCount(); i++) {
         String masp = tableModel.getValueAt(i, 0).toString();

@@ -81,7 +81,7 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
 		String[] list_size = {"","SIZE1","SIZE2","SIZE2","SIZE4","SIZE5"};
 		
 		
-		DecimalFormat format_double = new DecimalFormat("#.###");
+		DecimalFormat format_double = new DecimalFormat("#,###");
 		
 		format_double.format(thanhtien);
 		

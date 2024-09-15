@@ -178,7 +178,7 @@ public ArrayList<String> getSelectedListPN1() {
     }
    public void addDataInTable(ArrayList<phieunhap_DTO> list) {
     Vector data;
-    DecimalFormat df = new DecimalFormat("#.###");  // Định dạng số
+    DecimalFormat df = new DecimalFormat("#,###");  // Định dạng số
     tableModel.setRowCount(0);
     
     for (phieunhap_DTO n : list) {
@@ -201,7 +201,7 @@ public ArrayList<String> getSelectedListPN1() {
 }
 
 public void addLineDataInTable(phieunhap_DTO pn) {
-    DecimalFormat df = new DecimalFormat("#.###");  // Định dạng số
+    DecimalFormat df = new DecimalFormat("#,###");  // Định dạng số
     Vector data = new Vector();
     
     data.add(pn.getMAPN());

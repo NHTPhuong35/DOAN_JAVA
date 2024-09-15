@@ -40,7 +40,7 @@ public class BarChart_DoanhThu extends JPanel {
     private CategoryDataset createDataset() {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (ThongKeDTO tk : thk) {
-            dataset.addValue(tk.getThanhTien(), tk.getTenSP(), "Số tiền bán được");
+            dataset.addValue(tk.getThanhTien(), tk.getTenSP(), "");
         }
         return dataset;
     }

@@ -106,7 +106,7 @@ public class panel_them_phieunhap extends JPanel implements MouseListener{
 		nhacungcapBUS nhacungcapBUS = new nhacungcapBUS();
 		sanPhamBUS = new SanPhamBUS();
 		
-		format_double = new DecimalFormat("#.###");
+		format_double = new DecimalFormat("#,###");
         
 		
 		
