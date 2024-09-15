@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/thanh%20phuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
+=======
+            <file>file:/D:/test1/main/main/src/GUI/panel_con_nhapsanpham.java</file>
+            <file>file:/D:/test1/main/main/src/GUI/panel_con_chitietphieunhap.java</file>
+            <file>file:/D:/test1/main/main/src/GUI/panel_bang_dspn1.java</file>
+            <file>file:/D:/test1/main/main/src/GUI/TrangLichsuHD.java</file>
+            <file>file:/D:/test1/main/main/src/GUI/thong_bao_phieunhap.java</file>
+            <file>file:/D:/test1/main/main/src/GUI/panel_con_phieunhap.java</file>
+            <file>file:/D:/test1/main/main/src/DAO/ConnectDataBase.java</file>
+>>>>>>> 6011043cdf08e16c8f2e7c07362846ee7da53228
         </group>
     </open-files>
 </project-private>
