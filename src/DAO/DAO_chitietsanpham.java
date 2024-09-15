@@ -73,7 +73,29 @@ public class DAO_chitietsanpham {
 		}
 		return ds;
 	}
-	
+	public void updateAfterADD(chitietsanpham_DTO d) throws SQLException {
+    mySQL.connect();
+    int currentQuantity = 0;
+    
+    // Bước 1: Lấy số lượng hiện có từ cơ sở dữ liệu
+    String selectSql = "SELECT SOLUONG FROM chitietsanpham WHERE MASP = '" + d.getMASP() + "' AND MASIZE = '" + d.getMASIZE() + "'";
+    try {
+        ResultSet rs = mySQL.executeQuery(selectSql);
+        if (rs.next()) {
+            currentQuantity = rs.getInt("SOLUONG");
+        }
+        rs.close();
+    } catch (SQLException ex) {
+        mySQL.disconnect();
+        throw ex; // Ném lại ngoại lệ để xử lý ở nơi gọi hàm
+    }
+    
+    // Bước 2: Cập nhật số lượng mới
+    int newQuantity = currentQuantity + d.getSoluong();
+    String updateSql = "UPDATE chitietsanpham SET SOLUONG = " + newQuantity + " WHERE MASP = '" + d.getMASP() + "' AND MASIZE = '" + d.getMASIZE() + "'";
+    mySQL.executeUpdate(updateSql); // Ném lại ngoại lệ để xử lý ở nơi gọi hàm
+    mySQL.disconnect();
+}
 	public void add(chitietsanpham_DTO d) throws SQLException {
             mySQL.connect(); // TODO Auto-generated catch block
             String sql = "INSERT INTO chitietsanpham (MASP,MASIZE,SOLUONG) "

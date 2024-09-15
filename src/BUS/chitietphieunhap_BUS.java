@@ -3,8 +3,10 @@ package BUS;
 import java.util.ArrayList;
 
 import DAO.DAO_chitietphieunhap;
+import DAO.DAO_phieunhap;
 import DTO.chitietphieunhap_DTO;
 import DTO.phieunhap_DTO;
+import java.sql.SQLException;
 
 public class chitietphieunhap_BUS {
     private phieunhap_DTO h;
@@ -32,7 +34,14 @@ public class chitietphieunhap_BUS {
         return c.selectby_id(h);
 
     }
-
+public int getOldQuantity(String masp, String masize, String mapn) throws SQLException{
+            DAO_phieunhap c = new DAO_phieunhap();
+            return c.getOldQuantity(masp, masize, mapn);
+        }
+	public void setAfter(chitietphieunhap_DTO d, int oldQuantity, int newQuantity) throws SQLException {
+            DAO_phieunhap c = new DAO_phieunhap();
+            c.setAfterTT(d, oldQuantity, newQuantity);
+        }
     public void add(chitietphieunhap_DTO h) {
         ds.add(h);
         DAO_chitietphieunhap c = new DAO_chitietphieunhap();

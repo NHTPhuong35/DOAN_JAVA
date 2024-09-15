@@ -61,6 +61,14 @@ public class SanPhamBUS {
     	}
     	return sp;
     }
+    public void updateGiaBan(String maSP, double giaBanMoi) {
+        SanPhamDAO spDAO=new SanPhamDAO();
+        spDAO.updateGiaBan(maSP, giaBanMoi);
+    }
+    public double getPrice(String maSP) {
+   SanPhamDAO spDAO=new SanPhamDAO();
+   return spDAO.getPrice(maSP);
+}
 //     public static void main(String[] args) {
 //         SanPhamBUS n = new SanPhamBUS();
 //         String t[] = {"b.jpg", "p.jpg", "o.jpg"};
