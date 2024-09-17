@@ -33,7 +33,7 @@ public class ThongKeDAO {
         String query = "SELECT * FROM"
                 + "("
                 + "    SELECT sp.MASP, sp.MALOAI,sp.TENSP,SUM(cthd.SOLUONG) AS SL,"
-                + "           sp.PRICE, sp.PRICE * SUM(cthd.SOLUONG) AS TT"
+                + "           SUM(cthd.DONGIA * cthd.SOLUONG)  AS TT"
                 + "    FROM hoadon hd"
                 + "    INNER JOIN chitiethoadon cthd ON hd.SOHD = cthd.SOHD"
                 + "    INNER JOIN sanpham sp ON sp.MASP = cthd.MASP"
@@ -53,9 +53,8 @@ public class ThongKeDAO {
                 String maLoai = rs.getString("MALOAI");
                 String tenSP = rs.getString("TENSP");
                 int soLuong = rs.getInt("SL");
-                double donGia = rs.getDouble("PRICE");
                 double thanhTien = rs.getDouble("TT");
-                ThongKeDTO thongKe = new ThongKeDTO(maSP, maLoai, tenSP, soLuong, donGia, thanhTien);
+                ThongKeDTO thongKe = new ThongKeDTO(maSP, maLoai, tenSP, soLuong, thanhTien);
                 ds.add(thongKe);
             }
             rs.close();
@@ -73,12 +72,12 @@ public class ThongKeDAO {
         String query = "SELECT * FROM"
                 + "("
                 + "    SELECT sp.MASP, sp.MALOAI, sp.TENSP, SUM(cthd.SOLUONG) AS SL,"
-                + "           sp.PRICE, sp.PRICE * SUM(cthd.SOLUONG) AS TT"
+                + "           SUM(cthd.DONGIA * cthd.SOLUONG) AS TT"
                 + "    FROM hoadon hd"
                 + "    INNER JOIN chitiethoadon cthd ON hd.SOHD = cthd.SOHD"
                 + "    INNER JOIN sanpham sp ON sp.MASP = cthd.MASP"
                 + "    WHERE hd.NGAYHD BETWEEN '" + tuNgay + "' AND '" + denNgay + "'"
-                + "    GROUP BY sp.MASP, sp.MALOAI, sp.TENSP, sp.PRICE"
+                + "    GROUP BY sp.MASP, sp.MALOAI, sp.TENSP"
                 + ")"
                 + " AS subquery ";
 
@@ -94,9 +93,8 @@ public class ThongKeDAO {
                 String maLoai = rs.getString("MALOAI");
                 String tenSP = rs.getString("TENSP");
                 int soLuong = rs.getInt("SL");
-                double donGia = rs.getDouble("PRICE");
                 double thanhTien = rs.getDouble("TT");
-                ThongKeDTO thongKe = new ThongKeDTO(maSP, maLoai, tenSP, soLuong, donGia, thanhTien);
+                ThongKeDTO thongKe = new ThongKeDTO(maSP, maLoai, tenSP, soLuong, thanhTien);
                 ds.add(thongKe);
             }
             rs.close();
