@@ -5,6 +5,7 @@
 package GUI;
 
 import GUI.ThongTinTaiKhoan;
+import DTO.chitietquyenDTO;
 import DTO.chucnangDTO;
 import DTO.quyenDTO;
 import java.awt.BorderLayout;
@@ -25,6 +26,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import BUS.chitietquyenBUS;
 
 /**
  *
@@ -47,7 +50,10 @@ public class chucnangTaikhoan extends JPanel implements MouseListener{
     }
     private void init(chucnangDTO cnDTO,String maquyen) throws SQLException {
         listChucnangCon.add(new chucnangDTO("NULLTK","NULLTEN"));
-        listChucnangCon.add(new chucnangDTO("TK","Tài khoản"));
+        chitietquyenBUS ctqBUS = new chitietquyenBUS();
+        if (ctqBUS.search(new chitietquyenDTO(maquyen, "TK","Xem"))) {
+            listChucnangCon.add(new chucnangDTO("TK","Tài khoản"));
+        }
         JP_listNameChucnangConCuaTaikhoan = new JPanel(new FlowLayout(3));
         for(chucnangDTO i: listChucnangCon){
             JPanel btn_taikhoan = new JPanel(new BorderLayout());
