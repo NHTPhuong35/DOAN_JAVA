@@ -3,10 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/ThongKeGUI.java</file>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/BarChart_DoanhThu.java</file>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/BUS/SanPhamBUS.java</file>
+            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/DAO/ConnectDataBase.java</file>
         </group>
     </open-files>
 </project-private>
