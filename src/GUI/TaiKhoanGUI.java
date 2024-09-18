@@ -16,6 +16,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -39,6 +41,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicComboPopup;
@@ -67,7 +70,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         init();
     }
 
-    public TaiKhoanGUI(StoreScreen s,int width, int height) {
+    public TaiKhoanGUI(StoreScreen s, int width, int height) {
         this.width = width;
         this.height = height;
         this.tkDN = StoreScreen.tkUSER;
@@ -112,8 +115,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         for (int i = 0; i < dstk.size(); i++) {
             final int id = i;
             pnContent[i] = new JPanel();
-            if(!tkDN.equals("")){
-                if(tkDN.getUsername().equals(dstk.get(i).getUsername())){
+            if (!tkDN.equals("")) {
+                if (tkDN.getUsername().equals(dstk.get(i).getUsername())) {
                     pnContent[i].setVisible(false);
                 }
             }
@@ -139,7 +142,6 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 pnContent[i].add(lblContent[j]);
             }
 
-
             ImageIcon icon = new ImageIcon("./src/images/User-Lock.png");
 
             Image scaledImage = icon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -154,7 +156,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             lblContent[lblContent.length - 5].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 1){
+                    if (e.getClickCount() == 1) {
                         lblContent[lblContent.length - 5].setText("********");
                     }
                     if (e.getClickCount() == 2) {
@@ -162,7 +164,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                     }
                 }
             });
-            
+
             lblContent[lblContent.length - 1].addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -171,7 +173,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                         panel.setForeground(Color.RED); // Thiết lập màu chữ cho header
 
                         Object[] options = {"Có", "Không"};
-                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn khoá user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn khoá user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                         if (result == JOptionPane.YES_OPTION) {
                             dstk.get(id).setState(0);
                             lblContent[lblContent.length - 2].setText("Đã khoá");
@@ -179,7 +181,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
 
                     } else {
                         Object[] options = {"Có", "Không"};
-                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn mở khoá cho user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn mở khoá cho user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                         if (result == JOptionPane.YES_OPTION) {
                             dstk.get(id).setState(1);
                             lblContent[lblContent.length - 2].setText("Đang hoạt động");
@@ -208,6 +210,9 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 }
             });
         }
+
+        
+
         JScrollPane scrollPane = new JScrollPane(pnContentParent);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
@@ -394,7 +399,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         pnMK.add(pwfMK, BorderLayout.WEST);
         pnMK.add(lbl, BorderLayout.EAST);
         //-------------------------------------------------------------------
-        String[] text = {"Mã nhân viên", "Tên đăng nhập", "Mật khẩu", "Mã quyền"};
+        String[] text = {"Thêm nhân viên", "Tên đăng nhập", "Mật khẩu", "Mã quyền"};
         JLabel[] lbltext = new JLabel[4];
         for (int i = 0; i < lbltext.length; i++) {
             lbltext[i] = new JLabel(text[i]);
@@ -434,6 +439,16 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(cbxMaQuyen, gbc);
+        
+        
+//        lbltext[0].addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                // Khi lblHead[0] được click, mở giao diện thêm nhân viên
+//                addNhanVienGUI addNV = new addNhanVienGUI();
+//                addNV.setVisible(true);  // Hiển thị giao diện addNhanVienGUI
+//            }
+//        });
 
         pnContentThaoTac.add(panel);
     }
@@ -502,7 +517,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                     "Tên Đăng nhập không được để trống!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if(!tkBUS.checkUSERNAME(username)){
+        if (!tkBUS.checkUSERNAME(username)) {
             JOptionPane.showMessageDialog(null,
                     "Tên đăng nhập chỉ chứa chữ cái và chữ số!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
