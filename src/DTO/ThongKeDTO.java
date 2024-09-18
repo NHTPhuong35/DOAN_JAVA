@@ -3,17 +3,16 @@ package DTO;
 public class ThongKeDTO {
     private String maSP, maLoai, tenSP;
     private int soLuong;
-    private double donGia, thanhTien;
+    private double thanhTien;
 
     public ThongKeDTO() {
     }
 
-    public ThongKeDTO(String maSP, String maLoai, String tenSP, int soLuong, double donGia, double thanhTien) {
+    public ThongKeDTO(String maSP, String maLoai, String tenSP, int soLuong, double thanhTien) {
         this.maSP = maSP;
         this.maLoai = maLoai;
         this.tenSP = tenSP;
         this.soLuong = soLuong;
-        this.donGia = donGia;
         this.thanhTien = thanhTien;
     }
 
@@ -47,14 +46,6 @@ public class ThongKeDTO {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public double getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
     }
 
     public double getThanhTien() {

@@ -2,6 +2,7 @@ package BUS;
 
 import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
+import DTO.loaiSP;
 import java.util.ArrayList;
 
 public class SanPhamBUS {
@@ -19,10 +20,35 @@ public class SanPhamBUS {
     public void setDsSP(ArrayList<SanPhamDTO> dsSP) {
         this.dsSP = dsSP;
     }
-    
+    public void updateGiaBan(String maSP, double giaBanMoi) {
+        SanPhamDAO spDAO=new SanPhamDAO();
+        spDAO.updateGiaBan(maSP, giaBanMoi);
+    }
+    public double getPrice(String maSP) {
+   SanPhamDAO spDAO=new SanPhamDAO();
+   return spDAO.getPrice(maSP);
+}
+
     public void list() {
         SanPhamDAO spDAO = new SanPhamDAO();
         dsSP = spDAO.list();
+    }
+    
+    public ArrayList<SanPhamDTO> getFilteredProducts(loaiSPBUS lBUS) {
+        ArrayList<SanPhamDTO> filteredList = new ArrayList<>();
+        // Lặp qua danh sách sản phẩm
+        for (SanPhamDTO sp : dsSP) {
+            // Lặp qua danh sách loại sản phẩm trong loaiSPBUS
+            for (loaiSP  loai: lBUS.getListFull()) {
+                // Kiểm tra mã loại sản phẩm và tình trạng sản phẩm
+                if (sp.getMaLoai().equals(loai.getMALOAI()) && 
+                   (loai.getTINHTRANG() != 0 && sp.getTrangThai()!=0)) {
+                    filteredList.add(sp);
+                }
+            }
+        }
+
+        return filteredList;
     }
     
     public void add(SanPhamDTO sp){
