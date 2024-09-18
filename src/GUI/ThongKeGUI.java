@@ -37,13 +37,13 @@ public class ThongKeGUI extends JPanel {
     JPanel pnDoanhThu;
     double doanhThu;
     JTable table;
-    String[] header = {"Mã sản phẩm", "Mã loại", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành Tiền"};
+    String[] header = {"Mã sản phẩm", "Mã loại", "Tên sản phẩm", "Số lượng", "Tổng Tiền"};
     ArrayList<ThongKeDTO> ds;
     DefaultTableModel df;
     Font fontHeader = new Font("Tahoma", Font.BOLD, 20);
     Font font = new Font("Tahoma", Font.BOLD, 13);
     int width, height;
-    JLabel lblHeader;
+//    JLabel lblHeader;
 
     // Định dạng sử dụng dấu phân cách hàng nghìn
     DecimalFormat FormatInt = new DecimalFormat("#,###");
@@ -74,23 +74,22 @@ public class ThongKeGUI extends JPanel {
     }
 
     public void ShowdoanhThu(ArrayList<String> data_filters) {
-        lblHeader.setText("THỐNG KÊ DOANH THU");
+//        lblHeader.setText("THỐNG KÊ DOANH THU");
         df.setRowCount(0);
         ds = new ArrayList<>();
         ThongKeBus thkBus = new ThongKeBus();
         ds = thkBus.listDoanhThu(data_filters);
         for (ThongKeDTO row : ds) {
             //gọi lại hàm format cho cách hiện thị cho các số có giá trị quá lớn hoặc nhở
-            String donGia = FormatInt.format(row.getDonGia());
             String soLuong = FormatInt.format(row.getSoLuong());
             String thanhTien = FormatInt.format(row.getThanhTien());
-            Object[] data = {row.getMaSP(), row.getMaLoai(), row.getTenSP(), soLuong, donGia, thanhTien};
+            Object[] data = {row.getMaSP(), row.getMaLoai(), row.getTenSP(), soLuong, thanhTien};
             df.addRow(data);
         }
         table.setModel(df);
         df.fireTableDataChanged();
         tinhDoanhThu();
-        BarChart_DoanhThu chart = new BarChart_DoanhThu("Sơ đồ thống kê doanh thu", ds, data_filters);
+        BarChart_DoanhThu chart = new BarChart_DoanhThu(ds, data_filters,"Thống kê doanh thu","Đồng");
         pnBieuDo.removeAll();
         pnBieuDo.add(chart,BorderLayout.CENTER);
         this.revalidate(); // Cập nhật bố trí
@@ -98,23 +97,23 @@ public class ThongKeGUI extends JPanel {
     }
 
     public void ShowbanChay(ArrayList<String> data_filters) {
-        lblHeader.setText("SẢN PHẨM BÁN CHẠY");
+//        lblHeader.setText("SẢN PHẨM BÁN CHẠY");
         df.setRowCount(0);
         ds = new ArrayList<>();
         ThongKeBus thkBus = new ThongKeBus();
         ds = thkBus.listBanChay(data_filters);
         for (ThongKeDTO row : ds) {
             //gọi lại hàm format cho cách hiện thị cho các số có giá trị quá lớn hoặc nhở
-            String donGia = FormatInt.format(row.getDonGia());
             String soLuong = FormatInt.format(row.getSoLuong());
             String thanhTien = FormatInt.format(row.getThanhTien());
             Object[] data = {row.getMaSP(), row.getMaLoai(), row.getTenSP(),
-                soLuong, donGia, thanhTien};
+                soLuong, thanhTien};
             df.addRow(data);
         }
         table.setModel(df);
         df.fireTableDataChanged();
-        PieChart_BanChay demo = new PieChart_BanChay("Sản phẩm bán chạy", ds);
+//        PieChart_BanChay demo = new PieChart_BanChay("Sản phẩm bán chạy", ds);
+        BarChart_DoanhThu demo = new BarChart_DoanhThu(ds, data_filters,"Sản phẩm bán chạy","cái");
         pnBieuDo.removeAll();
         pnBieuDo.add(demo,BorderLayout.CENTER);
         this.revalidate(); // Cập nhật bố trí
@@ -145,14 +144,14 @@ public class ThongKeGUI extends JPanel {
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
 
-        ///Header
-        pnHeader = new JPanel();
-        pnHeader.setLayout(new FlowLayout());
-        pnHeader.setBorder(new EmptyBorder(20, 0, 20, 0));
-        lblHeader = new JLabel("THỐNG KÊ DOANH THU", JLabel.CENTER);
-        lblHeader.setFont(fontHeader);
-        pnHeader.add(lblHeader);
-        this.add(pnHeader, BorderLayout.NORTH);
+//        ///Header
+//        pnHeader = new JPanel();
+//        pnHeader.setLayout(new FlowLayout());
+//        pnHeader.setBorder(new EmptyBorder(20, 0, 20, 0));
+//        lblHeader = new JLabel("THỐNG KÊ DOANH THU", JLabel.CENTER);
+//        lblHeader.setFont(fontHeader);
+//        pnHeader.add(lblHeader);
+//        this.add(pnHeader, BorderLayout.NORTH);
         
         ///Biểu đồ
         pnBieuDo = new JPanel();
@@ -193,11 +192,8 @@ public class ThongKeGUI extends JPanel {
         //cột "Số lượng"
         columnModel.getColumn(3).setPreferredWidth(60);
 
-        //cột "Đơn giá"
-        columnModel.getColumn(4).setPreferredWidth(90);
-
-        //cột "Thành tiền"
-        columnModel.getColumn(5).setPreferredWidth(150);
+        //cột "Tổng tiền"
+        columnModel.getColumn(4).setPreferredWidth(150);
 
         // Bỏ kẻ dọc
         table.setShowVerticalLines(false);
