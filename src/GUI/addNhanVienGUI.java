@@ -35,6 +35,12 @@ public class addNhanVienGUI extends JFrame implements MouseListener {
         this.nvGUI = nvGUI;
         init();
     }
+    
+    public addNhanVienGUI() {
+        chieu_cao = 500;
+        chieu_rong = 400;
+        init();
+    }
 
     private void init() {
         setUndecorated(true);
@@ -215,6 +221,7 @@ public class addNhanVienGUI extends JFrame implements MouseListener {
                     }else {
                         JOptionPane.showMessageDialog(null, "Số điện thoại đã tồn tại!");
                     }
+                    dispose();
 
                     break;
                 }

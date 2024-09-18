@@ -42,6 +42,28 @@ public class khachHangDAO {
         }
         return ds;
     }
+    
+    public ArrayList<khachHangDTO> ds_khachHangAll() {
+        ArrayList<khachHangDTO> ds = new ArrayList<>();
+        
+        try {
+            c.connect();
+            String sql = "SELECT * FROM KHACHHANG";
+            ResultSet rs = c.executeQuery(sql);
+            while (rs.next()) {
+                khachHangDTO kh = new khachHangDTO(rs.getInt("MAKH"),
+                        rs.getString("TENKH"),
+                        rs.getString("SDT"),
+                        rs.getInt("DIEMTICHLUY"),
+                        rs.getInt("TRANGTHAI"));
+                ds.add(kh);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ds;
+    }
 
 //    public void themKH(khachHangDTO kh) {
 //        try {

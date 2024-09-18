@@ -45,7 +45,9 @@ public class khachHangBUS {
 
     public int makh() {
         int max = 0;
-        for (khachHangDTO h : ds_khachHang) {
+        khachHangDAO dao = new khachHangDAO();
+        ArrayList<khachHangDTO> ds = dao.ds_khachHangAll();
+        for (khachHangDTO h : ds) {
             if (max < h.getMaKH()) {
                 max = h.getMaKH();
             }
