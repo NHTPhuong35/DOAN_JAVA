@@ -440,9 +440,11 @@ searchKH.setForeground(Color.gray);
     p.setPreferredSize(new Dimension(rong, cao));
     JLabel title = new JLabel("Nhập tên hoặc số điện thoại của khách hàng",JLabel.CENTER);
     title.setPreferredSize(new Dimension(rong, (int)title.getPreferredSize().getHeight()));
-    JPanel wrapInput = new JPanel(new FlowLayout(1,10,10));
+    JPanel wrapInput = new JPanel(new FlowLayout(3,10,10));
     JTextField input = new JTextField();
     JButton search = new JButton("Tìm");
+    JLabel messageAdd = new JLabel("Khách hàng mới?");
+    JButton add = new JButton("Thêm");
     search.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e){
@@ -486,12 +488,21 @@ if (option == JOptionPane.YES_OPTION) {
         }
     });
     
-    input.setPreferredSize(new Dimension(rong - (int)search.getPreferredSize().getWidth()-20, (int)search.getPreferredSize().getHeight()));
+    input.setPreferredSize(new Dimension(rong - (int)search.getPreferredSize().getWidth()-30, (int)search.getPreferredSize().getHeight()));
     
+    add.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e){
+            addKhachHangGUI add = new addKhachHangGUI(p);
+        }
+    });
+
     wrapInput.add(title);
     wrapInput.add(input);
     wrapInput.add(search);
-    wrapInput.setPreferredSize(new Dimension(rong, (int)search.getPreferredSize().getHeight()*2+(int)title.getPreferredSize().getHeight()));
+    wrapInput.add(messageAdd);
+    wrapInput.add(add);
+    wrapInput.setPreferredSize(new Dimension(rong, (int)search.getPreferredSize().getHeight()*3+(int)title.getPreferredSize().getHeight()*2));//(int)search.getPreferredSize().getHeight()*2+(int)title.getPreferredSize().getHeight())
     
     wrap.add(wrapInput,BorderLayout.NORTH);
     wrap.add(p, BorderLayout.CENTER);
@@ -508,19 +519,7 @@ if (option == JOptionPane.YES_OPTION) {
 }
 
     
-    public void addDataInCustomerGUI(ArrayList<model_qlkh> list, JTable table, DefaultTableModel tableModel){
-        System.out.println("Danh sách khách hàng: " + list.size());
-        Vector data;
-        tableModel.setRowCount(0);
-        for (model_qlkh n : list) {
-            data = new Vector();
-            data.add(n.getTen());
-            data.add(n.getSdt());
-            tableModel.addRow(data);
-        }
-        table.setModel(tableModel);
-        tableModel.fireTableDataChanged();
-    }
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {

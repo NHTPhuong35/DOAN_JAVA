@@ -108,6 +108,7 @@ public class MenuChucNangStore extends JPanel implements MouseListener {
 
     private void repaintMenu() {
         ArrayList<chucnangDTO> listChucnangDTO = listChucnang(this.MAQUYEN);
+
         cnDTO_listByMAQUYEN = sortChucnang( listChucnangDTO);
         if (cnDTO_listByMAQUYEN.size() < 9) {
 
@@ -233,6 +234,7 @@ re.add(new chucnangDTO("NULLDX", "Đăng xuất"));
         ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
         ArrayList<chucnangDTO> listChucnang = new ArrayList<>();
 
+        boolean hasChucnangTK = false;
         for (chitietquyenDTO i : listChitietQuyen) {
             chucnangDAO cnDAO = new chucnangDAO();
             chucnangDTO k = cnDAO.search(i.getMACHUCNANG());
@@ -246,37 +248,13 @@ re.add(new chucnangDTO("NULLDX", "Đăng xuất"));
             if (!flag_tontai) {
                 listChucnang.add(k);
             }
+            if(i.getMACHUCNANG().equals("TK")) hasChucnangTK = true;
         }
+        if(!hasChucnangTK) listChucnang.add(new chucnangDTO("TK", "Tài khoản"));
         
         return listChucnang;
     }
-
-    public ArrayList<String> lístNameChucnang(String MAQUYEN) {
-        String sql = "SELECT * FROM chitietquyen WHERE MAQUYEN='" + MAQUYEN + "'  AND HANHDONG='Xem'";
-        chitietquyenDAO ctqDAO = new chitietquyenDAO();
-        ArrayList<chitietquyenDTO> listChitietQuyen = ctqDAO.executeQuery(sql);
-        ArrayList<String> listNameChucnang = new ArrayList<>();
-
-        for (chitietquyenDTO i : listChitietQuyen) {
-            chucnangDAO cnDAO = new chucnangDAO();
-            String name = cnDAO.search(i.getMACHUCNANG()).getTENCHUCNANG();
-            if (!listNameChucnang.contains(name)) {
-                listNameChucnang.add(name);
-            }
-        }
-        listNameChucnang.add("Đăng xuất");
-        return listNameChucnang;
-    }
-
-    public void changeColorJPanelChildFromParent(JPanel parent, int index, Color bg, Color fg) {
-        Component[] components = parent.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            JPanel p = (JPanel) components[i];
-            if (i == index) {
-                changeColorJPanelChild(p, bg, fg);
-            }
-        }
-    }
+    
 
     public void changeColorJPanelChild(JPanel p, Color bg, Color fg) {
         p.setBackground(bg);

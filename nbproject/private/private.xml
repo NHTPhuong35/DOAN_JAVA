@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/SanPhamGUI.java</file>
+            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/ThongTinTaiKhoan.java</file>
             <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/TaiKhoanGUI.java</file>
-            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/GUI/ChucNangSanPhamGUI.java</file>
+            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/BUS/khachHangBUS.java</file>
+            <file>file:/D:/thanhphuong/KTPM/DOAN_JAVA/src/BUS/TaiKhoanBUS.java</file>
         </group>
     </open-files>
 </project-private>

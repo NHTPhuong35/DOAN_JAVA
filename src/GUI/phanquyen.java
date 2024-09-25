@@ -139,7 +139,7 @@ public class phanquyen extends JPanel{
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 0) {
+                if (column == 0 || row == 4 && column != 1 || row == 8 && column != 1) {
                     return false;
                 }
                 return isEditingEnabled;
@@ -152,6 +152,21 @@ public class phanquyen extends JPanel{
         cssHeaderTable(table.getTableHeader());
         //css cho rows cua table
         cssDataTable();
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                int row = table.rowAtPoint(e.getPoint()); // Lấy vị trí dòng
+                int column = table.columnAtPoint(e.getPoint()); // Lấy vị trí cột
+
+                if(row == 4 || row == 8){
+                    if(column>1)
+                    JOptionPane.showMessageDialog(null, "Không tồn tại thao tác này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            
+
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(crong, ccao));

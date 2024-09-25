@@ -17,6 +17,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -40,6 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicComboPopup;
@@ -215,6 +218,9 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 }
             });
         }
+
+        
+
         JScrollPane scrollPane = new JScrollPane(pnContentParent);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
@@ -400,7 +406,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         pnMK.add(pwfMK, BorderLayout.WEST);
         pnMK.add(lbl, BorderLayout.EAST);
         //-------------------------------------------------------------------
-        String[] text = {"Mã nhân viên", "Tên đăng nhập", "Mật khẩu", "Mã quyền"};
+        String[] text = {"Thêm nhân viên", "Tên đăng nhập", "Mật khẩu", "Mã quyền"};
         JLabel[] lbltext = new JLabel[4];
         for (int i = 0; i < lbltext.length; i++) {
             lbltext[i] = new JLabel(text[i]);
@@ -440,6 +446,16 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(cbxMaQuyen, gbc);
+        
+        
+//        lbltext[0].addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                // Khi lblHead[0] được click, mở giao diện thêm nhân viên
+//                addNhanVienGUI addNV = new addNhanVienGUI();
+//                addNV.setVisible(true);  // Hiển thị giao diện addNhanVienGUI
+//            }
+//        });
 
         pnContentThaoTac.add(panel);
     }
