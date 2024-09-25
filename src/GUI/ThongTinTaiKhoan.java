@@ -1,9 +1,13 @@
 package GUI;
 
-import BUS.Nhanvien_BUS;
+//import BUS.Nhanvien_BUS;
 import BUS.TaiKhoanBUS;
-import DTO.Nhanvien_DTO;
+import BUS.nhanVienBUS;
+import BUS.quyenBUS;
+//import DTO.Nhanvien_DTO;
 import DTO.TaiKhoanDTO;
+import DTO.nhanVienDTO;
+import DTO.quyenDTO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,7 +26,7 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
     private JPasswordField[] txtPassword = new JPasswordField[3];
     private JLabel lblMK, lblUser, lblLuu, lblHuy;
     private int choiceTT = 0;
-    private Nhanvien_DTO thongTinNV = new Nhanvien_DTO();
+    private nhanVienDTO thongTinNV = new nhanVienDTO();
     private TaiKhoanDTO thongTinTK = new TaiKhoanDTO();
     private TaiKhoanBUS tkBUS = new TaiKhoanBUS();;
 
@@ -60,10 +64,10 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
                 break;
             }
         }
-        Nhanvien_BUS nvBUS = new Nhanvien_BUS();
-        for (int i = 0; i < nvBUS.listnv.size(); i++) {
-            if (nvBUS.listnv.get(i).getManv().equals(thongTinTK.getMaNV())) {
-                thongTinNV = nvBUS.listnv.get(i);
+        nhanVienBUS nvBUS = new nhanVienBUS();
+        for (int i = 0; i < nvBUS.getds_nhanVien().size(); i++) {
+            if (nvBUS.getds_nhanVien().get(i).getMANV().equals(thongTinTK.getMaNV())) {
+                thongTinNV = nvBUS.getds_nhanVien().get(i);
                 break;
             }
         }
@@ -92,15 +96,17 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
         pnContentLeft.setPreferredSize(new Dimension((width / 2) - 20, height));
         pnContentLeft.setMaximumSize(new Dimension(width / 2, height));
         pnContentLeft.add(Box.createRigidArea(new Dimension(0, 50)));
-
+        
         String thuocTinh[] = {"Mã nhân viên:", "Tên nhân viên:", "Chức vụ:", "SĐT:",
-            "Email:", "Địa chỉ:", "Ngày tạo:", "Tên đăng nhập:", "Mật khẩu cũ:", "Mật khẩu mới:", "Mật Khẩu:"};
+            "Email:", "Địa chỉ:", "Ngày tạo tài khoản:", "Quyền:", "Tên đăng nhập:", "Mật khẩu cũ:", "Mật khẩu mới:", "Mật Khẩu:"};
 
-        String duLieuNV[] = {thongTinNV.getManv(), thongTinNV.getTennv(), thongTinNV.getChucvu(),
-            thongTinNV.getSdt() + "", thongTinNV.getEmail(), thongTinNV.getDiachi(),
-            (String) thongTinTK.getNgayTao(), thongTinTK.getUsername(), "", "", thongTinTK.getPassword()};
+        quyenBUS quyen = new quyenBUS();
+        quyenDTO tenQuyen = quyen.searchquyenDTO(thongTinTK.getMaQuyen());
+        String duLieuNV[] = {thongTinNV.getMANV(), thongTinNV.getTENNV(), thongTinNV.getCHUCVU(),
+            thongTinNV.getSDT() + "", thongTinNV.getEMAIL(), thongTinNV.getDIACHI(),
+            (String) thongTinTK.getNgayTao(), tenQuyen.getTENQUYEN(), thongTinTK.getUsername(), "", "", thongTinTK.getPassword()};
 
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i <= 7; i++) {
             JPanel panel = new JPanel();
             panel.setLayout(new GridLayout(1, 1, 10, 10));
             panel.setPreferredSize(new Dimension(400, height_row));
@@ -136,12 +142,12 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
         pnUsername.setLayout(new GridLayout(1, 1, 10, 10));
         pnUsername.setPreferredSize(new Dimension(400, height_row));
         pnUsername.setMaximumSize(new Dimension(400, height_row));
-        JLabel lblUsername = new JLabel(thuocTinh[7], JLabel.LEFT);
+        JLabel lblUsername = new JLabel(thuocTinh[8], JLabel.LEFT);
         lblUsername.setFont(font);
         lblUsername.setPreferredSize(new Dimension(100, height_row)); // Kích thước cố định
 
         txtUsername = new JTextField();
-        txtUsername.setText(duLieuNV[7]);
+        txtUsername.setText(duLieuNV[8]);
         txtUsername.setMinimumSize(new Dimension(300, height_row)); // Kích thước cố định
         txtUsername.setPreferredSize(new Dimension(300, height_row)); // Kích thước cố định
         txtUsername.setMaximumSize(new Dimension(300, height_row)); // Kích thước cố định
@@ -150,7 +156,7 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
         pnUsername.add(txtUsername);
 
         //------ Password--------
-        int n = 8;
+        int n = 9;
         for (int i = 0; i < 3; i++) {
             pnPassword[i] = new JPanel();
             pnPassword[i].setLayout(new GridLayout(1, 1, 10, 10));
@@ -168,7 +174,7 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
             pnPassword[i].setVisible(false);
             n++;
         }
-        txtPassword[2].setText(duLieuNV[10]);
+        txtPassword[2].setText(duLieuNV[11]);
         txtPassword[2].setEnabled(false);
         pnPassword[2].setVisible(true);
 
@@ -262,8 +268,7 @@ public class ThongTinTaiKhoan extends JPanel implements MouseListener {
 
     public boolean check_NewPassword(String pass) {
         if (!tkBUS.checkPASSWORD(pass)) {
-            JOptionPane.showMessageDialog(null,
-                    "<html>Chỉ được chứa kí tự số, chữ hoa<br>Chữ thường, kí tự đặc biệt: !, @</html>", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            
             return false;
         }
         return true;

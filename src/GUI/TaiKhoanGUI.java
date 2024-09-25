@@ -1,9 +1,10 @@
 package GUI;
 
-import BUS.Nhanvien_BUS;
 import BUS.TaiKhoanBUS;
+import BUS.nhanVienBUS;
 import BUS.quyenBUS;
 import DTO.TaiKhoanDTO;
+import DTO.quyenDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -58,21 +59,26 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
     private Color normal = Color.decode("#0A3D62");
     Color hover = Color.decode("#60A3BC");
     private TaiKhoanDTO tkDN = new TaiKhoanDTO();
+    private ArrayList<quyenDTO> dsQuyen;
 
     Font font = new Font("Tahoma", Font.BOLD, 13);
     Font font_family = new Font("Tahoma", Font.PLAIN, 12);
 
     public TaiKhoanGUI() {
         dstk = tkBUS.getDsTK();//truyen du lieu vao lop GUI
+        quyenBUS quyen = new quyenBUS();
+        this.dsQuyen = quyen.getList();
         init();
     }
 
-    public TaiKhoanGUI(StoreScreen s,int width, int height) {
+    public TaiKhoanGUI(StoreScreen s, int width, int height) {
         this.width = width;
         this.height = height;
         this.tkDN = StoreScreen.tkUSER;
         dstk = tkBUS.getDsTK();//truyen du lieu vao lop GUI
 
+        quyenBUS quyen = new quyenBUS();
+        this.dsQuyen = quyen.getList();
         init();
 
     }
@@ -95,7 +101,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         Border borderBottom = BorderFactory.createMatteBorder(0, 0, 2, 0, normal);
         pnHead.setBorder(borderBottom);
 
-        String[] thuocTinh = {"Mã nhân viên", "Tên đăng nhập", "Mật khẩu", "Ngày tạo", "Mã Quyền", "Tình Trạng", "Mở/Khoá tài khoản"};
+        String[] thuocTinh = {"Mã nhân viên", "Tên đăng nhập", "Mật khẩu", "Ngày tạo", "Quyền", "Tình Trạng", "Mở/Khoá tài khoản"};
         JLabel[] lblHead = new JLabel[thuocTinh.length];
         for (int i = 0; i < lblHead.length; i++) {
             lblHead[i] = new JLabel(thuocTinh[i], JLabel.CENTER);
@@ -112,8 +118,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         for (int i = 0; i < dstk.size(); i++) {
             final int id = i;
             pnContent[i] = new JPanel();
-            if(!tkDN.equals("")){
-                if(tkDN.getUsername().equals(dstk.get(i).getUsername())){
+            if (!tkDN.equals("")) {
+                if (tkDN.getUsername().equals(dstk.get(i).getUsername())) {
                     pnContent[i].setVisible(false);
                 }
             }
@@ -127,8 +133,10 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             JLabel[] lblContent = new JLabel[thuocTinh.length];
             String[] value;
 
+            quyenBUS quyen = new quyenBUS();
+            quyenDTO q = quyen.searchquyenDTO(dstk.get(i).getMaQuyen());
             value = new String[]{dstk.get(i).getMaNV(), dstk.get(i).getUsername(), "********",
-                dstk.get(i).getNgayTao(), dstk.get(i).getMaQuyen(), (dstk.get(i).getState() == 1) ? "Đang hoạt động" : "Đã khoá"};
+                dstk.get(i).getNgayTao(), q.getTENQUYEN(), (dstk.get(i).getState() == 1) ? "Đang hoạt động" : "Đã khoá"};
 
             for (int j = 0; j < thuocTinh.length - 1; j++) {
                 lblContent[j] = new JLabel(value[j], JLabel.CENTER);
@@ -138,7 +146,6 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                 lblContent[0].setFont(new Font("Tahoma", Font.BOLD, 12));
                 pnContent[i].add(lblContent[j]);
             }
-
 
             ImageIcon icon = new ImageIcon("./src/images/User-Lock.png");
 
@@ -154,7 +161,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             lblContent[lblContent.length - 5].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 1){
+                    if (e.getClickCount() == 1) {
                         lblContent[lblContent.length - 5].setText("********");
                     }
                     if (e.getClickCount() == 2) {
@@ -162,7 +169,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                     }
                 }
             });
-            
+
             lblContent[lblContent.length - 1].addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -171,7 +178,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                         panel.setForeground(Color.RED); // Thiết lập màu chữ cho header
 
                         Object[] options = {"Có", "Không"};
-                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn khoá user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn khoá user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                         if (result == JOptionPane.YES_OPTION) {
                             dstk.get(id).setState(0);
                             lblContent[lblContent.length - 2].setText("Đã khoá");
@@ -179,7 +186,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
 
                     } else {
                         Object[] options = {"Có", "Không"};
-                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn mở khoá cho user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+                        int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn mở khoá cho user này không?", "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                         if (result == JOptionPane.YES_OPTION) {
                             dstk.get(id).setState(1);
                             lblContent[lblContent.length - 2].setText("Đang hoạt động");
@@ -287,10 +294,10 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
 
     private void initContentThaoTac() throws SQLException {
         //Mã nhân viên
-        Nhanvien_BUS nv = new Nhanvien_BUS();
+        nhanVienBUS nv = new nhanVienBUS();
         cbxMaNV = new JComboBox<>();
-        for (int i = 0; i < nv.listnv.size(); i++) {
-            cbxMaNV.addItem(nv.listnv.get(i).getManv());
+        for (int i = 0; i < nv.getds_nhanVien().size(); i++) {
+            cbxMaNV.addItem(nv.getds_nhanVien().get(i).getMANV());
         }
         cbxMaNV.setSelectedIndex(0);
 
@@ -318,10 +325,9 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         });
 
         //Mã quyền
-        quyenBUS quyen = new quyenBUS();
         cbxMaQuyen = new JComboBox<>();
-        for (int i = 0; i < quyen.getList().size(); i++) {
-            cbxMaQuyen.addItem(quyen.getList().get(i).getMAQUYEN());
+        for (int i = 0; i < dsQuyen.size(); i++) {
+            cbxMaQuyen.addItem(dsQuyen.get(i).getTENQUYEN());
         }
         cbxMaQuyen.setSelectedIndex(0);
 
@@ -483,7 +489,10 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         cbxMaNV.setSelectedItem(selectedTK.getMaNV());
         txtUsername.setText(selectedTK.getUsername());
         pwfMK.setText(selectedTK.getPassword());
-        cbxMaQuyen.setSelectedItem(selectedTK.getMaQuyen());
+
+        quyenBUS quyen = new quyenBUS();
+        quyenDTO q = quyen.searchquyenDTO(selectedTK.getMaQuyen());
+        cbxMaQuyen.setSelectedItem(q.getTENQUYEN());
         System.out.println(selectedTK.getMaNV());
     }
 
@@ -502,7 +511,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
                     "Tên Đăng nhập không được để trống!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if(!tkBUS.checkUSERNAME(username)){
+        if (!tkBUS.checkUSERNAME(username)) {
             JOptionPane.showMessageDialog(null,
                     "Tên đăng nhập chỉ chứa chữ cái và chữ số!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -520,8 +529,6 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
             return false;
         }
         if (!tkBUS.checkPASSWORD(password)) {
-            JOptionPane.showMessageDialog(null,
-                    "<html>Chỉ được chứa kí tự số, chữ hoa<br>Chữ thường, kí tự đặc biệt: !, @</html>", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
@@ -553,7 +560,9 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         String maNV = (String) cbxMaNV.getSelectedItem();
         String username = txtUsername.getText();
         String password = new String(pwfMK.getPassword());
-        String maQuyen = (String) cbxMaQuyen.getSelectedItem();
+//        String maQuyen = (String) cbxMaQuyen.getSelectedItem();
+
+        int idquyen = cbxMaQuyen.getSelectedIndex();
 
         // Lấy ngày hiện tại
         LocalDate today = LocalDate.now();
@@ -567,7 +576,7 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         if (!check_MaNV(maNV)) {
             if (check_Usename_Password(username, password)) {
                 System.out.println("OK");
-                TaiKhoanDTO tk = new TaiKhoanDTO(maNV, username, password, date, maQuyen, 1);
+                TaiKhoanDTO tk = new TaiKhoanDTO(maNV, username, password, date, dsQuyen.get(idquyen).getMAQUYEN(), 1);
                 tkBUS.add(tk);
                 refresh();
                 this.revalidate(); // Cập nhật lại giao diện
@@ -583,7 +592,8 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
         String username = txtUsername.getText();
         char[] pass = pwfMK.getPassword(); // Lấy dữ liệu đã nhập từ JPasswordField
         String password = new String(pass);
-        String maQuyen = (String) cbxMaQuyen.getSelectedItem();
+//        String maQuyen = (String) cbxMaQuyen.getSelectedItem();
+        int idquyen = cbxMaQuyen.getSelectedIndex();
 
         // Lấy ngày hiện tại
         LocalDate today = LocalDate.now();
@@ -593,24 +603,23 @@ public class TaiKhoanGUI extends JPanel implements MouseListener {
 
         // Chuyển đổi LocalDate thành chuỗi theo định dạng
         String date = today.format(formatter);
-
-        TaiKhoanDTO tk = new TaiKhoanDTO(maNV, username, password, date, maQuyen, 1);
-        for (int i = 0; i < dstk.size(); i++) {
-            if (dstk.get(i).getMaNV().equalsIgnoreCase(maNV)) {
-                if (!username.isEmpty()) {
+        if (tkBUS.checkPASSWORD(password)) {
+            TaiKhoanDTO tk = new TaiKhoanDTO(maNV, username, password, date, dsQuyen.get(idquyen).getMAQUYEN(), 1);
+            for (int i = 0; i < dstk.size(); i++) {
+                if (dstk.get(i).getMaNV().equalsIgnoreCase(maNV)) {
                     tkBUS.set(tk);
                     refresh();
                     break;
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Username không được để trống, xin vui lòng nhập username !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 }
-
             }
+
+            JOptionPane.showMessageDialog(null,
+                    "Bạn đã lưu tài khoản thành công !", "Thông báo", JOptionPane.DEFAULT_OPTION);
         }
-        JOptionPane.showMessageDialog(null,
-                "Bạn đã lưu tài khoản thành công !", "Thông báo", JOptionPane.DEFAULT_OPTION);
     }
+    
+
+    
 
     public void DeleteTK() {
         tkBUS.delete(selectedTK.getMaNV());

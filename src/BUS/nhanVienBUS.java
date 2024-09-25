@@ -206,6 +206,15 @@ public class nhanVienBUS {
         }
         return re;
     }
+    
+    public String getTenNhanVien(String maNV){
+        for(nhanVienDTO nv: ds_nhanVien){
+            if(maNV.equals(nv.getMANV())){
+                return nv.getTENNV();
+            }
+        }
+        return null;
+    }
 
     public static void main(String[] args) throws SQLException {
         nhanVienBUS bus = new nhanVienBUS();
