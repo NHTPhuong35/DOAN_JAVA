@@ -3,6 +3,7 @@ package GUI;
 import BUS.ChitietHD_BUS;
 import BUS.SanPhamBUS;
 import BUS.chitietphieunhap_BUS;
+import BUS.chitietsanpham_BUS;
 import BUS.loaiSPBUS;
 import DTO.SanPhamDTO;
 import java.awt.*;
@@ -178,38 +179,74 @@ public class SanPhamGUI extends JPanel implements MouseListener {
     public void DeleteSP() {
         ChitietHD_BUS cthd = new ChitietHD_BUS();
         chitietphieunhap_BUS ctpn = new chitietphieunhap_BUS();
-
+        chitietsanpham_BUS ctsp;
         if (selectedSP == null || selectedSP.getMaSP() == null) {
             System.out.println("Mã sản phẩm không hợp lệ");
             return;
         }
-
-        // Kiểm tra danh sách phiếu nhập
-        for (int i = 0; i < ctpn.getList().size(); i++) {
-            if (selectedSP.getMaSP().equals(ctpn.getList().get(i).getMasp())) {
-                spBUS.delete(selectedSP.getMaSP(), true);
-                selectedSP = new SanPhamDTO();
-                refresh();
-                return; // Đã tìm thấy và xóa, thoát khỏi phương thức
+        try {
+            ctsp = new chitietsanpham_BUS();
+            int sum = 0;
+            for (int i = 0; i < ctsp.getlistByFilter(selectedSP.getMaSP()).size(); i++) {
+                sum += ctsp.getlistByFilter(selectedSP.getMaSP()).get(i).getSoluong();
             }
-        }
+            if (sum > 0) {
+                JOptionPane.showMessageDialog(null,
+                        "Số lượng sản phẩm còn không thể xoá!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else {
+                Object[] options = {"Có", "Không"};
+                int result = JOptionPane.showOptionDialog(
+                        null,
+                        "Bạn có chắc chắn muốn xoá sản phẩm này?", // Nội dung thông báo
+                        "Xác nhận xoá", // Tiêu đề
+                        JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
+                        JOptionPane.QUESTION_MESSAGE, // Biểu tượng dấu hỏi
+                        null,
+                        options,
+                        options[0]
+                );
 
-        // Kiểm tra danh sách hóa đơn chi tiết
-        for (int i = 0; i < cthd.getList().size(); i++) {
-            if (selectedSP.getMaSP().equals(cthd.list.get(i).getMaSP())) {
-                spBUS.delete(selectedSP.getMaSP(), true);
-                selectedSP = new SanPhamDTO();
-                refresh();
-                return; // Đã tìm thấy và xóa, thoát khỏi phương thức
+                // Xử lý kết quả
+                if (result == JOptionPane.YES_OPTION) {
+                    // Kiểm tra danh sách phiếu nhập
+                    for (int i = 0; i < ctpn.getList().size(); i++) {
+                        if (selectedSP.getMaSP().equals(ctpn.getList().get(i).getMasp())) {
+                            spBUS.delete(selectedSP.getMaSP(), true);
+                            selectedSP = new SanPhamDTO();
+                            refresh();
+                            return; // Đã tìm thấy và xóa, thoát khỏi phương thức
+                        }
+                    }
+
+                    // Kiểm tra danh sách hóa đơn chi tiết
+                    for (int i = 0; i < cthd.getList().size(); i++) {
+                        if (selectedSP.getMaSP().equals(cthd.list.get(i).getMaSP())) {
+                            spBUS.delete(selectedSP.getMaSP(), true);
+                            selectedSP = new SanPhamDTO();
+                            refresh();
+                            return; // Đã tìm thấy và xóa, thoát khỏi phương thức
+                        }
+                    }
+
+                    // Xóa nếu không có trong các danh sách trên
+                    spBUS.delete(selectedSP.getMaSP(), false);
+
+                    // Làm mới đối tượng và cập nhật giao diện
+                    selectedSP = new SanPhamDTO();
+                    refresh();
+                    
+                    JOptionPane.showMessageDialog(null,
+                            "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    return;
+                } else {
+                    selectedSP = new SanPhamDTO();
+                    clearBordersExcept(-1);
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        // Xóa nếu không có trong các danh sách trên
-        spBUS.delete(selectedSP.getMaSP(), false);
-
-        // Làm mới đối tượng và cập nhật giao diện
-        selectedSP = new SanPhamDTO();
-        refresh();
     }
 
     public void SearchSP(ArrayList<String> sp) {

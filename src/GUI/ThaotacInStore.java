@@ -638,27 +638,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     JOptionPane.showMessageDialog(null,
                             "Xin vui lòng chọn sản phẩm cần xoá !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    Object[] options = {"Có", "Không"};
-                    int result = JOptionPane.showOptionDialog(
-                            null,
-                            "Bạn có chắc chắn muốn xoá sản phẩm này?", // Nội dung thông báo
-                            "Xác nhận xoá", // Tiêu đề
-                            JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
-                            JOptionPane.QUESTION_MESSAGE, // Biểu tượng dấu hỏi
-                            null,
-                            options,
-                            options[0]
-                    );
-
-                    // Xử lý kết quả
-                    if (result == JOptionPane.YES_OPTION) {
-                        spGUI.DeleteSP();
-                        JOptionPane.showMessageDialog(null,
-                                "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
-                    } else {
-                        spGUI.selectedSP = new SanPhamDTO();
-                        spGUI.clearBordersExcept(-1);
-                    }
+                    spGUI.DeleteSP();   
                 }
                 break;
             }

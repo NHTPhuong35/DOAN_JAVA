@@ -15,4 +15,4 @@ public class Main {
     }
 }
 
-//SangHard!
+//Sanghard!

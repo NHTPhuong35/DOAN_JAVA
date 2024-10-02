@@ -447,7 +447,8 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         String tenSP = txtTenSP.getText();
 
         String[] tenHinh = imageName.toArray(new String[imageName.size()]);
-        String gia = txtDonGia.getText();
+        String gia = txtDonGia.getText().replaceAll(",", "");
+        System.out.println(gia);
 
         if (check_TenSP(tenSP) && check_Gia(gia)) {
             SanPhamDTO sp = new SanPhamDTO(maSP, maLoai, tenSP, Double.parseDouble(gia), tenHinh, 1);
