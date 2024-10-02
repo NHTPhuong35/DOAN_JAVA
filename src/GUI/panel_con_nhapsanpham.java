@@ -56,6 +56,7 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
     private boolean isNewPanel;
     private int oldSoluong = 0;
     private double oldGianhap = 0;
+private boolean isUpdated = false;  // Biến cờ để kiểm soát
 
     public panel_con_nhapsanpham(int w, int m, panel_them_phieunhap panel_them_phieunhap) {
         this.thanhtien = 0;
@@ -198,7 +199,7 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
 
                         // Cập nhật thành tiền
                         String l = format_double.format(thanhtien);
-                        jlthanh_tien.setText("Thành tiền : " + l);
+                        jlthanh_tien.setText("Thành tiền : " + l+" Đ");
                         jt[3].setBorder(BorderFactory.createLineBorder(Color.GRAY));
                         kiem_tra = true;
 
@@ -233,7 +234,7 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
         });
 
         /////////////////////////	 Thành tiền		 /////////////////////////////////
-        jlthanh_tien = new JLabel("Thành tiền : " + thanhtien, JLabel.CENTER);
+        jlthanh_tien = new JLabel("Thành tiền : " + thanhtien +" Đ", JLabel.CENTER);
         jlthanh_tien.setPreferredSize(new Dimension(200, 20));
 
         ///////////////////////////// dau xoa panel ///////////////////////////////////
@@ -376,19 +377,27 @@ public class panel_con_nhapsanpham extends JPanel implements MouseListener {
     }
 
     public void update_chitietsanpham() throws SQLException {
-        xacnhan();
-        String masp = (String) option_masp.getSelectedItem();
-        String masize = (String) option_masize.getSelectedItem();
-
-        chitietsanpham_BUS = new chitietsanpham_BUS();
-        if (!chitietsanpham_BUS.select_masize_by_MASP(this.return_sanpham()).contains(masize)) {
-            chitietsanpham_BUS.add(new chitietsanpham_DTO(masp, masize, soluong));
-        } else {
-            chitietsanpham_BUS.updateAfterTT(new chitietsanpham_DTO(masp, masize, soluong));
-        }
-
+    // Kiểm tra nếu đã chạy rồi thì không thực hiện nữa
+    if (isUpdated) {
+        return;  // Không làm gì nếu đã cập nhật trước đó
     }
 
+    // Nếu chưa chạy lần nào thì tiếp tục thực hiện
+    xacnhan();
+    String masp = (String) option_masp.getSelectedItem();
+    String masize = (String) option_masize.getSelectedItem();
+
+    chitietsanpham_BUS = new chitietsanpham_BUS();
+    if (!chitietsanpham_BUS.select_masize_by_MASP(this.return_sanpham()).contains(masize)) {
+        chitietsanpham_BUS.add(new chitietsanpham_DTO(masp, masize, soluong));
+    } else {
+        chitietsanpham_BUS.updateAfterTT(new chitietsanpham_DTO(masp, masize, soluong));
+        System.err.println("fffffffffffffffff");
+    }
+
+    // Đánh dấu là đã cập nhật để không chạy lần nữa
+    isUpdated = true;
+}
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == jlx) {

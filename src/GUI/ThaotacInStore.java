@@ -722,7 +722,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
 
                                 int soluongTonKho = khoBUS.getSoLuongTonKho(masp, maSize); // Lấy số lượng tồn kho hiện tại
 
-                                if (soluongNhap > soluongTonKho) {
+                                if (soluongTonKho>0) {
                                     JOptionPane.showMessageDialog(null, "Phiếu nhập " + mapn + " chứa sản phẩm " + masp + " có số lượng nhiều hơn số lượng tồn kho, không thể xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
