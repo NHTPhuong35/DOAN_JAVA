@@ -65,6 +65,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.TableCellEditor;
 
 public class ThaotacInStore extends JPanel implements MouseListener {
@@ -919,6 +920,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 MouseAdapter click = new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
+                        nccGUI.table.setSelectionBackground(UIManager.getColor("Table.selectionBackground"));
+                        nccGUI.table.setSelectionForeground(UIManager.getColor("Table.selectionForeground"));
                         if (nccGUI.isEditingEnabled) {
                             // Xử lý sự kiện click chuột
                             int row = nccGUI.table.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng của điểm click
@@ -941,7 +944,6 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         nccGUI.isEditingEnabled = true;
                         nccGUI.listUpdate = new ArrayList<>();
                         nccGUI.table.addMouseListener(click);
-
                         break;
                     case "Lưu/Thoát":
                         Object[] options = {"Có", "Không"};

@@ -74,8 +74,9 @@ public class nhacungcapGUI extends JPanel {
             }
 
         };
-        
-
+        table.setSelectionBackground(table.getBackground());
+        table.setSelectionForeground(table.getForeground());
+        table.setIntercellSpacing(new java.awt.Dimension(0, 0));
         nhacungcapBUS nccBUS = new nhacungcapBUS();
         addDataInTable(nccBUS.getList());
 
@@ -110,7 +111,7 @@ public class nhacungcapGUI extends JPanel {
         Vector data = new Vector();
         data.add(ncc.getMANCC());
         data.add(ncc.getTENNCC());
-        data.add(ncc.getSDT());
+        data.add("0"+ncc.getSDT());
         tableModel.addRow(data);
         tableModel.fireTableDataChanged();
 
