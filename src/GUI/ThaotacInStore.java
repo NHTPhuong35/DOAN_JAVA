@@ -65,6 +65,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.TableCellEditor;
 
 public class ThaotacInStore extends JPanel implements MouseListener {
@@ -887,41 +888,32 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Import Excel": {
-                JOptionPane.showMessageDialog(null, "Chọn file excel .xlsx hoặc .xls cần import vào\nMỗi dòng trong file gồm 2 cột: TENNCC va SDT\nLưu ý: \nTên nhà cung cấp chỉ chứa chữ cái\nSố điện thoại theo định dạng 10 số");
-
+                JOptionPane.showMessageDialog(null, "Chọn file excel .xlsx hoặc .xls cần import \nMỗi dòng trong file gồm 2 cột: \n -Cột 1 chứa tên nhà cung cấp \n -Cột 2 chứa số điện thoại\nLưu ý: \nTên nhà cung cấp chỉ chứa chữ cái và không được trùng tên \nSố điện thoại theo định dạng 10 số, bắt đầu là số 0 và không được trùng số điện thoại");
+                JOptionPane.showMessageDialog(null, "Chỉ thêm những nhà cung cấp có dữ liệu thỏa yêu cầu");
                 if (nccBUS.importExcelData(nccGUI)) {
-                    JOptionPane.showMessageDialog(null, "Thêm thành công");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại do dữ liệu không hợp lệ \nHoặc cấu trúc trong file khong đúng yêu cầu");
-                }
+                    JOptionPane.showMessageDialog(null, "Đã thực hiện xong nhập excel");
+                }else
+                    JOptionPane.showMessageDialog(null, "Thực hiện nhập excel thất bại!");
             }
             case "Sửa": {
-                MouseAdapter click = new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (nccGUI.isEditingEnabled) {
-                            // Xử lý sự kiện click chuột
-                            int row = nccGUI.table.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng của điểm click
-
-                            // Kiểm tra xem sự kiện click có phải là click chuột trái
-                            if (e.getButton() == MouseEvent.BUTTON1) {
-                                add_updateNhacungcapGUI n = new add_updateNhacungcapGUI(nccGUI, "update");
-
-                            }
-                        }
-
-                    }
-                };
                 switch (itemClicked.title.getText()) {
                     case "Sửa":
-                        JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa thông tin\nKhông thể sửa đổi MANCC!\nTên nhà cung cấp không chứa chữ số và các kí tự đặc biệt\nSố điện thoại 10 số bắt đầu là số 0\nHoàn thành sửa đổi thì ấn nút Lưu");
-
+                        nccGUI.table.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "Chỉ có thể sửa đổi:\nTên nhà cung cấp: \n -Chỉ chứa chữ cái \n -Không được trùng tên\nSố điện thoại: \n -10 số bắt đầu là số 0 \n -Không được trùng số điện thoại \nHoàn thành sửa đổi thì ấn Xác nhận");
+                        JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa!");
+                        nccGUI.clickInJTable = new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                    if (e.getButton() == MouseEvent.BUTTON1) {
+                                        add_updateNhacungcapGUI n = new add_updateNhacungcapGUI(nccGUI, "update");
+                                    }
+                            }
+                        };
+                        nccGUI.table.addMouseListener(nccGUI.clickInJTable);
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
-                        nccGUI.isEditingEnabled = true;
                         nccGUI.listUpdate = new ArrayList<>();
-                        nccGUI.table.addMouseListener(click);
-
+                        
                         break;
                     case "Lưu/Thoát":
                         Object[] options = {"Có", "Không"};
@@ -942,8 +934,10 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         }
                         itemClicked.title.setText("Sửa");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
-                        nccGUI.isEditingEnabled = false;
-                        nccGUI.table.removeMouseListener(click);
+                        nccGUI.table.removeMouseListener(nccGUI.clickInJTable);
+                        nccGUI.clickInJTable = null;
+                        nccGUI.table.setEnabled(false);
+                        nccGUI.table.clearSelection();
                         nccGUI.listUpdate.clear();
 
                 }
@@ -955,6 +949,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     case "Xóa":
                         JOptionPane.showMessageDialog(null, "Để chọn nhiều ô cần xóa:\nKéo chuột\nHoặc giữ Ctrl và click vào các ô cần xóa");
                         itemClicked.title.setText("Lưu/Thoát");
+                        nccGUI.table.setEnabled(true);
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
                         break;
                     case "Lưu/Thoát":
@@ -990,8 +985,10 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         } else {
                             JOptionPane.showMessageDialog(null, "Dữ liệu không thay đổi");
                         }
+                        nccGUI.table.setEnabled(false);
                         itemClicked.title.setText("Xóa");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/remove_icon.png"));
+                        nccGUI.table.clearSelection();
                         break;
                 }
             }
@@ -1010,33 +1007,28 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Sửa": {
-                MouseAdapter click = new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (loaiGUI.isEditingEnabled) {
-                            // Xử lý sự kiện click chuột
-                            int row = loaiGUI.table.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng của điểm click
-
-                            // Kiểm tra xem sự kiện click có phải là click chuột trái
-                            System.out.println("lam hien form");
-                            if (e.getButton() == MouseEvent.BUTTON1) {
-                                add_updateLoaiSPGUI n = new add_updateLoaiSPGUI(loaiGUI, "update");
-
-                            }
-                        }
-
-                    }
-                };
+                
                 switch (itemClicked.title.getText()) {
                     case "Sửa":
-                        JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa thông tin\nKhông thể sửa đổi MALOAI!\nTên loại không chứa các kí tự đặc biệt");
-
+                        loaiGUI.table.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "Tên loại không chứa các kí tự đặc biệt và không được trùng tên");
+                        JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa thông tin");
+                        
+                        loaiGUI.clickInJTable = new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                    
+                                    if (e.getButton() == MouseEvent.BUTTON1) {
+                                        add_updateLoaiSPGUI n = new add_updateLoaiSPGUI(loaiGUI, "update");
+        
+                                    }
+                            }
+                        };
+                        loaiGUI.table.addMouseListener(loaiGUI.clickInJTable);
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
-
-                        loaiGUI.isEditingEnabled = true;
                         loaiGUI.listUpdate = new ArrayList<>();
-                        loaiGUI.table.addMouseListener(click);
+                        
                         break;
                     case "Lưu/Thoát":
                         Object[] options = {"Có", "Không"};
@@ -1057,10 +1049,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         }
                         itemClicked.title.setText("Sửa");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
-                        loaiGUI.isEditingEnabled = false;
-                        loaiGUI.table.removeMouseListener(click);
+                        loaiGUI.table.removeMouseListener(loaiGUI.clickInJTable);
+                        loaiGUI.clickInJTable = null;
+                        loaiGUI.table.setEnabled(false);
+                        loaiGUI.table.clearSelection();
                         loaiGUI.listUpdate.clear();
-
                 }
 
                 break;
@@ -1068,6 +1061,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
             case "Xóa": {
                 switch (itemClicked.title.getText()) {
                     case "Xóa":
+                        loaiGUI.table.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "Để chọn nhiều ô cần xóa:\nKéo chuột\nHoặc giữ Ctrl và click vào các ô cần xóa");
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
@@ -1109,6 +1103,8 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         }
                         itemClicked.title.setText("Xóa");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/remove_icon.png"));
+                        loaiGUI.table.setEnabled(false);
+                        loaiGUI.table.clearSelection();
                         break;
                 }
             }

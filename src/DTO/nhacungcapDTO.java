@@ -11,10 +11,10 @@ package DTO;
 public class nhacungcapDTO {
     private String MANCC;
     private String TENNCC;
-    private int SDT;
+    private String SDT;
     private int TRANGTHAI = 1;
     
-    public nhacungcapDTO(String ma, String ten, int s){
+    public nhacungcapDTO(String ma, String ten, String s){
         MANCC = ma;
         TENNCC = ten;
         SDT = s;
@@ -22,7 +22,7 @@ public class nhacungcapDTO {
     public nhacungcapDTO(String ten,String sdt){
         MANCC = "";
         TENNCC = ten;
-        SDT = Integer.parseInt(sdt);
+        SDT = sdt;
     }
     public void setTRANGTHAI(int n){
         TRANGTHAI = n;
@@ -38,7 +38,7 @@ public class nhacungcapDTO {
         TENNCC=s;
     }
     
-    public void setSDT(int s){
+    public void setSDT(String s){
         SDT=s;
     }
     
@@ -50,7 +50,7 @@ public class nhacungcapDTO {
         return TENNCC;
     }
     
-     public int getSDT(){
+     public String getSDT(){
          return SDT;
      }
  
