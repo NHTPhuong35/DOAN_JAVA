@@ -58,10 +58,10 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
             JLabel titleGUI = null;
             switch (type) {
                 case "update":
-                    titleGUI = new JLabel("Sua nhà cung cáp".toUpperCase(), JLabel.CENTER);
+                    titleGUI = new JLabel("Sửa nhà cung cấp".toUpperCase(), JLabel.CENTER);
                     break;
                 case "add":
-                    titleGUI = new JLabel("Thêm nhà cung cáp".toUpperCase(), JLabel.CENTER);
+                    titleGUI = new JLabel("Thêm nhà cung cấp".toUpperCase(), JLabel.CENTER);
                     break;
             }
             titleGUI.setFont(Cacthuoctinh_phuongthuc_chung.font_header);
@@ -90,7 +90,7 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
 
                 add(item);
             }
-
+            
             JPanel btn_wrap = new JPanel(new FlowLayout(1));
             btn_submit = new JPanel();
             cssBtn(btn_submit, "Xác nhận", "btn_submit");
@@ -162,8 +162,8 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
 
                     break;
                 case "btn_submit":
-                    String ten = addNCC.getData[0].getText();
-                    String sdt = addNCC.getData[1].getText();
+                    String ten = (addNCC.getData[0].getText()).trim();
+                    String sdt = (addNCC.getData[1].getText()).trim();
                     nhacungcapBUS nccBUS = new nhacungcapBUS();
                     switch (type) {
                         case "update": {
@@ -201,6 +201,13 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                             } else if (!nccBUS.checkTENNCC(ten)) {
                                 addNCC.error[0].setText("Tên chỉ chứa chữ cái");
                             } else {
+                                for (nhacungcapDTO ncc : nccBUS.getList()) {
+                                    if (ncc.getTENNCC().equals(ten)) {
+                                        addNCC.error[0].setText("Tên đã tồn tại");
+                                        flag_ten = false;
+                                        return;
+                                    }
+                                }
                                 flag_ten = true;
                                 addNCC.error[0].setText("");
                             }
@@ -209,6 +216,13 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                             } else if (!nccBUS.checkSDT(sdt)) {
                                 addNCC.error[1].setText("Chứa 10 kí tự số và bắt đầu là số 0");
                             } else {
+                                for (nhacungcapDTO ncc : nccBUS.getList()) {
+                                    if ((ncc.getSDT()).equals(sdt)) {
+                                        addNCC.error[1].setText("Số điện thoại đã tồn tại");
+                                        flag_sdt = false;
+        
+                                    }
+                                }
                                 flag_sdt = true;
                                 addNCC.error[1].setText("");
                             }
@@ -222,24 +236,7 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                             dispose();
                             return;
                         }
-                        for (nhacungcapDTO ncc : nccBUS.getList()) {
-                            if (ncc.getTENNCC().equals(ten)) {
-                                addNCC.error[0].setText("Tên đã tồn tại");
-                                flag_ten = false;
-
-                            }
-
-                            if (("0" + String.valueOf(ncc.getSDT())).equals(sdt)) {
-                                addNCC.error[1].setText("Số điện thoại đã tồn tại");
-                                flag_sdt = false;
-
-                            }
-
-                            
-                            if (!flag_ten || !flag_sdt) {
-                                return;
-                            }
-                        }
+                        
                         
                             
                         Object[] options1 = {"Có", "Không"};
@@ -251,7 +248,7 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                                     int row = nccGUI.table.getSelectedRow();
                                     String MANCC = (String) nccGUI.table.getValueAt(row, 0);
                                     String TENold = (String) nccGUI.table.getValueAt(row, 1);
-                                    int SDTold = Integer.parseInt((String)nccGUI.table.getValueAt(row, 2));
+                                    String SDTold = (String)nccGUI.table.getValueAt(row, 2);
                                     nhacungcapDTO nccDTO = new nhacungcapDTO(MANCC, TENold, SDTold);//
                                     if(!ten.equals("")){
                                          nccGUI.tableModel.setValueAt(ten, row, 1);
@@ -260,7 +257,7 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                                        
                                     if(!sdt.equals("")){
                                         nccGUI.tableModel.setValueAt(sdt, row, 2);
-                                        nccDTO.setSDT(Integer.parseInt(sdt));
+                                        nccDTO.setSDT(sdt);
                                     }
                                         
                                     nccGUI.tableModel.fireTableDataChanged();

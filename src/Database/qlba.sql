@@ -1,646 +1,449 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 13, 2024 at 04:47 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: qlba
+-- ------------------------------------------------------
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `qlba`
---
-
--- --------------------------------------------------------
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `chitiethoadon`
 --
 
+DROP TABLE IF EXISTS `chitiethoadon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chitiethoadon` (
-  `SOHD` varchar(10) NOT NULL,
-  `MASP` varchar(10) NOT NULL,
-  `MASIZE` varchar(10) NOT NULL,
-  `SOLUONG` int(11) NOT NULL,
-  `DONGIA` double NOT NULL
+  `SOHD` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MASP` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MASIZE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SOLUONG` int NOT NULL,
+  `DONGIA` double NOT NULL,
+  PRIMARY KEY (`SOHD`,`MASP`,`MASIZE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `chitiethoadon`
 --
 
-INSERT INTO `chitiethoadon` (`SOHD`, `MASP`, `MASIZE`, `SOLUONG`, `DONGIA`) VALUES
-('HD0', 'SP1', 'SIZE1', 3, 220000),
-('HD0', 'SP3', 'SIZE5', 2, 418000),
-('HD1', 'SP6', 'SIZE4', 1, 352000),
-('HD2', 'SP1', 'SIZE1', 2, 264000);
-
--- --------------------------------------------------------
+LOCK TABLES `chitiethoadon` WRITE;
+/*!40000 ALTER TABLE `chitiethoadon` DISABLE KEYS */;
+INSERT INTO `chitiethoadon` VALUES ('HD0','SP1','SIZE0',1,270000),('HD0','SP5','SIZE1',1,281000),('HD1','SP4','SIZE4',1,427000),('HD1','SP7','SIZE3',1,360000),('HD1','SP7','SIZE4',1,360000),('HD2','SP6','SIZE4',1,193000),('HD2','SP7','SIZE4',1,360000);
+/*!40000 ALTER TABLE `chitiethoadon` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `chitietphieunhap`
 --
 
+DROP TABLE IF EXISTS `chitietphieunhap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chitietphieunhap` (
-  `MAPN` varchar(10) NOT NULL,
-  `MASP` varchar(10) NOT NULL,
-  `SOLUONG` int(11) NOT NULL,
+  `MAPN` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MASP` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SOLUONG` int NOT NULL,
   `GIANHAP` double NOT NULL,
   `THANHTIEN` double NOT NULL,
-  `MASIZE` varchar(10) NOT NULL
+  `MASIZE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`MAPN`,`MASP`,`MASIZE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `chitietphieunhap`
 --
 
-INSERT INTO `chitietphieunhap` (`MAPN`, `MASP`, `SOLUONG`, `GIANHAP`, `THANHTIEN`, `MASIZE`) VALUES
-('PN001', 'SP1', 10, 200000, 2000000, 'SIZE1'),
-('PN001', 'SP1', 10, 200000, 2000000, 'SIZE2'),
-('PN001', 'SP2', 10, 250000, 2500000, 'SIZE4'),
-('PN001', 'SP3', 10, 380000, 3800000, 'SIZE5'),
-('PN001', 'SP6', 5, 320000, 1600000, 'SIZE2'),
-('PN001', 'SP6', 10, 320000, 3200000, 'SIZE4'),
-('PN011', 'SP1', 4, 240000, 960000, 'SIZE5'),
-('PN011', 'SP4', 10, 250000, 2500000, 'SIZE2');
-
--- --------------------------------------------------------
+LOCK TABLES `chitietphieunhap` WRITE;
+/*!40000 ALTER TABLE `chitietphieunhap` DISABLE KEYS */;
+INSERT INTO `chitietphieunhap` VALUES ('PN001','SP1',10,264000,2640000,'SIZE0'),('PN001','SP1',10,264000,2640000,'SIZE1'),('PN001','SP1',10,264000,2640000,'SIZE2'),('PN022','SP2',20,129900,2598000,'SIZE1'),('PN022','SP2',10,129900,1299000,'SIZE2'),('PN023','SP3',10,275000,2750000,'SIZE3'),('PN023','SP4',15,418000,6270000,'SIZE4'),('PN023','SP5',10,275000,2750000,'SIZE1'),('PN023','SP5',10,275000,2750000,'SIZE2'),('PN024','SP6',20,189000,3780000,'SIZE4'),('PN025','SP7',10,352000,3520000,'SIZE3'),('PN025','SP7',5,352000,1760000,'SIZE4');
+/*!40000 ALTER TABLE `chitietphieunhap` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `chitietquyen`
 --
 
+DROP TABLE IF EXISTS `chitietquyen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chitietquyen` (
-  `MAQUYEN` varchar(10) NOT NULL,
-  `MACHUCNANG` varchar(10) NOT NULL,
-  `HANHDONG` varchar(30) NOT NULL
+  `MAQUYEN` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MACHUCNANG` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `HANHDONG` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`MAQUYEN`,`MACHUCNANG`,`HANHDONG`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `chitietquyen`
 --
 
-INSERT INTO `chitietquyen` (`MAQUYEN`, `MACHUCNANG`, `HANHDONG`) VALUES
-('QNV', 'HD', 'Thêm'),
-('QNV', 'HD', 'Xem'),
-('QNV', 'KH', 'Sửa'),
-('QNV', 'KH', 'Thêm'),
-('QNV', 'KH', 'Xem'),
-('QNV', 'SP', 'Xem'),
-('QQLBH', 'HD', 'Sửa'),
-('QQLBH', 'HD', 'Thêm'),
-('QQLBH', 'HD', 'Xem'),
-('QQLBH', 'HD', 'Xóa'),
-('QQLBH', 'KH', 'Sửa'),
-('QQLBH', 'KH', 'Thêm'),
-('QQLBH', 'KH', 'Xem'),
-('QQLBH', 'KH', 'Xóa'),
-('QQLBH', 'NV', 'Sửa'),
-('QQLBH', 'NV', 'Thêm'),
-('QQLBH', 'NV', 'Xem'),
-('QQLBH', 'NV', 'Xóa'),
-('QQLBH', 'SP', 'Xem'),
-('QQLHT', 'HD', 'Sửa'),
-('QQLHT', 'HD', 'Thêm'),
-('QQLHT', 'HD', 'Xem'),
-('QQLHT', 'HD', 'Xóa'),
-('QQLHT', 'KH', 'Sửa'),
-('QQLHT', 'KH', 'Thêm'),
-('QQLHT', 'KH', 'Xem'),
-('QQLHT', 'KH', 'Xóa'),
-('QQLHT', 'LOAI', 'Sửa'),
-('QQLHT', 'LOAI', 'Thêm'),
-('QQLHT', 'LOAI', 'Xem'),
-('QQLHT', 'LOAI', 'Xóa'),
-('QQLHT', 'NCC', 'Sửa'),
-('QQLHT', 'NCC', 'Thêm'),
-('QQLHT', 'NCC', 'Xem'),
-('QQLHT', 'NCC', 'Xóa'),
-('QQLHT', 'NULLThK', 'Xem'),
-('QQLHT', 'NV', 'Sửa'),
-('QQLHT', 'NV', 'Thêm'),
-('QQLHT', 'NV', 'Xem'),
-('QQLHT', 'NV', 'Xóa'),
-('QQLHT', 'PN', 'Sửa'),
-('QQLHT', 'PN', 'Thêm'),
-('QQLHT', 'PN', 'Xem'),
-('QQLHT', 'PN', 'Xóa'),
-('QQLHT', 'PQ', 'Sửa'),
-('QQLHT', 'PQ', 'Thêm'),
-('QQLHT', 'PQ', 'Xem'),
-('QQLHT', 'PQ', 'Xóa'),
-('QQLHT', 'QLK', 'Xem'),
-('QQLHT', 'SIZE', 'Sửa'),
-('QQLHT', 'SIZE', 'Thêm'),
-('QQLHT', 'SIZE', 'Xem'),
-('QQLHT', 'SIZE', 'Xóa'),
-('QQLHT', 'SP', 'Sửa'),
-('QQLHT', 'SP', 'Thêm'),
-('QQLHT', 'SP', 'Xem'),
-('QQLHT', 'SP', 'Xóa'),
-('QQLHT', 'TK', 'Sửa'),
-('QQLHT', 'TK', 'Thêm'),
-('QQLHT', 'TK', 'Xem'),
-('QQLHT', 'TK', 'Xóa'),
-('QQLK', 'HD', 'Xem'),
-('QQLK', 'KH', 'Xem'),
-('QQLK', 'NV', 'Xem'),
-('QQLK', 'PN', 'Export Excel'),
-('QQLK', 'PN', 'Sửa'),
-('QQLK', 'PN', 'Thêm'),
-('QQLK', 'PN', 'Xem'),
-('QQLK', 'PN', 'Xóa'),
-('QQLK', 'SP', 'Sửa'),
-('QQLK', 'SP', 'Xem'),
-('QQLK', 'SP', 'Xóa'),
-('QUYEN0', 'HD', 'Thêm'),
-('QUYEN0', 'HD', 'Xem'),
-('QUYEN0', 'KH', 'Xem');
-
--- --------------------------------------------------------
+LOCK TABLES `chitietquyen` WRITE;
+/*!40000 ALTER TABLE `chitietquyen` DISABLE KEYS */;
+INSERT INTO `chitietquyen` VALUES ('QNV','HD','Thêm'),('QNV','HD','Xem'),('QNV','KH','Thêm'),('QNV','KH','Xem'),('QNV','LOAI','Xem'),('QNV','NCC','Xem'),('QNV','SIZE','Xem'),('QNV','SP','Xem'),('QNV','TK','Xem'),('QQLBH','HD','Sửa'),('QQLBH','HD','Thêm'),('QQLBH','HD','Xem'),('QQLBH','HD','Xóa'),('QQLBH','KH','Thêm'),('QQLBH','KH','Xem'),('QQLBH','LOAI','Thêm'),('QQLBH','LOAI','Xem'),('QQLBH','NCC','Xem'),('QQLBH','NULLThK','Xem'),('QQLBH','NV','Sửa'),('QQLBH','NV','Thêm'),('QQLBH','NV','Xem'),('QQLBH','NV','Xóa'),('QQLBH','PN','Xem'),('QQLBH','QLK','Xem'),('QQLBH','SIZE','Sửa'),('QQLBH','SIZE','Thêm'),('QQLBH','SIZE','Xem'),('QQLBH','SIZE','Xóa'),('QQLBH','SP','Sửa'),('QQLBH','SP','Thêm'),('QQLBH','SP','Xem'),('QQLBH','SP','Xóa'),('QQLBH','TK','Sửa'),('QQLBH','TK','Thêm'),('QQLBH','TK','Xem'),('QQLBH','TK','Xóa'),('QQLHT','HD','Sửa'),('QQLHT','HD','Thêm'),('QQLHT','HD','Xem'),('QQLHT','HD','Xóa'),('QQLHT','KH','Sửa'),('QQLHT','KH','Thêm'),('QQLHT','KH','Xem'),('QQLHT','KH','Xóa'),('QQLHT','LOAI','Sửa'),('QQLHT','LOAI','Thêm'),('QQLHT','LOAI','Xem'),('QQLHT','LOAI','Xóa'),('QQLHT','NCC','Sửa'),('QQLHT','NCC','Thêm'),('QQLHT','NCC','Xem'),('QQLHT','NCC','Xóa'),('QQLHT','NULLThK','Xem'),('QQLHT','NV','Sửa'),('QQLHT','NV','Thêm'),('QQLHT','NV','Xem'),('QQLHT','NV','Xóa'),('QQLHT','PN','Sửa'),('QQLHT','PN','Thêm'),('QQLHT','PN','Xem'),('QQLHT','PN','Xóa'),('QQLHT','PQ','Sửa'),('QQLHT','PQ','Thêm'),('QQLHT','PQ','Xem'),('QQLHT','PQ','Xóa'),('QQLHT','QLK','Xem'),('QQLHT','SIZE','Sửa'),('QQLHT','SIZE','Thêm'),('QQLHT','SIZE','Xem'),('QQLHT','SIZE','Xóa'),('QQLHT','SP','Sửa'),('QQLHT','SP','Thêm'),('QQLHT','SP','Xem'),('QQLHT','SP','Xóa'),('QQLHT','TK','Sửa'),('QQLHT','TK','Thêm'),('QQLHT','TK','Xem'),('QQLHT','TK','Xóa'),('QQLK','HD','Sửa'),('QQLK','HD','Thêm'),('QQLK','HD','Xem'),('QQLK','HD','Xóa'),('QQLK','KH','Xem'),('QQLK','LOAI','Sửa'),('QQLK','LOAI','Thêm'),('QQLK','LOAI','Xem'),('QQLK','LOAI','Xóa'),('QQLK','NCC','Sửa'),('QQLK','NCC','Thêm'),('QQLK','NCC','Xem'),('QQLK','NCC','Xóa'),('QQLK','NULLThK','Xem'),('QQLK','NV','Xem'),('QQLK','PN','Sửa'),('QQLK','PN','Thêm'),('QQLK','PN','Xem'),('QQLK','PN','Xóa'),('QQLK','QLK','Xem'),('QQLK','SIZE','Sửa'),('QQLK','SIZE','Thêm'),('QQLK','SIZE','Xem'),('QQLK','SIZE','Xóa'),('QQLK','SP','Sửa'),('QQLK','SP','Thêm'),('QQLK','SP','Xem'),('QQLK','SP','Xóa'),('QQLK','TK','Xem');
+/*!40000 ALTER TABLE `chitietquyen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `chitietsanpham`
 --
 
+DROP TABLE IF EXISTS `chitietsanpham`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chitietsanpham` (
-  `MASP` varchar(10) NOT NULL,
-  `MASIZE` varchar(10) NOT NULL,
-  `SOLUONG` int(11) NOT NULL
+  `MASP` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MASIZE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SOLUONG` int NOT NULL,
+  PRIMARY KEY (`MASP`,`MASIZE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `chitietsanpham`
 --
 
-INSERT INTO `chitietsanpham` (`MASP`, `MASIZE`, `SOLUONG`) VALUES
-('SP1', 'SIZE1', 5),
-('SP1', 'SIZE2', 10),
-('SP1', 'SIZE5', 4),
-('SP10', 'SIZE2', 0),
-('SP10', 'SIZE3', 0),
-('SP2', 'SIZE2', 0),
-('SP2', 'SIZE4', 10),
-('SP2', 'SIZE5', 0),
-('SP3', 'SIZE5', 8),
-('SP4', 'SIZE2', 10),
-('SP4', 'SIZE5', 0),
-('SP5', 'SIZE1', 0),
-('SP5', 'SIZE2', 0),
-('SP5', 'SIZE3', 0),
-('SP6', 'SIZE2', 5),
-('SP6', 'SIZE4', 9),
-('SP6', 'SIZE5', 0),
-('SP7', 'SIZE5', 0),
-('SP8', 'SIZE1', 0),
-('SP8', 'SIZE2', 0),
-('SP8', 'SIZE3', 0),
-('SP8', 'SIZE4', 0),
-('SP9', 'SIZE1', 0),
-('SP9', 'SIZE2', 0),
-('SP9', 'SIZE3', 0);
-
--- --------------------------------------------------------
+LOCK TABLES `chitietsanpham` WRITE;
+/*!40000 ALTER TABLE `chitietsanpham` DISABLE KEYS */;
+INSERT INTO `chitietsanpham` VALUES ('SP1','SIZE0',9),('SP1','SIZE1',10),('SP1','SIZE2',10),('SP2','SIZE1',20),('SP2','SIZE2',10),('SP3','SIZE3',10),('SP4','SIZE4',14),('SP5','SIZE1',9),('SP5','SIZE2',10),('SP6','SIZE4',19),('SP7','SIZE3',9),('SP7','SIZE4',3);
+/*!40000 ALTER TABLE `chitietsanpham` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `chucnang`
 --
 
+DROP TABLE IF EXISTS `chucnang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chucnang` (
-  `MACHUCNANG` varchar(10) NOT NULL,
-  `TENCHUCNANG` varchar(50) NOT NULL
+  `MACHUCNANG` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENCHUCNANG` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`MACHUCNANG`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `chucnang`
 --
 
-INSERT INTO `chucnang` (`MACHUCNANG`, `TENCHUCNANG`) VALUES
-('HD', 'Hoá đơn'),
-('KH', 'Khách hàng'),
-('LOAI', 'Loại'),
-('NCC', 'Nhà cung cấp'),
-('NULLThK', 'Thống kê'),
-('NV', 'Nhân viên'),
-('PN', 'Phiếu nhập'),
-('PQ', 'Phân quyền'),
-('QLK', 'Kho'),
-('SIZE', 'Size'),
-('SP', 'Sản phẩm'),
-('TK', 'Tài khoản');
-
--- --------------------------------------------------------
+LOCK TABLES `chucnang` WRITE;
+/*!40000 ALTER TABLE `chucnang` DISABLE KEYS */;
+INSERT INTO `chucnang` VALUES ('HD','Hoá đơn'),('KH','Khách hàng'),('LOAI','Loại'),('NCC','Nhà cung cấp'),('NULLThK','Thống kê'),('NV','Nhân viên'),('PN','Phiếu nhập'),('PQ','Phân quyền'),('QLK','Kho'),('SIZE','Size'),('SP','Sản phẩm'),('TK','Tài khoản');
+/*!40000 ALTER TABLE `chucnang` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `hinh`
 --
 
+DROP TABLE IF EXISTS `hinh`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hinh` (
-  `TENHINH` varchar(50) NOT NULL,
-  `MASP` varchar(10) NOT NULL
+  `TENHINH` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MASP` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`TENHINH`,`MASP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `hinh`
 --
 
-INSERT INTO `hinh` (`TENHINH`, `MASP`) VALUES
-('ao_hoodie_mau_hot.jpg', 'SP5'),
-('ao_hoodie_phoi.jpg', 'SP4'),
-('ao_hoodie_zip.jpg', 'SP6'),
-('ao_ni_dai_tay.jpg', 'SP7'),
-('ao_ni_nam_dai_tay.jpg', 'SP8'),
-('asm_oxford_ke_soc_1.jpg', 'SP3'),
-('asm_oxford_ke_soc_2.jpg', 'SP3'),
-('asm_soc_1.jpg', 'SP2'),
-('asm_soc_2.jpg', 'SP2'),
-('asm_tay_dai.jpg', 'SP1'),
-('didika_ao_len_1.jpg', 'SP10'),
-('didita_ao_len_2.jpg', 'SP10'),
-('lovita_ao_khoac_1.jpg', 'SP9'),
-('lovita_ao_khoac_2.jpg', 'SP9');
-
--- --------------------------------------------------------
+LOCK TABLES `hinh` WRITE;
+/*!40000 ALTER TABLE `hinh` DISABLE KEYS */;
+INSERT INTO `hinh` VALUES ('ao_hoodie_mau_hot.jpg','SP6'),('ao_hoodie_phoi.jpg','SP5'),('ao_hoodie_zip.jpg','SP7'),('asm_oxford_ke_soc_1.jpg','SP4'),('asm_oxford_ke_soc_2.jpg','SP4'),('asm_soc_1.jpg','SP3'),('asm_soc_2.jpg','SP3'),('asm_tay_dai.jpg','SP1'),('didika_ao_len_1.jpg','SP2'),('didita_ao_len_2.jpg','SP2');
+/*!40000 ALTER TABLE `hinh` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `hoadon`
 --
 
+DROP TABLE IF EXISTS `hoadon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hoadon` (
-  `SOHD` varchar(10) NOT NULL,
+  `SOHD` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `NGAYHD` date NOT NULL,
-  `MAKH` int(11) NOT NULL,
-  `MANV` varchar(10) NOT NULL,
+  `MAKH` int NOT NULL,
+  `MANV` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TONGTIEN` double NOT NULL,
   `TIENGIAMGIA` double DEFAULT NULL,
-  `THOIGIAN` time NOT NULL
+  `THOIGIAN` time NOT NULL,
+  PRIMARY KEY (`SOHD`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `hoadon`
 --
 
-INSERT INTO `hoadon` (`SOHD`, `NGAYHD`, `MAKH`, `MANV`, `TONGTIEN`, `TIENGIAMGIA`, `THOIGIAN`) VALUES
-('HD0', '2024-09-05', 1, 'AD1', 1496000, 0, '19:33:07'),
-('HD1', '2024-09-05', 2, 'AD1', 352000, 0, '19:34:03'),
-('HD2', '2024-09-06', 3, 'AD1', 528000, 0, '11:32:21');
-
--- --------------------------------------------------------
+LOCK TABLES `hoadon` WRITE;
+/*!40000 ALTER TABLE `hoadon` DISABLE KEYS */;
+INSERT INTO `hoadon` VALUES ('HD0','2024-10-03',10,'NV1',551000,0,'01:43:26'),('HD1','2024-10-03',13,'NV1',1147000,0,'01:45:56'),('HD2','2024-10-03',11,'NV1',553000,0,'01:47:03');
+/*!40000 ALTER TABLE `hoadon` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `khachhang`
 --
 
+DROP TABLE IF EXISTS `khachhang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `khachhang` (
-  `MAKH` int(11) NOT NULL,
-  `TENKH` varchar(50) NOT NULL,
-  `SDT` varchar(11) NOT NULL,
-  `DIEMTICHLUY` int(11) NOT NULL,
-  `TRANGTHAI` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `MAKH` int NOT NULL AUTO_INCREMENT,
+  `TENKH` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SDT` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `DIEMTICHLUY` int NOT NULL,
+  `TRANGTHAI` int NOT NULL,
+  PRIMARY KEY (`MAKH`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`MAKH`, `TENKH`, `SDT`, `DIEMTICHLUY`, `TRANGTHAI`) VALUES
-(1, 'Tuấn Khùng', '0908112345', 149, 1),
-(2, 'Quỳnh Quỳnh', '0909112443', 35, 1),
-(3, 'Trịnh Trần Phương Tuấn', '0907545661', 52, 1),
-(4, 'Hà Lê', '0909887123', 0, 1),
-(5, 'Hương Võ', '0909700813', 0, 1),
-(6, 'Yến Hoàng', '0907661234', 0, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `khachhang` WRITE;
+/*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
+INSERT INTO `khachhang` VALUES (10,'Thanh Phương','0376784589',55,1),(11,'Đinh Quỳnh','0984536786',55,1),(13,'Hoàng Oanh','0985735985',114,1);
+/*!40000 ALTER TABLE `khachhang` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `loai`
 --
 
+DROP TABLE IF EXISTS `loai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `loai` (
-  `MALOAI` varchar(10) NOT NULL,
-  `TENLOAI` varchar(50) NOT NULL,
-  `TINHTRANG` int(11) NOT NULL
+  `MALOAI` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENLOAI` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TINHTRANG` int NOT NULL,
+  PRIMARY KEY (`MALOAI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `loai`
 --
 
-INSERT INTO `loai` (`MALOAI`, `TENLOAI`, `TINHTRANG`) VALUES
-('LOAI1', 'Áo flannel', 1),
-('LOAI2', 'Áo Hoodie', 1),
-('LOAI3', 'Áo Khoác', 1),
-('LOAI4', 'Áo Len', 0),
-('LOAI5', 'Áo Nỉ', 1),
-('LOAI6', 'Áo sơmi', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `loai` WRITE;
+/*!40000 ALTER TABLE `loai` DISABLE KEYS */;
+INSERT INTO `loai` VALUES ('LOAI0','Áo sơ mi',1),('LOAI1','Áo len',1),('LOAI2','Áo khoác',1),('LOAI3','Áo hoodie',1);
+/*!40000 ALTER TABLE `loai` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `nhacungcap`
 --
 
+DROP TABLE IF EXISTS `nhacungcap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nhacungcap` (
-  `MANCC` varchar(10) NOT NULL,
-  `TENNCC` varchar(30) NOT NULL,
-  `SDT` int(10) NOT NULL,
-  `TRANGTHAI` tinyint(4) DEFAULT 1
+  `MANCC` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENNCC` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SDT` int NOT NULL,
+  `TRANGTHAI` tinyint DEFAULT '1',
+  PRIMARY KEY (`MANCC`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `nhacungcap`
 --
 
-INSERT INTO `nhacungcap` (`MANCC`, `TENNCC`, `SDT`, `TRANGTHAI`) VALUES
-('NCC1', 'MLB', 901123444, 1),
-('NCC2', 'Supreme', 907345556, 1),
-('NCC3', 'OFF-WHITE ', 909557689, 1),
-('NCC4', 'LEVIS', 907112580, 1),
-('NCC5', 'Sakura', 901558739, 1),
-('NCC6', 'Esstensial', 173453789, 1),
-('NCC7', 'Bad rabbits', 908223112, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `nhacungcap` WRITE;
+/*!40000 ALTER TABLE `nhacungcap` DISABLE KEYS */;
+INSERT INTO `nhacungcap` VALUES ('NCC0','Zara',984567812,1),('NCC1','Uniqlo',984567813,1),('NCC2','GAP',984567814,1),('NCC3','ASOS',984567815,1);
+/*!40000 ALTER TABLE `nhacungcap` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `nhanvien`
 --
 
+DROP TABLE IF EXISTS `nhanvien`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nhanvien` (
-  `MANV` varchar(10) NOT NULL,
-  `TENNV` varchar(50) NOT NULL,
-  `CHUCVU` varchar(50) NOT NULL,
-  `SDT` varchar(11) NOT NULL,
-  `DIACHI` varchar(255) NOT NULL,
-  `EMAIL` varchar(255) NOT NULL,
-  `TRANGTHAI` int(11) NOT NULL
+  `MANV` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENNV` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CHUCVU` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `SDT` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `DIACHI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `EMAIL` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TRANGTHAI` int NOT NULL,
+  PRIMARY KEY (`MANV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MANV`, `TENNV`, `CHUCVU`, `SDT`, `DIACHI`, `EMAIL`, `TRANGTHAI`) VALUES
-('AD1', 'Thanh Sang', 'Quản lí ứng dụng', '0907665456', '273 An Dương Vương Quận 5 TPHCM', 'ngthanhsangsgu@gmail.com', 1),
-('NV1', 'Thanh Phương', 'Nhân viên bán hàng', '0909332432', '18 Nguyễn Tri Phương Quận 8 TPHCM', 'thanhphuong22@gmail.com', 1),
-('NV2', 'Nhật Long', 'Nhân viên bán hàng', '0908332112', '23/1 Lê Hồng Phong TPHCM', 'ntLong@gmail.com', 1),
-('NV3', 'Oanh Le', 'Nhân viên bán hàng', '0907665512', 'Quận 2 TPHCM', 'Oanhle204@gmail.com', 1),
-('QL1', 'Phương Uyên', 'Quản lí kho', '0338653321', 'Quận 3 TPHCM', 'phuongUyen11@gmail.com', 1),
-('QL2', 'Trí Anh', 'Quản lí bán hàng', '0901132445', 'Quận 5 TPHCM', 'triANH@gmail.com', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `nhanvien` WRITE;
+/*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
+INSERT INTO `nhanvien` VALUES ('NV1','Oanh','Quản lí hệ thống','0982317898','TP HCM','oanh123@gmail.com',1),('NV2','Thanh Phương','Nhân viên bán hàng','0425781236','Quận 7','phuong@gmail.com',1),('NV3','Tiệp','Quản lý kho','0567891234','Quận 5','tiep@gmail.com',1);
+/*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `phieunhap`
 --
 
+DROP TABLE IF EXISTS `phieunhap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phieunhap` (
-  `MAPN` varchar(10) NOT NULL,
-  `MANV` varchar(10) NOT NULL,
+  `MAPN` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MANV` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `NGAYNHAP` date NOT NULL,
   `TONGTIEN` double NOT NULL,
-  `MANCC` varchar(10) NOT NULL,
-  `DEM` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `MANCC` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `DEM` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`MAPN`),
+  UNIQUE KEY `DEM` (`DEM`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `phieunhap`
 --
 
-INSERT INTO `phieunhap` (`MAPN`, `MANV`, `NGAYNHAP`, `TONGTIEN`, `MANCC`, `DEM`) VALUES
-('PN001', 'AD1', '2024-09-05', 15100000, 'NCC1', 10),
-('PN011', 'AD1', '2024-09-06', 3460000, 'NCC1', 11);
-
--- --------------------------------------------------------
+LOCK TABLES `phieunhap` WRITE;
+/*!40000 ALTER TABLE `phieunhap` DISABLE KEYS */;
+INSERT INTO `phieunhap` VALUES ('PN001','NV1','2024-10-03',7920000,'NCC0',21),('PN022','NV1','2024-10-03',3897000,'NCC1',22),('PN023','NV1','2024-10-03',17270100,'NCC0',23),('PN024','NV1','2024-10-03',5670000,'NCC2',24),('PN025','NV1','2024-10-03',12320000,'NCC3',25);
+/*!40000 ALTER TABLE `phieunhap` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `quyen`
 --
 
+DROP TABLE IF EXISTS `quyen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `quyen` (
-  `MAQUYEN` varchar(10) NOT NULL,
-  `TENQUYEN` varchar(50) NOT NULL
+  `MAQUYEN` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENQUYEN` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`MAQUYEN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `quyen`
 --
 
-INSERT INTO `quyen` (`MAQUYEN`, `TENQUYEN`) VALUES
-('QNV', 'Quyền nhân viên'),
-('QQLBH', 'Quyền quản lí bán hàng'),
-('QQLHT', 'Quyền quản lí hệ thống'),
-('QQLK', 'Quyền quản lí kho');
-
--- --------------------------------------------------------
+LOCK TABLES `quyen` WRITE;
+/*!40000 ALTER TABLE `quyen` DISABLE KEYS */;
+INSERT INTO `quyen` VALUES ('QNV','Quyền nhân viên'),('QQLBH','Quyền quản lí bán hàng'),('QQLHT','Quyền quản lí hệ thống'),('QQLK','Quyền quản lí kho');
+/*!40000 ALTER TABLE `quyen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sanpham`
 --
 
+DROP TABLE IF EXISTS `sanpham`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sanpham` (
-  `MASP` varchar(10) NOT NULL,
-  `MALOAI` varchar(10) NOT NULL,
+  `MASP` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MALOAI` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `PRICE` double NOT NULL,
-  `TENSP` varchar(50) NOT NULL,
-  `TRANGTHAI` tinyint(4) NOT NULL
+  `TENSP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TRANGTHAI` tinyint NOT NULL,
+  PRIMARY KEY (`MASP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`MASP`, `MALOAI`, `PRICE`, `TENSP`, `TRANGTHAI`) VALUES
-('SP1', 'LOAI6', 264000, 'Áo sơ mi dài tay Odin Club', 1),
-('SP10', 'LOAI4', 129900, 'DIDIKA Áo Len Tay Dài Cổ Tròn Dáng Rộng', 0),
-('SP2', 'LOAI6', 275000, 'Áo sơ mi sọc Boizclub Premium', 1),
-('SP3', 'LOAI6', 418000, 'Áo Sơ Mi Oxford Kẻ Sọc', 1),
-('SP4', 'LOAI2', 275000, 'Áo Khoác Hoodie Phối Zip INTERBREAK', 1),
-('SP5', 'LOAI2', 89000, 'ÁO KHOÁC HOODIE MẪU HOT TREND ESTIAL', 1),
-('SP6', 'LOAI2', 352000, 'Áo Hoodie Zip', 1),
-('SP7', 'LOAI5', 75000, 'ÁO NỈ DÀI TAY NAM NỮ', 1),
-('SP8', 'LOAI5', 78600, 'Áo Nỉ Nam Dài Tay', 1),
-('SP9', 'LOAI3', 156000, 'Lovito Áo khoác dài tay có nút trơn', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `sanpham` WRITE;
+/*!40000 ALTER TABLE `sanpham` DISABLE KEYS */;
+INSERT INTO `sanpham` VALUES ('SP1','LOAI0',270000,'Áo sơ mi dài tay Odin Club',1),('SP2','LOAI1',133000,'DIDIKA Áo Len Tay Dài Cổ Tròn Dáng Rộng',1),('SP3','LOAI0',281000,'Áo sơ mi sọc Boizclub Premium',1),('SP4','LOAI0',427000,'Áo Sơ Mi Oxford Kẻ Sọc',1),('SP5','LOAI2',281000,'Áo Khoác Hoodie Phối Zip INTERBREAK',1),('SP6','LOAI2',193000,'ÁO KHOÁC HOODIE MẪU HOT TREND ESTIAL',1),('SP7','LOAI3',360000,'Áo Hoodie Zip',1);
+/*!40000 ALTER TABLE `sanpham` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `size`
 --
 
+DROP TABLE IF EXISTS `size`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `size` (
-  `MASIZE` varchar(10) NOT NULL,
-  `TENSIZE` varchar(50) NOT NULL,
-  `TRANGTHAI` tinyint(4) DEFAULT 1
+  `MASIZE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TENSIZE` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TRANGTHAI` tinyint DEFAULT '1',
+  PRIMARY KEY (`MASIZE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `size`
 --
 
-INSERT INTO `size` (`MASIZE`, `TENSIZE`, `TRANGTHAI`) VALUES
-('SIZE1', 'S', 1),
-('SIZE2', 'M', 1),
-('SIZE3', 'L', 1),
-('SIZE4', 'XL', 1),
-('SIZE5', 'onesize', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `size` WRITE;
+/*!40000 ALTER TABLE `size` DISABLE KEYS */;
+INSERT INTO `size` VALUES ('SIZE0','S',1),('SIZE1','M',1),('SIZE2','L',1),('SIZE3','XL',1),('SIZE4','XXL',1);
+/*!40000 ALTER TABLE `size` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `taikhoan`
 --
 
+DROP TABLE IF EXISTS `taikhoan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `taikhoan` (
-  `MANV` varchar(10) NOT NULL,
-  `USERNAME` varchar(50) NOT NULL,
-  `PASSWORD` varchar(50) NOT NULL,
+  `MANV` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `USERNAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PASSWORD` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `NGAYTAOTK` date NOT NULL,
-  `TINHTRANG` int(11) NOT NULL,
-  `MAQUYEN` varchar(10) NOT NULL
+  `TINHTRANG` int NOT NULL,
+  `MAQUYEN` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `taikhoan`
 --
 
-INSERT INTO `taikhoan` (`MANV`, `USERNAME`, `PASSWORD`, `NGAYTAOTK`, `TINHTRANG`, `MAQUYEN`) VALUES
-('AD1', 'AD1', 'SangHard!', '2023-02-13', 1, 'QQLHT'),
-('NV1', 'NV1', 'Phuong1234', '2024-05-17', 1, 'QNV'),
-('NV2', 'NV2', 'anhLong1111', '2023-11-20', 0, 'QNV'),
-('NV3', 'NV3', 'Oanh2004!', '2023-10-22', 1, 'QNV'),
-('QL1', 'QL1', 'PhuongUyen!', '2023-09-01', 1, 'QQLK'),
-('QL2', 'QL2', 'TriAnhhh', '2023-06-22', 1, 'QQLBH');
+LOCK TABLES `taikhoan` WRITE;
+/*!40000 ALTER TABLE `taikhoan` DISABLE KEYS */;
+INSERT INTO `taikhoan` VALUES ('NV1','NV1','SangHard!','2023-02-13',1,'QQLHT'),('NV2','NV2','phuong123','2024-09-18',1,'QNV'),('NV3','NV3','tiep123','2024-09-18',1,'QQLK');
+/*!40000 ALTER TABLE `taikhoan` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`SOHD`,`MASP`,`MASIZE`);
-
---
--- Indexes for table `chitietphieunhap`
---
-ALTER TABLE `chitietphieunhap`
-  ADD PRIMARY KEY (`MAPN`,`MASP`,`MASIZE`);
-
---
--- Indexes for table `chitietquyen`
---
-ALTER TABLE `chitietquyen`
-  ADD PRIMARY KEY (`MAQUYEN`,`MACHUCNANG`,`HANHDONG`);
-
---
--- Indexes for table `chitietsanpham`
---
-ALTER TABLE `chitietsanpham`
-  ADD PRIMARY KEY (`MASP`,`MASIZE`);
-
---
--- Indexes for table `chucnang`
---
-ALTER TABLE `chucnang`
-  ADD PRIMARY KEY (`MACHUCNANG`);
-
---
--- Indexes for table `hinh`
---
-ALTER TABLE `hinh`
-  ADD PRIMARY KEY (`TENHINH`,`MASP`);
-
---
--- Indexes for table `hoadon`
---
-ALTER TABLE `hoadon`
-  ADD PRIMARY KEY (`SOHD`);
-
---
--- Indexes for table `khachhang`
---
-ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`MAKH`);
-
---
--- Indexes for table `loai`
---
-ALTER TABLE `loai`
-  ADD PRIMARY KEY (`MALOAI`);
-
---
--- Indexes for table `nhacungcap`
---
-ALTER TABLE `nhacungcap`
-  ADD PRIMARY KEY (`MANCC`);
-
---
--- Indexes for table `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD PRIMARY KEY (`MANV`);
-
---
--- Indexes for table `phieunhap`
---
-ALTER TABLE `phieunhap`
-  ADD PRIMARY KEY (`MAPN`),
-  ADD UNIQUE KEY `DEM` (`DEM`);
-
---
--- Indexes for table `quyen`
---
-ALTER TABLE `quyen`
-  ADD PRIMARY KEY (`MAQUYEN`);
-
---
--- Indexes for table `sanpham`
---
-ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`MASP`);
-
---
--- Indexes for table `size`
---
-ALTER TABLE `size`
-  ADD PRIMARY KEY (`MASIZE`);
-
---
--- Indexes for table `taikhoan`
---
-ALTER TABLE `taikhoan`
-  ADD PRIMARY KEY (`USERNAME`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `khachhang`
---
-ALTER TABLE `khachhang`
-  MODIFY `MAKH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `phieunhap`
---
-ALTER TABLE `phieunhap`
-  MODIFY `DEM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-10-03  1:49:38

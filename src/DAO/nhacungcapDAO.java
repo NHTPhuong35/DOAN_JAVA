@@ -33,7 +33,7 @@ public class nhacungcapDAO {
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
                  if(result.getInt("TRANGTHAI")==1)
-                    list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getInt("SDT")));
+                    list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getString("SDT")));
                 
             }
 
@@ -53,7 +53,7 @@ public class nhacungcapDAO {
             ResultSet result = c.executeQuery(query);
             while (result.next()) {
                
-                    list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getInt("SDT")));
+                    list.add(new nhacungcapDTO(result.getString("MANCC"), result.getString("TENNCC"), result.getString("SDT")));
                 
             }
 
@@ -78,7 +78,7 @@ public class nhacungcapDAO {
         try {
             c.connect();
 
-            String query = " UPDATE nhacungcap SET TENNCC='" + item.getTENNCC() + "', SDT=" + item.getSDT() + " WHERE MANCC='" + item.getMANCC() + "'";
+            String query = " UPDATE nhacungcap SET TENNCC= '" + item.getTENNCC() + "', SDT= '" + item.getSDT() + "', TRANGTHAI = "+ item.getTRANGTHAI()+" WHERE MANCC='" + item.getMANCC() + "'";
             c.executeUpdate(query);
             c.disconnect();
         } catch (SQLException e) {

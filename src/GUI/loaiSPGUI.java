@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
-
+import java.awt.event.MouseAdapter;
 /**
  *
  * @author hp
@@ -38,7 +38,8 @@ public class loaiSPGUI extends JPanel{
     public DefaultTableModel tableModel;
     public boolean isEditingEnabled = false;
     public ArrayList<loaiSP> listUpdate;
-    
+    public MouseAdapter clickInJTable ;
+
     public loaiSPGUI(int r,int d){
         this.crong = r;
         this.ccao = d;
@@ -61,6 +62,7 @@ public class loaiSPGUI extends JPanel{
             }
 
         };
+        table.setEnabled(false);
         
       loaiSPBUS lBUS = new loaiSPBUS();
         addDataInTable(lBUS.getList());
