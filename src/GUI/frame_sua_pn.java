@@ -130,14 +130,17 @@ public DefaultTableModel getTableModel() {
         String[] columnNames = {"MASP", "Số lượng", "Mã size", "Giá nhập", "Thành tiền"};
         Object[][] data = new Object[ctpnDTO.size()][5];
 DecimalFormat dff = new DecimalFormat("#,###");
+DecimalFormat dfQuantity = new DecimalFormat("#,###");
+DecimalFormat dfCurrency = new DecimalFormat("#,### Đ");
         for (int i = 0; i < ctpnDTO.size(); i++) {
-            chitietphieunhap_DTO item = ctpnDTO.get(i);
-            data[i][0] = item.getMasp();
-            data[i][1] = item.getSoluong();
-            data[i][2] = item.getMasize();
-            data[i][3] = item.getGianhap();
-            data[i][4] = dff.format(item.getThanhtien());
-        }
+    chitietphieunhap_DTO item = ctpnDTO.get(i);
+    data[i][0] = item.getMasp();
+    data[i][1] = dfQuantity.format(item.getSoluong()); // Định dạng số lượng
+    data[i][2] = item.getMasize();
+    data[i][3] = dfCurrency.format(item.getGianhap()); // Định dạng giá nhập
+    data[i][4] = dfCurrency.format(item.getThanhtien()); // Định dạng thành tiền
+}
+
 
         tableModel = new DefaultTableModel(data, columnNames);
     tableModel = new DefaultTableModel(data, columnNames) {
@@ -179,21 +182,21 @@ DecimalFormat dff = new DecimalFormat("#,###");
         DecimalFormat df = new DecimalFormat("#,###");
 
         // Only trigger calculation if "Số lượng" or "Giá nhập" are changed
-        if (column == 1 || column == 3) {
+        if (column == 1 ) {
             try {
-                int soluong = Integer.parseInt(tableModel.getValueAt(row, 1).toString());
-                double gianhap = Double.parseDouble(tableModel.getValueAt(row, 3).toString());
+                int soluong = Integer.parseInt(tableModel.getValueAt(row, 1).toString().replace(",", ""));
+            double gianhap = Double.parseDouble(tableModel.getValueAt(row, 3).toString().replace(",", "").replace(" Đ", ""));
 
                 // Calculate "Thành tiền"
                     double thanhtien = soluong * gianhap;
-                    tableModel.setValueAt(df.format(thanhtien), row, 4);
+                    tableModel.setValueAt(dfCurrency.format(thanhtien), row, 4);
 
     // Tính tổng tiền
                 double tongTien = 0;
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    tongTien += Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(",", ""));
+                    tongTien += Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(" Đ", "").replace(",", ""));
                 }
-                tfTongTien.setText(df.format(tongTien) + " Đ");
+                
 
 
                 // Set the total in the "Tổng tiền" text field
@@ -209,26 +212,26 @@ DecimalFormat dff = new DecimalFormat("#,###");
 tableModel = new DefaultTableModel(data, columnNames) {
     @Override
     public boolean isCellEditable(int row, int column) {
-        return column == 1 || column == 3;
+        return column == 1 ;
     }
 
     @Override
     public void setValueAt(Object value, int row, int column) {
         super.setValueAt(value, row, column);
-        if (column == 1 || column == 3) {
+        if (column == 1 ) {
             try {
-                int soluong = Integer.parseInt(tableModel.getValueAt(row, 1).toString());
-                double gianhap = Double.parseDouble(tableModel.getValueAt(row, 3).toString());
+                int soluong = Integer.parseInt(tableModel.getValueAt(row, 1).toString().replace(",", ""));
+            double gianhap = Double.parseDouble(tableModel.getValueAt(row, 3).toString().replace(",", "").replace(" Đ", ""));
 
                 // Calculate "Thành tiền"
                 double thanhtien = soluong * gianhap;
                 DecimalFormat df = new DecimalFormat("#,###");
-                tableModel.setValueAt(df.format(thanhtien), row, 4);
+                tableModel.setValueAt(dfCurrency.format(thanhtien), row, 4);
 
                 // Calculate "Tổng tiền"
                 double tongTien = 0;
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    tongTien += Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(",", ""));
+                    tongTien += Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(" Đ", "").replace(",", ""));
                 }
                 tfTongTien.setText(df.format(tongTien) + " Đ");
             } catch (NumberFormatException ex) {
@@ -318,10 +321,10 @@ private ArrayList<chitietphieunhap_DTO> getUpdatedChitietPhieunhapFromTable() {
 
     for (int i = 0; i < tableModel.getRowCount(); i++) {
         String masp = tableModel.getValueAt(i, 0).toString();
-        int soluong = Integer.parseInt(tableModel.getValueAt(i, 1).toString());
+        int soluong = Integer.parseInt(tableModel.getValueAt(i, 1).toString().replace(",", ""));
         String masize = tableModel.getValueAt(i, 2).toString();
-        double gianhap = Double.parseDouble(tableModel.getValueAt(i, 3).toString());
-        double thanhtien = Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(",", ""));
+        double gianhap = Double.parseDouble(tableModel.getValueAt(i, 3).toString().replace(",", "").replace(" Đ", ""));
+        double thanhtien = Double.parseDouble(tableModel.getValueAt(i, 4).toString().replace(",", "").replace(" Đ", ""));
         chitietphieunhap_DTO ctpn = new chitietphieunhap_DTO(tfMaPN.getText(), masp, soluong, gianhap, thanhtien, masize);
         updatedList.add(ctpn);
     }
