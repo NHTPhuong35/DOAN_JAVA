@@ -200,9 +200,9 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         cbxTenLoai.setPreferredSize(new Dimension(200, height_row));
         cbxTenLoai.setMaximumSize(new Dimension(200, height_row));
         for (int i = 0; i < dsLoai.size(); i++) {
-            if(dsLoai.get(i).getTINHTRANG()!=0){
+            if (dsLoai.get(i).getTINHTRANG() != 0) {
                 cbxTenLoai.addItem(dsLoai.get(i).getTENLOAI());
-            }      
+            }
         }
         cbxTenLoai.setSelectedIndex(0);
 
@@ -405,11 +405,29 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
     }
 
     public boolean check_TenSP(String tenSP) {
-        if (tenSP.isEmpty()) {
+        // Biểu thức chính quy mới: không cho phép ký tự đặc biệt ngoài "-", "_"
+        String regex = "^[\\p{L}](?!.*[@#$%^&*()+=<>?/{}~`])[\\p{L}\\s-_]*[\\p{L}]$";
+
+        // Kiểm tra không rỗng và không có khoảng trắng đầu/ cuối
+        if (tenSP == null || tenSP.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null,
-                    "Tên sản phẩm không được để trống, xin vui lòng nhập Tên sản phẩm !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    "Tên sản phẩm không được để trống, xin vui lòng nhập Tên sản phẩm!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+
+        if (tenSP.length() < 5 || tenSP.length() > 50) {
+            JOptionPane.showMessageDialog(null,
+                    "Tên sản phẩm chỉ được từ 5 đến 50 kí tự!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // Kiểm tra tên sản phẩm có tuân theo quy tắc định dạng không
+        if (!tenSP.matches(regex)) {
+            JOptionPane.showMessageDialog(null,
+                    "Tên sản phẩm phải bắt đầu và kết thúc bằng chữ cái, chỉ được chứa chữ, khoảng trắng, dấu gạch ngang và dấu gạch dưới.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
         return true;
     }
 
@@ -447,17 +465,33 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
         String tenSP = txtTenSP.getText();
 
         String[] tenHinh = imageName.toArray(new String[imageName.size()]);
-        String gia = txtDonGia.getText();
 
-        if (check_TenSP(tenSP) && check_Gia(gia)) {
-            SanPhamDTO sp = new SanPhamDTO(maSP, maLoai, tenSP, Double.parseDouble(gia), tenHinh, 1);
-            dispose();
-            JOptionPane.showMessageDialog(null,
-                    "Bạn đã lưu sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
-            spGUI.EditSP(sp);
-            revalidate();
-            repaint();
+        if (check_TenSP(tenSP)) {
+            Object[] options = {"Có", "Không"};
+            int result = JOptionPane.showOptionDialog(
+                    null,
+                    "Bạn có chắc chắn muốn lưu thay đổi?", // Nội dung thông báo
+                    "Xác nhận sửa", // Tiêu đề
+                    JOptionPane.YES_NO_OPTION, // Tùy chọn Yes/No
+                    JOptionPane.QUESTION_MESSAGE, // Biểu tượng dấu hỏi
+                    null,
+                    options,
+                    options[0]
+            );
 
+            // Xử lý kết quả
+            if (result == JOptionPane.YES_OPTION) {
+                SanPhamDTO sp = new SanPhamDTO(maSP, maLoai, tenSP, spGUI.selectedSP.getPrice(), tenHinh, 1);
+                dispose();
+                JOptionPane.showMessageDialog(null,
+                        "Bạn đã lưu sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                spGUI.EditSP(sp);
+                revalidate();
+                repaint();
+            } else {
+                spGUI.selectedSP = new SanPhamDTO();
+                spGUI.clearBordersExcept(-1);
+            }
         }
     }
 
@@ -491,16 +525,16 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
 
     public ArrayList<loaiSP> loaiSPNgung() {
         ArrayList<loaiSP> loaiBan = new ArrayList<>();
-            // Lặp qua danh sách loại sản phẩm trong loaiSPBUS
-            for (loaiSP  loai: dsLoai) {
-                // Kiểm tra mã loại sản phẩm và tình trạng sản phẩm
-                if (loai.getTINHTRANG() ==2) {
-                    loaiBan.add(loai);
-                }
+        // Lặp qua danh sách loại sản phẩm trong loaiSPBUS
+        for (loaiSP loai : dsLoai) {
+            // Kiểm tra mã loại sản phẩm và tình trạng sản phẩm
+            if (loai.getTINHTRANG() == 2) {
+                loaiBan.add(loai);
             }
+        }
         return loaiBan;
     }
-    
+
     public void AddSP() {
         loaiSPBUS loai = new loaiSPBUS();
         String tenLoai = (String) cbxTenLoai.getSelectedItem();
@@ -568,7 +602,7 @@ public class ChucNangSanPhamGUI extends JFrame implements MouseListener {
 
     public static void main(String[] args) {
         SanPhamGUI t = new SanPhamGUI(700, 700, Color.darkGray);
-        ChucNangSanPhamGUI gui = new ChucNangSanPhamGUI(t,450, 650);
+        ChucNangSanPhamGUI gui = new ChucNangSanPhamGUI(t, 450, 650);
 //        gui.initThem();
         gui.initSua();
     }

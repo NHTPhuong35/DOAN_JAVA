@@ -74,9 +74,8 @@ public class nhacungcapGUI extends JPanel {
             }
 
         };
-        table.setSelectionBackground(table.getBackground());
-        table.setSelectionForeground(table.getForeground());
-        table.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        
+
         nhacungcapBUS nccBUS = new nhacungcapBUS();
         addDataInTable(nccBUS.getList());
 

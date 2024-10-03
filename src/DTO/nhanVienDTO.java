@@ -9,6 +9,9 @@ public class nhanVienDTO {
     private String MANV, TENNV, CHUCVU, DIACHI, EMAIL, SDT;
     private int TRANGTHAi;
 
+    public nhanVienDTO() {
+    }
+
     public nhanVienDTO(String MANV, String TENNV, String CHUCVU, String SDT, String DIACHI, String EMAIL, int TRANGTHAi) {
         this.MANV = MANV;
         this.TENNV = TENNV;
