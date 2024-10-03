@@ -79,6 +79,7 @@ public class phanquyen extends JPanel{
         quyenBUS qBUS = new quyenBUS();
         listQuyen = qBUS.getList();
         JP_listNameQuyen = new JPanel(new FlowLayout(3));
+        JPanel wrap__listNameQuyen_scroll = new JPanel(new BorderLayout(0,0));
         for (quyenDTO i : listQuyen) {
             JPanel btn_quyen = new JPanel(new BorderLayout());
             JLabel title_quyen = new JLabel(i.getTENQUYEN(), JLabel.CENTER);
@@ -116,7 +117,17 @@ public class phanquyen extends JPanel{
             });
             JP_listNameQuyen.add(btn_quyen);
         }
-
+        JScrollPane scrollForListQuyen = new JScrollPane(JP_listNameQuyen);
+        wrap__listNameQuyen_scroll.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        JP_listNameQuyen.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        JP_listNameQuyen.setOpaque(true);
+        wrap__listNameQuyen_scroll.setOpaque(true);
+        scrollForListQuyen.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        JP_listNameQuyen.setBorder(BorderFactory.createEmptyBorder(5, 0, 15, 0));
+        scrollForListQuyen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollForListQuyen.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        wrap__listNameQuyen_scroll.add(scrollForListQuyen,BorderLayout.CENTER);
+        wrap__listNameQuyen_scroll.setPreferredSize(new Dimension(crong,(int)wrap__listNameQuyen_scroll.getPreferredSize().getHeight()));
         chucnangBUS cnBUS = new chucnangBUS();
         listChucnang = cnBUS.getList();
         //Tiêu đề cột dọc
@@ -173,7 +184,9 @@ public class phanquyen extends JPanel{
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         // Tạo JFrame và thêm JScrollPane vào giao diện
         setLayout(new FlowLayout(3));
-        add(JP_listNameQuyen);
+        setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        setOpaque(true);
+        add(wrap__listNameQuyen_scroll);
         add(scrollPane);
     }
 
