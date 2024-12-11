@@ -1233,6 +1233,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Sửa": {
+                if (KHGUI.getTable().getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null,
+                            "Xin vui lòng chọn khách hàng cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 int id = KHGUI.lay_id_table();
                 khachHangDTO x = KHGUI.lay_mot_kh(id);
                 new updateKhachHang(x, KHGUI);

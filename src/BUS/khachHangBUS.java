@@ -98,7 +98,7 @@ public class khachHangBUS {
         if (kiemtra_Diem(kh.getDiem()) && kiemtra_Ten(kh.getTenKH()) && kiemtra_Sdt(kh.getSoDienThoai())) {        
             Object[] options = {"Đồng ý"};
             JOptionPane.showOptionDialog(null,
-                    "Cập nhật khách hàng thành công" + kh.getTenKH(),
+                    "Cập nhật khách hàng thành công " + kh.getTenKH(),
                     "Thông báo",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
