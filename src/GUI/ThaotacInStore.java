@@ -1285,6 +1285,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Sửa": {
+                if (GUINV.getTable().getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null,
+                            "Xin vui lòng chọn khách hàng cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 String id = GUINV.lay_id_table();
                 nhanVienDTO x = GUINV.lay_mot_nv(id);
                 new updateNhanVien(x, GUINV);

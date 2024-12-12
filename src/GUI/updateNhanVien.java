@@ -116,7 +116,6 @@ public class updateNhanVien extends JFrame implements MouseListener {
         gbc.gridy = 8;
         inputPn.add(lbChucVu, gbc);
 
-      
         tfChucVu.setPreferredSize(new Dimension(300, 30));
         gbc.gridy = 9;
         inputPn.add(tfChucVu, gbc);
@@ -179,14 +178,53 @@ public class updateNhanVien extends JFrame implements MouseListener {
                     String email = tfEmail.getText();
                     String diaChi = tfDiaChi.getText();
                     String chucVu = tfChucVu.getText();
-                    
+                    String regexGmail = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+                    String regexName = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừửữựỵỷỹỲỳỴÝỶỹ\\s]+$";
+                    if (tenNV.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống tên nhân viên");
+                        return;
+                    } else if (sdt.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống số điện thoại");
+                        return;
+                    } else if (email.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống Email");
+                        return;
+                    } else if (diaChi.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống địa chỉ");
+                        return;
+                    } else if (chucVu.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống chức vụ");
+                        return;
+                    } else if (email.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Email không được để trống");
+                        return;
+                    } else if (!tenNV.matches(regexName)) {
+                        JOptionPane.showMessageDialog(null, "Tên nhân viên không hợp lệ.\n Vui lòng chỉ nhập chữ cái và không chứa số hoặc ký tự đặc biệt.");
+                        return;
+                    } else if (!chucVu.matches(regexName)) {
+                        JOptionPane.showMessageDialog(null, "Địa chỉ không hợp lệ.\n Vui lòng chỉ nhập chữ cái và không chứa số hoặc ký tự đặc biệt.");
+                        return;
+                    } else if (!sdt.matches("^0\\d{9}$")) {
+                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ.\n Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0.");
+                        return;
+                    } else if (!diaChi.matches("^[\\p{L}\\p{N}\\s,.-]+$")) {
+                        JOptionPane.showMessageDialog(null, "Địa chỉ không hợp lệ.\n Địa chỉ chứa chữ cái, chữ số, mà các ký tự / - .");
+                        return;
+                    } else if (!email.matches(regexGmail)) {
+                        JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+                        return;
+                    } else if (tenNV.length() > 50) {
+                        JOptionPane.showMessageDialog(null, "Độ dài tối đa của tên nhân viên là 50 ký tự");
+                        return;
+                    }
+
                     nhanVienBUS busNV = new nhanVienBUS();
                     nvDTO.setTENNV(tenNV);
                     nvDTO.setCHUCVU(chucVu);
                     nvDTO.setSDT(sdt);
                     nvDTO.setEMAIL(email);
                     nvDTO.setDIACHI(diaChi);
-                    
+
                     busNV.capnhatNV(nvDTO);
                     nvGUI.suaKH(nvDTO);
                     dispose();

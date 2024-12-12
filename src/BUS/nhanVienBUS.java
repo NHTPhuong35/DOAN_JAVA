@@ -184,7 +184,6 @@ public class nhanVienBUS {
             boolean tenNV = nv.getTENNV().contains(data_filter.get(0));
             boolean sdt = nv.getSDT().equals(data_filter.get(0));
             boolean isCheck = false;
-
             if (data_filter.get(0).equals("") && data_filter.get(1).equals("Tất cả")) {
                 isCheck = true;
             } else if (data_filter.get(1).equals("Đang làm việc")) {
