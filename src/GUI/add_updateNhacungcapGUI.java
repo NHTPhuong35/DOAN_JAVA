@@ -231,10 +231,13 @@ public class add_updateNhacungcapGUI extends JFrame implements MouseListener {
                     }
                     
                     if (flag_ten && flag_sdt) {
-                        if(type.equals("update") && ten.equals("") && sdt.equals("")){
-                            JOptionPane.showMessageDialog(null, "Không nhập thông tin mới!\nNhà cung cấp không thay đổi thông tin!");
-                            dispose();
+                        if(type.equals("update")){
+                            if (ten.equals("") && sdt.equals("")) {
+                                JOptionPane.showMessageDialog(null, "Không được để trống cả hai!\nChỉ được để trống tên hoặc số điện thoại");
+                      
                             return;
+                            }
+                                
                         }
                         
                         

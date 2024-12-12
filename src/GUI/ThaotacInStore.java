@@ -810,40 +810,42 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         pq.isEditingEnabled = true;
                         break;
                     case "Lưu/Thoát":
-                        Object[] options = {"Có", "Không"};
-                        int r2 = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn lưu chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                        if (r2 == JOptionPane.YES_OPTION) {
-                            itemClicked.title.setText("Sửa");
-                            itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                        if (pq.checkTenQuyenBeforeUpdate(pq.currentQuyen)) {
+                            Object[] options = {"Có", "Không"};
+                            int r2 = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn lưu chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                            if (r2 == JOptionPane.YES_OPTION) {
 
-                            pq.updateTENQUYEN(pq.currentQuyen, 1);
+                                itemClicked.title.setText("Sửa");
+                                itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
 
-                            qBUS.updateTENQUYEN(pq.currentQuyen);
-                            ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
-                            pq.isEditingEnabled = false;
+                                pq.updateTENQUYEN(pq.currentQuyen, 1);
 
-                            JOptionPane.showMessageDialog(null, "Lưu chỉnh sửa thành công!");
+                                qBUS.updateTENQUYEN(pq.currentQuyen);
+                                ctqBUS.updateChitietquyen(pq.getListUpdateCtqTheoMAUQYEN(), pq.currentQuyen.getMAQUYEN());
+                                pq.isEditingEnabled = false;
 
-                            s.menu.removeAll();
-                            s.menu.init();
-                            s.menu.revalidate();
-                            s.menu.repaint();
+                                JOptionPane.showMessageDialog(null, "Lưu chỉnh sửa thành công!");
 
-                        } else {
-                            int r2_1 = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                            if (r2_1 == JOptionPane.NO_OPTION) {
-                                int r2_2 = JOptionPane.showOptionDialog(null, "Những sửa đổi sẽ không được lưu sau khi bạn thoát!!\nBạn có chắc chắn thoát chỉnh sửa??", "Thoát", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                                if (r2_2 == JOptionPane.YES_OPTION) {
+                                s.menu.removeAll();
+                                s.menu.init();
+                                s.menu.revalidate();
+                                s.menu.repaint();
 
-                                    itemClicked.title.setText("Sửa");
-                                    itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
-                                    pq.updateTENQUYEN(pq.currentQuyen, 2);
+                            } else {
+                                int r2_1 = JOptionPane.showOptionDialog(null, "Bạn có muốn tiếp tục chỉnh sửa?", "Sửa quyền ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                                if (r2_1 == JOptionPane.NO_OPTION) {
+                                    int r2_2 = JOptionPane.showOptionDialog(null, "Những sửa đổi sẽ không được lưu sau khi bạn thoát!!\nBạn có chắc chắn thoát chỉnh sửa??", "Thoát", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                                    if (r2_2 == JOptionPane.YES_OPTION) {
 
-                                    pq.isEditingEnabled = false;
+                                        itemClicked.title.setText("Sửa");
+                                        itemClicked.icon = new JLabel(new ImageIcon("./src/images/edit_icon.png"));
+                                        pq.updateTENQUYEN(pq.currentQuyen, 2);
+
+                                        pq.isEditingEnabled = false;
+                                    }
                                 }
                             }
                         }
-
                         break;
                 }
                 break;

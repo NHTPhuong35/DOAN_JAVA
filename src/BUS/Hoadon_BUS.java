@@ -76,20 +76,15 @@ public final class Hoadon_BUS {
     }
     public ArrayList<Hoadon_DTO> search(ArrayList<String> data_filter) {
         
-        String value1 = data_filter.get(0);
+        String value1 = data_filter.get(0).toLowerCase();
         String start = data_filter.get(1).replace("/", "-");
         String end = data_filter.get(2).replace("/", "-");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date1 = LocalDate.parse(start, formatter);
         LocalDate date2 = LocalDate.parse(end, formatter);
         ArrayList<Hoadon_DTO> re = new ArrayList<>();
-        System.out.println("bang nhau? "+start.equals(end));
-        System.out.println("so luong "+dshoadon.size());
         for(Hoadon_DTO hd : dshoadon){
-            System.out.println("value1 = null "+(value1 == ""));
             if(value1.equals("")){
-                System.out.println("dang duyet ? "+hd.getNgayHD());
-                System.out.println("search ? "+start);
                 if(start.equals(end)){
                         if(hd.getNgayHD().equals(start)) re.add(hd);
                     }else{
@@ -97,7 +92,7 @@ public final class Hoadon_BUS {
                         if (isDateInRange(date3,date1,date2)) re.add(hd);
                     }  
             }else{
-                if(hd.getMaHD().equalsIgnoreCase(value1) || hd.getMaNV().equalsIgnoreCase(value1) || String.valueOf(hd.getMaKH()).equals(value1))
+                if(hd.getMaHD().toLowerCase().contains(value1) || hd.getMaNV().toLowerCase().contains(value1) || String.valueOf(hd.getMaKH()).contains(value1))
                 {
                     if(start.equals(end)){
                         if(hd.getNgayHD().equals(start)) re.add(hd);
