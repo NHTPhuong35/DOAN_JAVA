@@ -175,6 +175,9 @@ public class addKhachHangGUI extends JFrame implements MouseListener {
                     } else if (!phone.matches("^0\\d{9}$")) {
                         JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ.\n Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0.");
                         return;
+                    }else if(name.length() > 50) {
+                        JOptionPane.showMessageDialog(null, "Tên khách hàng tối đa 50 ký tự");
+                        return;
                     }
                     khachHangBUS busKH = new khachHangBUS();
                     boolean success = true;

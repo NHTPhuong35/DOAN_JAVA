@@ -588,7 +588,7 @@ public class SearchInStore extends JPanel implements MouseListener {
             }
             case "NV": {
                 data_filter.add("");
-                 data_filter.add("Tất cả");
+                data_filter.add("Tất cả");
                 break;
             }
             case "QLK": {

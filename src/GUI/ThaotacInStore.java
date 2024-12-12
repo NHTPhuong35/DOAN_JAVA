@@ -639,7 +639,7 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                     JOptionPane.showMessageDialog(null,
                             "Xin vui lòng chọn sản phẩm cần xoá !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    spGUI.DeleteSP();   
+                    spGUI.DeleteSP();
                 }
                 break;
             }
@@ -892,8 +892,9 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 JOptionPane.showMessageDialog(null, "Chỉ thêm những nhà cung cấp có dữ liệu thỏa yêu cầu");
                 if (nccBUS.importExcelData(nccGUI)) {
                     JOptionPane.showMessageDialog(null, "Đã thực hiện xong nhập excel");
-                }else
+                } else {
                     JOptionPane.showMessageDialog(null, "Thực hiện nhập excel thất bại!");
+                }
             }
             case "Sửa": {
                 switch (itemClicked.title.getText()) {
@@ -904,16 +905,16 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                         nccGUI.clickInJTable = new MouseAdapter() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
-                                    if (e.getButton() == MouseEvent.BUTTON1) {
-                                        add_updateNhacungcapGUI n = new add_updateNhacungcapGUI(nccGUI, "update");
-                                    }
+                                if (e.getButton() == MouseEvent.BUTTON1) {
+                                    add_updateNhacungcapGUI n = new add_updateNhacungcapGUI(nccGUI, "update");
+                                }
                             }
                         };
                         nccGUI.table.addMouseListener(nccGUI.clickInJTable);
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
                         nccGUI.listUpdate = new ArrayList<>();
-                        
+
                         break;
                     case "Lưu/Thoát":
                         Object[] options = {"Có", "Không"};
@@ -1007,28 +1008,28 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Sửa": {
-                
+
                 switch (itemClicked.title.getText()) {
                     case "Sửa":
                         loaiGUI.table.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "Tên loại không chứa các kí tự đặc biệt và không được trùng tên");
                         JOptionPane.showMessageDialog(null, "Click vào dòng cần sửa thông tin");
-                        
+
                         loaiGUI.clickInJTable = new MouseAdapter() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
-                                    
-                                    if (e.getButton() == MouseEvent.BUTTON1) {
-                                        add_updateLoaiSPGUI n = new add_updateLoaiSPGUI(loaiGUI, "update");
-        
-                                    }
+
+                                if (e.getButton() == MouseEvent.BUTTON1) {
+                                    add_updateLoaiSPGUI n = new add_updateLoaiSPGUI(loaiGUI, "update");
+
+                                }
                             }
                         };
                         loaiGUI.table.addMouseListener(loaiGUI.clickInJTable);
                         itemClicked.title.setText("Lưu/Thoát");
                         itemClicked.icon = new JLabel(new ImageIcon("./src/images/finish_icon.png"));
                         loaiGUI.listUpdate = new ArrayList<>();
-                        
+
                         break;
                     case "Lưu/Thoát":
                         Object[] options = {"Có", "Không"};
@@ -1282,6 +1283,11 @@ public class ThaotacInStore extends JPanel implements MouseListener {
                 break;
             }
             case "Sửa": {
+                if (GUINV.getTable().getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null,
+                            "Xin vui lòng chọn khách hàng cần sửa !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 String id = GUINV.lay_id_table();
                 nhanVienDTO x = GUINV.lay_mot_nv(id);
                 new updateNhanVien(x, GUINV);
