@@ -214,30 +214,31 @@ public class SanPhamGUI extends JPanel implements MouseListener {
                         if (selectedSP.getMaSP().equals(ctpn.getList().get(i).getMasp())) {
                             spBUS.delete(selectedSP.getMaSP(), true);
                             selectedSP = new SanPhamDTO();
+                            JOptionPane.showMessageDialog(null,
+                            "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
                             refresh();
                             return; // Đã tìm thấy và xóa, thoát khỏi phương thức
                         }
                     }
 
-                    // Kiểm tra danh sách hóa đơn chi tiết
-                    for (int i = 0; i < cthd.getList().size(); i++) {
-                        if (selectedSP.getMaSP().equals(cthd.list.get(i).getMaSP())) {
-                            spBUS.delete(selectedSP.getMaSP(), true);
-                            selectedSP = new SanPhamDTO();
-                            refresh();
-                            return; // Đã tìm thấy và xóa, thoát khỏi phương thức
-                        }
-                    }
+//                    // Kiểm tra danh sách hóa đơn chi tiết
+//                    for (int i = 0; i < cthd.getList().size(); i++) {
+//                        if (selectedSP.getMaSP().equals(cthd.list.get(i).getMaSP())) {
+//                            spBUS.delete(selectedSP.getMaSP(), true);
+//                            selectedSP = new SanPhamDTO();
+//                            refresh();
+//                            return; // Đã tìm thấy và xóa, thoát khỏi phương thức
+//                        }
+//                    }
 
                     // Xóa nếu không có trong các danh sách trên
                     spBUS.delete(selectedSP.getMaSP(), false);
 
                     // Làm mới đối tượng và cập nhật giao diện
                     selectedSP = new SanPhamDTO();
-                    refresh();
-                    
                     JOptionPane.showMessageDialog(null,
                             "Bạn đã xoá sản phẩm thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    refresh();
                     return;
                 } else {
                     selectedSP = new SanPhamDTO();

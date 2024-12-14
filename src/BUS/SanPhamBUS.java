@@ -87,14 +87,4 @@ public class SanPhamBUS {
     	}
     	return sp;
     }
-//     public static void main(String[] args) {
-//         SanPhamBUS n = new SanPhamBUS();
-//         String t[] = {"b.jpg", "p.jpg", "o.jpg"};
-//         SanPhamDTO m = new SanPhamDTO("maSP2", "maloai01", "name01", 12450, t, 1);
-       
-// //        n.add(m);
-//         n.delete("maSP2");
-//          System.out.println(n.dsSP.size());
-        
-//     }
 }
