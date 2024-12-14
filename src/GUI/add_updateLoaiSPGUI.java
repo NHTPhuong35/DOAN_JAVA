@@ -175,7 +175,7 @@ public class add_updateLoaiSPGUI extends JFrame implements MouseListener{
 
                     break;
                 case "btn_submit":
-                    String ten = addLoai.getData.getText();
+                    String ten = addLoai.getData.getText().trim();
                     
                     loaiSPBUS loaiBUS = new loaiSPBUS();
                     

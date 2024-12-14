@@ -50,7 +50,7 @@ import javax.swing.table.TableModel;
  *
  * @author hp
  */
-public class phanquyen extends JPanel{
+public class phanquyen extends JPanel {
 
     private int ccao, crong;
     private JTable table;
@@ -79,6 +79,7 @@ public class phanquyen extends JPanel{
         quyenBUS qBUS = new quyenBUS();
         listQuyen = qBUS.getList();
         JP_listNameQuyen = new JPanel(new FlowLayout(3));
+        JPanel wrap__listNameQuyen_scroll = new JPanel(new BorderLayout(0, 0));
         for (quyenDTO i : listQuyen) {
             JPanel btn_quyen = new JPanel(new BorderLayout());
             JLabel title_quyen = new JLabel(i.getTENQUYEN(), JLabel.CENTER);
@@ -116,7 +117,17 @@ public class phanquyen extends JPanel{
             });
             JP_listNameQuyen.add(btn_quyen);
         }
-
+        JScrollPane scrollForListQuyen = new JScrollPane(JP_listNameQuyen);
+        wrap__listNameQuyen_scroll.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        JP_listNameQuyen.setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        JP_listNameQuyen.setOpaque(true);
+        wrap__listNameQuyen_scroll.setOpaque(true);
+        scrollForListQuyen.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        JP_listNameQuyen.setBorder(BorderFactory.createEmptyBorder(5, 0, 15, 0));
+        scrollForListQuyen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollForListQuyen.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        wrap__listNameQuyen_scroll.add(scrollForListQuyen, BorderLayout.CENTER);
+        wrap__listNameQuyen_scroll.setPreferredSize(new Dimension(crong, (int) wrap__listNameQuyen_scroll.getPreferredSize().getHeight()));
         chucnangBUS cnBUS = new chucnangBUS();
         listChucnang = cnBUS.getList();
         //Tiêu đề cột dọc
@@ -155,15 +166,15 @@ public class phanquyen extends JPanel{
 
         table.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 int row = table.rowAtPoint(e.getPoint()); // Lấy vị trí dòng
                 int column = table.columnAtPoint(e.getPoint()); // Lấy vị trí cột
 
-                if(row == 4 || row == 8){
-                    if(column>1)
-                    JOptionPane.showMessageDialog(null, "Không tồn tại thao tác này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                if (row == 4 || row == 8) {
+                    if (column > 1) {
+                        JOptionPane.showMessageDialog(null, "Không tồn tại thao tác này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-            
 
             }
         });
@@ -173,7 +184,9 @@ public class phanquyen extends JPanel{
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         // Tạo JFrame và thêm JScrollPane vào giao diện
         setLayout(new FlowLayout(3));
-        add(JP_listNameQuyen);
+        setBackground(Cacthuoctinh_phuongthuc_chung.light_gray);
+        setOpaque(true);
+        add(wrap__listNameQuyen_scroll);
         add(scrollPane);
     }
 
@@ -241,17 +254,16 @@ public class phanquyen extends JPanel{
         for (chucnangDTO i : listChucnang) {
             data = new Vector();
             data.add(i.getTENCHUCNANG());
-            
-                for (String hd : columnNames) {
-                    if (!hd.equals("")) {
-                        if (ctqBUS.search(new chitietquyenDTO(startQuyen.getMAQUYEN(), i.getMACHUCNANG(), hd))) {
-                            data.add(true);
-                        } else {
-                            data.add(false);
-                        }
+
+            for (String hd : columnNames) {
+                if (!hd.equals("")) {
+                    if (ctqBUS.search(new chitietquyenDTO(startQuyen.getMAQUYEN(), i.getMACHUCNANG(), hd))) {
+                        data.add(true);
+                    } else {
+                        data.add(false);
                     }
                 }
-            
+            }
 
             tableModel.addRow(data);
         }
@@ -291,16 +303,39 @@ public class phanquyen extends JPanel{
         table.setDefaultRenderer(Object.class, centerRenderer);
     }
 
-    public void updateTENQUYEN(quyenDTO qDTO, int status) {
-        System.out.println("Quyen dang xet "+qDTO.toString());
+    public boolean checkTenQuyenBeforeUpdate(quyenDTO qDTO) {
         Component[] JP_childNameQuyen = JP_listNameQuyen.getComponents();
+        quyenBUS qBUS = new quyenBUS();
         for (int i = 0; i < JP_childNameQuyen.length; i++) {
             JPanel p = (JPanel) JP_childNameQuyen[i];
             quyenDTO duyet = new quyenDTO(p.getName());
-           
-           
+
             if (duyet.getMAQUYEN().equals(qDTO.getMAQUYEN())) {
-                
+                String new_tenquyen = ((JTextField) p.getComponents()[0]).getText().trim();
+                if (new_tenquyen.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Tên quyền không để trống!");
+                } else if (!qBUS.checkTENNCC(new_tenquyen)) {
+                    JOptionPane.showMessageDialog(null, "Tên quyền không chứa số và kí tự đặc biệt!");
+                } else if (!qBUS.checkTENNCCisKey(new_tenquyen)) {
+                    JOptionPane.showMessageDialog(null, "Tên quyền đã tồn tại!");
+                } else {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public void updateTENQUYEN(quyenDTO qDTO, int status) {
+        Component[] JP_childNameQuyen = JP_listNameQuyen.getComponents();
+        quyenBUS qBUS = new quyenBUS();
+        for (int i = 0; i < JP_childNameQuyen.length; i++) {
+            JPanel p = (JPanel) JP_childNameQuyen[i];
+            quyenDTO duyet = new quyenDTO(p.getName());
+
+            if (duyet.getMAQUYEN().equals(qDTO.getMAQUYEN())) {
+
                 switch (status) {
                     case 0:
 
@@ -309,7 +344,8 @@ public class phanquyen extends JPanel{
                         p.add(tenquyen);
                         break;
                     case 1: {
-                        String new_tenquyen = ((JTextField) p.getComponents()[0]).getText();
+                        String new_tenquyen = ((JTextField) p.getComponents()[0]).getText().trim();
+
                         quyenDTO new_quyen = new quyenDTO(p.getName());
                         new_quyen.setTENQUYEN(new_tenquyen);
                         currentQuyen.setTENQUYEN(new_tenquyen);
@@ -319,6 +355,7 @@ public class phanquyen extends JPanel{
                         title_quyen.setFont(new Font("Tahoma", Font.BOLD, 15));
                         p.removeAll();
                         p.add(title_quyen);
+
                         break;
                     }
 
@@ -344,14 +381,14 @@ public class phanquyen extends JPanel{
     }
 
     public ArrayList<chitietquyenDTO> getListUpdateCtqTheoMAUQYEN() {
-     
+
         ArrayList<chitietquyenDTO> listCtqTheoMAQUYEN = new ArrayList<>();
 
         String q = currentQuyen.getMAQUYEN();
 
         TableModel model = table.getModel();
         for (int i = 0; i < listChucnang.size(); i++) {
-            
+
             for (int j = 1; j < columnNames.length; j++) {
 
                 if (model.getValueAt(i, j).equals(true)) {
@@ -363,12 +400,13 @@ public class phanquyen extends JPanel{
 
             }
         }
-     
+
         return listCtqTheoMAQUYEN;
     }
-public void thaydoiJTable(){
-    isEditingEnabled = true;
-    
-}
+
+    public void thaydoiJTable() {
+        isEditingEnabled = true;
+
+    }
 
 }

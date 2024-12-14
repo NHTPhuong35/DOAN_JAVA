@@ -40,6 +40,14 @@ public class quyenBUS {
         String regex = "^[\\p{L} ]+$";
         return t.matches(regex);
     }
+    
+    public boolean checkTENNCCisKey(String t) {
+        //tên nhà cung cấp không chứa số và các kí tự đặc biệt
+        for(quyenDTO q : list){
+            if(q.getTENQUYEN().equals(t)) return false;
+        }
+        return true;
+    }
     public boolean checkCanDelete(quyenDTO quyenDelete){
          TaiKhoanBUS tkBUS = new TaiKhoanBUS();
                         ArrayList<TaiKhoanDTO> listTK = new ArrayList<>();

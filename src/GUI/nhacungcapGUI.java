@@ -49,6 +49,7 @@ public class nhacungcapGUI extends JPanel {
     public DefaultTableModel tableModel;
     public boolean isEditingEnabled = false;
     public ArrayList<nhacungcapDTO> listUpdate;
+    public MouseAdapter clickInJTable ;
 
     public nhacungcapGUI(int crong, int ccao) {
         this.ccao = ccao;
@@ -74,7 +75,7 @@ public class nhacungcapGUI extends JPanel {
             }
 
         };
-        
+        table.setEnabled(false);
 
         nhacungcapBUS nccBUS = new nhacungcapBUS();
         addDataInTable(nccBUS.getList());
@@ -99,7 +100,7 @@ public class nhacungcapGUI extends JPanel {
             data = new Vector();
             data.add(n.getMANCC());
             data.add(n.getTENNCC());
-            data.add("0"+n.getSDT());
+            data.add(n.getSDT());
             tableModel.addRow(data);
         }
         table.setModel(tableModel);
@@ -140,7 +141,7 @@ public class nhacungcapGUI extends JPanel {
         for (int row : quantity_rowSelected) {
             String MANCC = (String) table.getValueAt(row, 0);
             String TEN = (String) table.getValueAt(row, 1);
-            int SDT = Integer.parseInt((String)table.getValueAt(row, 2));
+            String SDT = (String)table.getValueAt(row, 2);
             selected.add(new nhacungcapDTO(MANCC, TEN, SDT));
         }
         return selected;
@@ -153,17 +154,7 @@ public class nhacungcapGUI extends JPanel {
         for (int i = 0; i < table.getRowCount(); i++) {
             String mancc = (String) model.getValueAt(i, 0);
             String tenncc = (String) model.getValueAt(i, 1);
-
-            int sdt = 0; // Mặc định số điện thoại là 0 nếu dữ liệu không hợp lệ
-
-            String sdtStr = String.valueOf(model.getValueAt(i, 2)); // Chuyển đổi Object sang String
-
-// Kiểm tra nếu chuỗi có thể chuyển đổi thành số nguyên
-            try {
-                sdt = Integer.parseInt(sdtStr);
-            } catch (NumberFormatException ex) {
-            }
-            
+            String sdt = String.valueOf(model.getValueAt(i, 2)); // Chuyển đổi Object sang String
             nhacungcapDTO nccDTO = new nhacungcapDTO(mancc, tenncc, sdt);
             System.out.println("new ncc"+mancc+" "+tenncc+" "+sdt);
             list.add(nccDTO);

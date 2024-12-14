@@ -140,7 +140,7 @@ public class addSizeGUI extends JFrame implements MouseListener{
 
                     break;
                 case "btn_submit":
-                    String ten = addSize.getData.getText();
+                    String ten = addSize.getData.getText().trim();
                     SizeBUS sizeBUS = new SizeBUS();
                     if (ten.equals("")) {
                         addSize.error.setText("Không được để trống");

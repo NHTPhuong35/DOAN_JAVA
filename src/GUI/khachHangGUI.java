@@ -124,6 +124,10 @@ public class khachHangGUI extends JPanel {
         return id;
     }
 
+    public JTable getTable() {
+        return table;
+    }
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setLocationRelativeTo(null);

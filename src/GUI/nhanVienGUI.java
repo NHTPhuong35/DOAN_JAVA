@@ -187,6 +187,11 @@ public class nhanVienGUI extends JPanel {
         }
     }
 
+    public JTable getTable() {
+        return table;
+    }
+    
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setLocationRelativeTo(null);

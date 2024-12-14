@@ -143,13 +143,17 @@ public class addQuyen extends JFrame implements MouseListener {
 
                     break;
                 case "btn_submit":
-                    String ten = addQuyen.getData.getText();
+                    String ten = addQuyen.getData.getText().trim();
                     quyenBUS quyenBUS = new quyenBUS();
                     if (ten.equals("")) {
                         addQuyen.error.setText("Không được để trống");
                     } else if (!quyenBUS.checkTENNCC(ten)) {
                         addQuyen.error.setText("Tên chỉ chứa chữ cái");
-                    } else {
+                        
+                    }else if (!quyenBUS.checkTENNCCisKey(ten)){
+                         addQuyen.error.setText("Tên quyền đã tồn tại");
+                    }
+                    else {
                         flag_ten = true;
                         addQuyen.error.setText("");
                     }

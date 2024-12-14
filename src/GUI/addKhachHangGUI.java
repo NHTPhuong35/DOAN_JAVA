@@ -155,11 +155,33 @@ public class addKhachHangGUI extends JFrame implements MouseListener {
                     }
                     break;
                 case "btnXacNhan":
-                    String name = addKh.tfTen.getText();
-                    String phone = addKh.tfSdt.getText();
+                    String name = addKh.tfTen.getText().trim();
+                    String phone = addKh.tfSdt.getText().trim();
                     khachHangDTO kh_moi = new khachHangDTO(name, phone);
+                    String regexName = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừửữựỵỷỹỲỳỴÝỶỹ\\s]+$";
+                    if (name.isEmpty() && phone.isEmpty()) {
+                       
+                        JOptionPane.showMessageDialog(null, "Không được để trống thông tin khách hàng");
+                        return;
+                    } else if (phone.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống số điện thoại");
+                        return;
+                    } else if (name.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống tên khách hàng");
+                        return;
+                    } else if (!name.matches(regexName)) {
+                        JOptionPane.showMessageDialog(null, "Tên khách hàng không hợp lệ.\n Vui lòng chỉ nhập chữ cái và không chứa số hoặc ký tự đặc biệt.");
+                        return;
+                    } else if (!phone.matches("^0\\d{9}$")) {
+                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ.\n Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0.");
+                        return;
+                    }else if(name.length() > 50) {
+                        JOptionPane.showMessageDialog(null, "Tên khách hàng tối đa 50 ký tự");
+                        return;
+                    }
                     khachHangBUS busKH = new khachHangBUS();
                     boolean success = true;
+
                     for (khachHangDTO kh : busKH.getDs_khachHang()) {
                         if (kh.getSoDienThoai().equals(kh_moi.getSoDienThoai())) {
                             success = false;
@@ -212,7 +234,7 @@ public class addKhachHangGUI extends JFrame implements MouseListener {
     }
 
     public static void main(String agrs) {
-        
+
     }
 
 }

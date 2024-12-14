@@ -136,6 +136,24 @@ public class updateKhachHang extends JFrame implements MouseListener {
                     String sdt = tfSdt.getText();
                     khDTO.setTenKH(ten);
                     khDTO.setSoDienThoai(sdt);
+                    String regexName = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừửữựỵỷỹỲỳỴÝỶỹ\\s]+$";
+                    if (ten.isEmpty() && sdt.isEmpty()) {
+                       
+                        JOptionPane.showMessageDialog(null, "Không được để trống thông tin khách hàng");
+                        return;
+                    } else if (sdt.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống số điện thoại");
+                        return;
+                    } else if (ten.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Không được để trống tên khách hàng");
+                        return;
+                    } else if (!ten.matches(regexName)) {
+                        JOptionPane.showMessageDialog(null, "Tên khách hàng không hợp lệ.\n Vui lòng chỉ nhập chữ cái và không chứa số hoặc ký tự đặc biệt.");
+                        return;
+                    } else if (!sdt.matches("^0\\d{9}$")) {
+                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ.\n Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0.");
+                        return;
+                    }
                     khachHangBUS busKH = new khachHangBUS();
                     boolean success = true;
                     for (khachHangDTO kh : busKH.getDs_khachHang()) {
