@@ -40,6 +40,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -624,13 +625,15 @@ public class SearchInStore extends JPanel implements MouseListener {
                     data_filter.add(selectedItem);
 
                 } else {
-                    JSpinner date = (JSpinner) c;
-                    Date selectedDate = (Date) date.getValue();
-                    // Định dạng ngày tháng năm thành chuỗi
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    String dateString = dateFormat.format(selectedDate);
-                    // In ra giá trị đã chọn dưới dạng chuỗi
-                    data_filter.add(dateString);
+                    if (checkDate()) {    
+                        JSpinner date = (JSpinner) c;
+                        Date selectedDate = (Date) date.getValue();
+                        // Định dạng ngày tháng năm thành chuỗi
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        String dateString = dateFormat.format(selectedDate);
+                        // In ra giá trị đã chọn dưới dạng chuỗi
+                        data_filter.add(dateString);
+                    }
                 }
             }
             try {
@@ -721,5 +724,25 @@ public class SearchInStore extends JPanel implements MouseListener {
         } catch (Exception ex) {
         }
 
+    }
+
+    public boolean checkDate(){
+        JComponent editorStart = this.startDate.getEditor();
+        JFormattedTextField txtStart = ((JSpinner.DefaultEditor) editorStart).getTextField();
+        JComponent editorEnd = this.endDate.getEditor();
+        JFormattedTextField txtEnd = ((JSpinner.DefaultEditor) editorEnd).getTextField();
+        boolean result = false;
+        Date dateStart = (Date) this.startDate.getValue();
+        Date dateEnd = (Date) this.endDate.getValue();
+        if(dateStart.compareTo(dateEnd) <= 0){
+            result = true;
+            txtEnd.setForeground(Color.BLACK);
+            txtStart.setForeground(Color.BLACK);
+        }else{
+            JOptionPane.showMessageDialog(null, "Khoảng thời gian không hợp lệ","Lỗi dữ liệu",JOptionPane.ERROR_MESSAGE);
+            txtStart.setForeground(Color.RED);
+            txtEnd.setForeground(Color.RED);
+        }
+        return result;
     }
 }
